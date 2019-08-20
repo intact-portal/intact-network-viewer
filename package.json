@@ -9,9 +9,17 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
   },
+  "repository":{
+    "type":"git",
+    "url":"git+https://github.com/EBI-IntAct/intact-network.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs":{
+    "url":"https://github.com/EBI-IntAct/intact-network/issues"
+  },
+  "homepage":"https://github.com/EBI-IntAct/intact-network#readme",
   "devDependencies": {
     "prettier": "^1.18.2",
     "tslint": "^5.18.0",
