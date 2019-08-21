@@ -4,28 +4,32 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config jestconfig.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json"
   },
-  "repository":{
-    "type":"git",
-    "url":"git+https://github.com/EBI-IntAct/intact-network.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EBI-IntAct/intact-network.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs":{
-    "url":"https://github.com/EBI-IntAct/intact-network/issues"
+  "bugs": {
+    "url": "https://github.com/EBI-IntAct/intact-network/issues"
   },
-  "homepage":"https://github.com/EBI-IntAct/intact-network#readme",
+  "homepage": "https://github.com/EBI-IntAct/intact-network#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.5.3"
   },
-  "files": ["lib/**/*"]
-
+  "files": [
+    "lib/**/*"
+  ]
 }
