@@ -1,4 +1,5 @@
 import cytoscape from 'cytoscape';
+import fcose from 'cytoscape-fcose';
 import $ from "jquery";
 
 export class InitializeGraph {
