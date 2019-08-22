@@ -7,7 +7,12 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: [{
+                    loader: 'expose-loader',
+                    options: 'IntactGraph'
+                }, {
+                    loader: 'ts-loader'
+                }],
                 exclude: /node_modules/
             }
         ]

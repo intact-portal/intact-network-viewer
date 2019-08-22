@@ -38,6 +38,7 @@
     "lib/**/*"
   ],
   "dependencies": {
-    "cytoscape": "^3.9.1"
+    "cytoscape": "^3.9.1",
+    "expose-loader": "^0.7.5"
   }
 }
