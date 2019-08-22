@@ -36,5 +36,8 @@
   },
   "files": [
     "lib/**/*"
-  ]
+  ],
+  "dependencies": {
+    "cytoscape": "^3.9.1"
+  }
 }

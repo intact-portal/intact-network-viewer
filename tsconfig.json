@@ -6,7 +6,8 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "node",
-    "allowJs": true
+    "allowJs": true,
+    "noImplicitAny":  false
   }
 /*  "include": ["src"],
   "exclude": ["node_modules", "**//*tests*//*"]*/
