@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "jest": "^24.9.0",
+    "jquery": "^3.4.1",
     "prettier": "^1.18.2",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.4",
