@@ -57,10 +57,10 @@ export class InitializeGraph {
             }
         ],
 
-            layout: {
+            /*layout: {
             name: 'grid',
                 rows: 1
-        }
+        }*/
         });
 
         var defaultOptions = {
