@@ -28,7 +28,22 @@
 <script>
     $(document).ready(function() {
         /*alert(IntactGraph.Greeter('Anjali'));*/
-        new IntactGraph.InitializeGraph('for-canvas-graph').disp();
+        $.ajax({
+            //url: 'http://localhost:8080/mi-ws/staticJson/',
+            url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
+            //url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
+            dataType: 'json',
+            success: function (data) {
+
+
+                //  loadJsonAndProcess('http://localhost:8080/mi-ws/staticJson/',false);
+                new IntactGraph.InitializeGraph('for-canvas-graph',data);
+                //   EntryPoint.test123();
+                //      loadJsonAndProcess("miserables_small.json",false);
+                //   loadJsonAndProcess(data);
+            }
+        });
+
     });
 
 </script>

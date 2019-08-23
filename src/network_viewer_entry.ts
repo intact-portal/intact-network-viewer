@@ -8,10 +8,12 @@ export class InitializeGraph {
     //field
     graph_container_div_id:string;
     cy: any;
+    data:JSON;
 
     //constructor
-    constructor(graph_container_div_id:string) {
+    constructor(graph_container_div_id:string,data) {
         this.graph_container_div_id = graph_container_div_id;
+        this.data=data;
         this.initializeCytoscape();
     }
 
@@ -22,28 +24,18 @@ export class InitializeGraph {
 
     //function
     initializeCytoscape():void {
-        this.cy = cytoscape({
+       this.cy = cytoscape({
             container: $('#'+this.graph_container_div_id)
             , // container to render in
 
-            elements: [ // list of graph elements to start with
-            { // node a
-                data: { id: 'a' }
-            },
-            { // node b
-                data: { id: 'b' }
-            },
-            { // edge ab
-                data: { id: 'ab', source: 'a', target: 'b' }
-            }
-        ],
+            elements: this.data,
 
             style: [ // the stylesheet for the graph
             {
                 selector: 'node',
                 style: {
-                    'background-color': '#666',
-                    'label': 'data(id)'
+                    'background-color': 'data(color)'
+
                 }
             },
 
