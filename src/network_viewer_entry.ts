@@ -48,12 +48,13 @@ export class InitializeGraph {
         },
       ],
 
-      layout: {
-            name: 'fcose'
+        layout: {
+            name: 'fcose',
+            rows: 1
         }
     });
 
-    const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
-    fcoseLayout.execute();
+    /*const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
+    fcoseLayout.execute();*/
   }
 }
