@@ -48,10 +48,9 @@ export class InitializeGraph {
         },
       ],
 
-      /*layout: {
-            name: 'grid',
-                rows: 1
-        }*/
+      layout: {
+            name: 'fcose'
+        }
     });
 
     const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
