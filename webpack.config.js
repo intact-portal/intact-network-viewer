@@ -6,14 +6,15 @@ module.exports = {
     module: {
         rules: [
             {
+                exclude: /node_modules/,
                 test: /\.tsx?$/,
                 use: [{
                     loader: 'expose-loader',
                     options: 'IntactGraph'
                 }, {
                     loader: 'ts-loader'
-                }],
-                exclude: /node_modules/
+                }]
+
             }
         ]
     },
