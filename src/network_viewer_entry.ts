@@ -1,11 +1,17 @@
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import cise from 'cytoscape-cise';
+import cyforcelayout from 'cytoscape-ngraph.forcelayout'
+
 import { FcoseLayout } from './layouts/fcose_layout';
 import {CiseLayout} from "./layouts/cise_layout";
 import $ from 'jquery';
+import {NgraphLayout} from "./layouts/ngraph_layout";
 cytoscape.use(fcose);
 cytoscape.use(cise);
+cytoscape.use(cyforcelayout);
+
+
 
 export class InitializeGraph {
   // field
@@ -52,18 +58,31 @@ export class InitializeGraph {
         },
       ],
 
-        layout: {
-            name: 'fcose',
+        /*layout: {
+            name: 'cytoscape-ngraph.forcelayout',
             rows: 1
-        }
+        }*/
     });
-
-    //this.applyLayout('cise');
   }
 
   public applyLayout(layoutName: string): void {
 
-    const ciseLayout: CiseLayout = new CiseLayout(this.cy);
-    ciseLayout.execute();
+    switch(layoutName) {
+      case 'ngraph': {
+        const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
+        ngraphLayout.execute();
+        break;
+      }
+      case 'cise': {
+        const ciseLayout: CiseLayout = new CiseLayout(this.cy);
+        ciseLayout.execute();
+        break;
+      }
+      default: {
+        const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
+        fcoseLayout.execute();
+        break;
+      }
+    }
   }
 }

@@ -27,6 +27,7 @@
 </head>
 <script>
     $(document).ready(function() {
+        var object;
         /*alert(IntactGraph.Greeter('Anjali'));*/
         $.ajax({
             //url: 'http://localhost:8080/mi-ws/staticJson/',
@@ -39,7 +40,10 @@
 
 
                 //  loadJsonAndProcess('http://localhost:8080/mi-ws/staticJson/',false);
-                new IntactGraph.InitializeGraph('for-canvas-graph',data);
+                object = new IntactGraph.InitializeGraph('for-canvas-graph',data);
+                $('input:radio[name="layout"]').change(function(){
+                    object.applyLayout($(this).val());
+                });
                 //   EntryPoint.test123();
                 //      loadJsonAndProcess("miserables_small.json",false);
                 //   loadJsonAndProcess(data);
@@ -49,7 +53,12 @@
     });
 
 </script>
-<body>
+<>
+
+<input type="radio" name="layout" id="ngraph" value="ngraph" >ngraph</input>
+<input type="radio" name="layout" id="cise" value="cise"  >cise</input>
+<input type="radio" name="layout" id="fcose" value="fcose" >fcose</input>
+
 <div id="for-canvas-graph">
 
 
