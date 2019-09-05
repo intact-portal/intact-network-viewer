@@ -191,6 +191,29 @@ export class Constants {
     stableThreshold: 2,
     animate: true,
     fit: true
-  }
+  };
+
+  public static AVSDF_LAYOUT_OPTIONS: any = {
+  // Called on `layoutready`
+  ready: function () {
+  },
+  // Called on `layoutstop`
+  stop: function () {
+  },
+  // number of ticks per frame; higher is faster but more jerky
+  refresh: 30,
+  // Whether to fit the network view after when done
+  fit: true,
+  // Padding on fit
+  padding: 10,
+  // Prevent the user grabbing nodes during the layout (usually with animate:true)
+  ungrabifyWhileSimulating: false,
+  // Type of layout animation. The option set is {'during', 'end', false}
+  animate: 'end',
+  // Duration for animate:end
+  animationDuration: 500,
+  // How apart the nodes are
+  nodeSeparation: 60
+};
 
 }

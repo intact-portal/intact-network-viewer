@@ -31,9 +31,9 @@
         /*alert(IntactGraph.Greeter('Anjali'));*/
         $.ajax({
             //url: 'http://localhost:8080/mi-ws/staticJson/',
-         //  url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
-         //   url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
-            url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
+           url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
+          //  url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
+          //  url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
             //url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
             dataType: 'json',
             success: function (data) {
@@ -53,11 +53,10 @@
     });
 
 </script>
-<>
 
-<input type="radio" name="layout" id="ngraph" value="ngraph" >ngraph</input>
 <input type="radio" name="layout" id="cise" value="cise"  >cise</input>
 <input type="radio" name="layout" id="fcose" value="fcose" >fcose</input>
+<input type="radio" name="layout" id="avsdf" value="avsdf" >avsdf</input>
 
 <div id="for-canvas-graph">
 
