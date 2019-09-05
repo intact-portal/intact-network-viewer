@@ -53,6 +53,13 @@ export class InitializeGraph {
         },
 
         {
+          selector: 'node:parent',
+          css: {
+            'background-opacity': 0.333
+          }
+        },
+
+        {
           selector: 'edge',
           style: {
             'line-color': '#ccc',
