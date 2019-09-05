@@ -74,7 +74,9 @@ export class Constants {
     //  [ ['n1','n2','n3'],                                       ...
     //    ['n5','n6']                                         }
     //    ['n7', 'n8', 'n9', 'n10'] ]
-    clusters: function(node){return node.data('tax_id')},
+    clusters: function(node) {
+      return node.data("clusterID");
+    },
     //clusters:[['EBI-852823','EBI-10026613','EBI-10041778','EBI-748062']],
     //clusters:[['P05412'],['EBI-10026613']],
 
