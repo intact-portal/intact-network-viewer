@@ -13,9 +13,7 @@ export class CiseLayout {
     // function
     public execute(): void {
         const localOptions = this.options; // don't know why but we have to do this, can't access class variable directly
-        const layout = this.cy.layout({ name: 'cise', clusters: function(node) {
-            return node.data("clusterID");
-        },localOptions });
+        const layout = this.cy.layout(localOptions);
        /* const layout = this.cy.layout({ name: 'cise' });*/
         layout.run();
     }

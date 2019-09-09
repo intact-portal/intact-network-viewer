@@ -1,5 +1,6 @@
 export class Constants {
   public static FCOSE_LAYOUT_OPTIONS: any = {
+    name: 'fcose',
     // whether or not to animate the layout
     animate: true,
     // duration of animation in ms, if enabled
@@ -62,6 +63,7 @@ export class Constants {
   };
 
   public static CISE_LAYOUT_OPTIONS: any = {
+    name: 'cise',
     // ClusterInfo can be a 2D array contaning node id's or a function that returns cluster ids.
     // For the 2D array option, the index of the array indicates the cluster ID for all elements in
     // the collection at that index. Unclustered nodes must NOT be present in this array of clusters.
@@ -196,6 +198,7 @@ export class Constants {
   };
 
   public static AVSDF_LAYOUT_OPTIONS: any = {
+  name: 'avsdf',
   // Called on `layoutready`
   ready: function () {
   },
@@ -219,6 +222,7 @@ export class Constants {
 };
 
   public static COLA_LAYOUT_OPTIONS: any  = {
+  name: 'cola',
   animate: true, // whether to show the layout as it's running
   refresh: 1, // number of ticks per frame; higher is faster but more jerky
   maxSimulationTime: 4000, // max length in ms to run the layout
