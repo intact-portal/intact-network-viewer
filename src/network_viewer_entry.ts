@@ -55,8 +55,11 @@ export class InitializeGraph {
         {
           selector: 'node:parent',
           css: {
-            'background-opacity': 0.333
-          }
+            'background-opacity': 0.333,
+            'font-size':50,
+            'label':'data(species)'
+          },
+
         },
 
         {
