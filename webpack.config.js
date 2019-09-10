@@ -15,11 +15,24 @@ module.exports = {
                     loader: 'ts-loader'
                 }]
 
-            }
+            },
+            {
+                include: [/node_modules/],
+                test: /\.css$/,
+                use: [
+                { loader: 'style-loader' },
+                // css-loader
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true
+                    }
+                }
+            ] }
         ]
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: [ '.tsx', '.ts', '.js','.css' ]
     },
     output: {
         filename: 'intact_network.js',

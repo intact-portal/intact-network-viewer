@@ -4,6 +4,7 @@ import cise from 'cytoscape-cise';
 import cyforcelayout from 'cytoscape-ngraph.forcelayout';
 import avsdf from 'cytoscape-avsdf';
 import cola from 'cytoscape-cola';
+import {Spinner} from 'spin.js';
 
 import { FcoseLayout } from './layouts/fcose_layout';
 import {CiseLayout} from "./layouts/cise_layout";
@@ -11,11 +12,13 @@ import $ from 'jquery';
 import {NgraphLayout} from "./layouts/ngraph_layout";
 import {AvsdfLayout} from "./layouts/avsdf_layout";
 import {ColaLayout} from "./layouts/cola_layout";
+import {Constants} from "./layouts/constants";
 cytoscape.use(fcose);
 cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
 cytoscape.use( avsdf );
 cytoscape.use( cola );
+import 'spin.js/spin.css';
 
 
 export class InitializeGraph {
@@ -23,12 +26,16 @@ export class InitializeGraph {
   private graphContainerDivId: string;
   private cy: any;
   private data: JSON;
+  public spinner:Spinner;
 
   // constructor
   constructor(graphContainerDivId: string, data) {
     this.graphContainerDivId = graphContainerDivId;
     this.data = data;
+    this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
+
     this.initializeCytoscape();
+
   }
 
   // function
@@ -38,46 +45,55 @@ export class InitializeGraph {
 
   // function
   private initializeCytoscape(): void {
-    this.cy = cytoscape({
-      container: $('#' + this.graphContainerDivId), // container to render in
-      elements: this.data,
+    var target=document.getElementById('spin-loader') as HTMLDivElement;
+    this.spinner.spin(target);
+    setTimeout(()=>{
+      this.cy = cytoscape({
+        container: $('#' + this.graphContainerDivId), // container to render in
+        elements: this.data,
 
-      style: [
-        // the stylesheet for the graph
-        {
-          selector: 'node',
-          style: {
-            'background-color': 'data(color)',
-            'label':'data(id)'
-          },
-        },
-
-        {
-          selector: 'node:parent',
-          css: {
-            'background-opacity': 0.333,
-            'font-size':50,
-            'label':'data(species)'
+        style: [
+          // the stylesheet for the graph
+          {
+            selector: 'node',
+            style: {
+              'background-color': 'data(color)',
+              'label':'data(id)'
+            },
           },
 
-        },
+          {
+            selector: 'node:parent',
+            css: {
+              'background-opacity': 0.333,
+              'font-size':50,
+              'label':'data(species)'
+            },
 
-        {
-          selector: 'edge',
-          style: {
-            'line-color': '#ccc',
-            'target-arrow-color': '#ccc',
-            'target-arrow-shape': 'triangle',
-            width: 3,
           },
-        },
-      ],
+
+          {
+            selector: 'edge',
+            style: {
+              'line-color': '#ccc',
+              'target-arrow-color': '#ccc',
+              'target-arrow-shape': 'triangle',
+              width: 3,
+            },
+          },
+        ],
 
         layout: {
-            name: 'fcose',
-            rows: 1
+          name: 'fcose',
+          rows: 1
         }
-    });
+      });
+      this.cy.on('layoutstop', () => {
+        this.spinner.stop();
+      });
+    }, 1000);
+
+
   }
 
   public applyLayout(layoutName: string): void {
