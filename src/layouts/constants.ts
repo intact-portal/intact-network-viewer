@@ -64,6 +64,21 @@ export class Constants {
 
   public static CISE_LAYOUT_OPTIONS: any = {
     name: 'cise',
+    // Whether to pull on-circle nodes inside of the circle
+    allowNodesInsideCircle: false,
+    // clusters:[['EBI-852823','EBI-10026613','EBI-10041778','EBI-748062']],
+    // clusters:[['P05412'],['EBI-10026613']],
+
+    // -------- Optional parameters --------
+    // Whether to animate the layout
+    // - true : Animate while the layout is running
+    // - false : Just show the end result
+    // - 'end' : Animate directly to the end result
+    animate: false,
+    // Animation duration used for animate:'end'
+    animationDuration: undefined,
+    // Easing for animate:'end'
+    animationEasing: undefined,
     // ClusterInfo can be a 2D array contaning node id's or a function that returns cluster ids.
     // For the 2D array option, the index of the array indicates the cluster ID for all elements in
     // the collection at that index. Unclustered nodes must NOT be present in this array of clusters.
@@ -76,77 +91,65 @@ export class Constants {
     //  [ ['n1','n2','n3'],                                       ...
     //    ['n5','n6']                                         }
     //    ['n7', 'n8', 'n9', 'n10'] ]
-    clusters: function(node) {
-      return node.data("clusterID");
+    clusters: node => {
+      return node.data('clusterID');
     },
-    //clusters:[['EBI-852823','EBI-10026613','EBI-10041778','EBI-748062']],
-    //clusters:[['P05412'],['EBI-10026613']],
-
-    // -------- Optional parameters --------
-    // Whether to animate the layout
-    // - true : Animate while the layout is running
-    // - false : Just show the end result
-    // - 'end' : Animate directly to the end result
-    animate: false,
-
-    // number of ticks per frame; higher is faster but more jerky
-    refresh: 10,
-
-    // Animation duration used for animate:'end'
-    animationDuration: undefined,
-
-    // Easing for animate:'end'
-    animationEasing: undefined,
 
     // Whether to fit the viewport to the repositioned graph
     // true : Fits at end of layout for animate:false or animate:'end'
     fit: true,
-
-    // Padding in rendered co-ordinates around the layout
-    padding: 30,
-
-    // separation amount between nodes in a cluster
-    // note: increasing this amount will also increase the simulation time
-    nodeSeparation: 12.5,
-
-    // Inter-cluster edge length factor
-    // (2.0 means inter-cluster edges should be twice as long as intra-cluster edges)
-    idealInterClusterEdgeLengthCoefficient: 1.4,
-
-    // Whether to pull on-circle nodes inside of the circle
-    allowNodesInsideCircle: false,
-
-    // Max percentage of the nodes in a circle that can move inside the circle
-    maxRatioOfNodesInsideCircle: 0.1,
-
-    // - Lower values give looser springs
-    // - Higher values give tighter springs
-    springCoeff: 0.45,
-
-    // Node repulsion (non overlapping) multiplier
-    nodeRepulsion: 4500,
-
     // Gravity force (constant)
     gravity: 0.25,
 
     // Gravity range (constant)
     gravityRange: 3.8,
-
+    // Inter-cluster edge length factor
+    // (2.0 means inter-cluster edges should be twice as long as intra-cluster edges)
+    idealInterClusterEdgeLengthCoefficient: 1.4,
+    // Max percentage of the nodes in a circle that can move inside the circle
+    maxRatioOfNodesInsideCircle: 0.1,
+    // Node repulsion (non overlapping) multiplier
+    nodeRepulsion: 4500,
+    // separation amount between nodes in a cluster
+    // note: increasing this amount will also increase the simulation time
+    nodeSeparation: 12.5,
+    // Padding in rendered co-ordinates around the layout
+    padding: 30,
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 10,
+    // - Lower values give looser springs
+    // - Higher values give tighter springs
+    springCoeff: 0.45,
     // Layout event callbacks; equivalent to `layout.one('layoutready', callback)` for example
-    ready: function(){}, // on layoutready
-    stop: function(){}, // on layoutstop
+    ready: () => {}, // on layoutready
+    stop: () => {}, // on layoutstop
   };
 
   public static NGRAPH_LAYOUT_OPTIONS: any = {
+    animate: true,
     async: {
       // tell layout that we want to compute all at once:
       maxIterations: 1000,
       stepsPerCycle: 30,
 
       // Run it till the end:
-      waitForStep: false
+      waitForStep: false,
     },
+    fit: true,
+    iterations: 10000,
     physics: {
+      /**
+       * Drag force coefficient. Used to slow down system, thus should be less than 1.
+       * The closer it is to 0 the less tight system will be.
+       */
+      dragCoeff: 0.02,
+      fit: true,
+      /**
+       * Coulomb's law coefficient. It's used to repel nodes thus should be negative
+       * if you make it positive nodes start attract each other :).
+       */
+      gravity: -1.2,
+      iterations: 10000,
       /**
        * Ideal length for links (springs in physical model).
        */
@@ -158,11 +161,12 @@ export class Constants {
       springCoeff: 0.0008,
 
       /**
-       * Coulomb's law coefficient. It's used to repel nodes thus should be negative
-       * if you make it positive nodes start attract each other :).
+       * Maximum movement of the system which can be considered as stabilized
        */
-      gravity: -1.2,
-
+      stableThreshold: 0.000009,
+      /**
+       * Default time step (dt) for forces integration
+       */
       /**
        * Theta coefficient from Barnes Hut simulation. Ranged between (0, 1).
        * The closer it's to 1 the more nodes algorithm will have to go through.
@@ -170,117 +174,91 @@ export class Constants {
        * brute-force forces calculation (each node is considered).
        */
       theta: 0.8,
-
-      /**
-       * Drag force coefficient. Used to slow down system, thus should be less than 1.
-       * The closer it is to 0 the less tight system will be.
-       */
-      dragCoeff: 0.02,
-
-      /**
-       * Default time step (dt) for forces integration
-       */
       timeStep: 20,
-      iterations: 10000,
-      fit: true,
-
-      /**
-       * Maximum movement of the system which can be considered as stabilized
-       */
-      stableThreshold: 0.000009
     },
-    iterations: 10000,
+
     refreshInterval: 16, // in ms
     refreshIterations: 10, // iterations until thread sends an update
     stableThreshold: 2,
-    animate: true,
-    fit: true
   };
 
   public static AVSDF_LAYOUT_OPTIONS: any = {
-  name: 'avsdf',
-  // Called on `layoutready`
-  ready: function () {
-  },
-  // Called on `layoutstop`
-  stop: function () {
-  },
-  // number of ticks per frame; higher is faster but more jerky
-  refresh: 30,
-  // Whether to fit the network view after when done
-  fit: true,
-  // Padding on fit
-  padding: 10,
-  // Prevent the user grabbing nodes during the layout (usually with animate:true)
-  ungrabifyWhileSimulating: false,
-  // Type of layout animation. The option set is {'during', 'end', false}
-  animate: 'end',
-  // Duration for animate:end
-  animationDuration: 500,
-  // How apart the nodes are
-  nodeSeparation: 60
-};
+    name: 'avsdf',
+    // Type of layout animation. The option set is {'during', 'end', false}
+    animate: 'end',
+    // Duration for animate:end
+    animationDuration: 500,
+    // Whether to fit the network view after when done
+    fit: true,
+    // How apart the nodes are
+    nodeSeparation: 60,
+    // Padding on fit
+    padding: 10,
+    // Called on `layoutready`
+    ready: () => {},
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 30,
+    // Called on `layoutstop`
+    stop: () => {},
+    // Prevent the user grabbing nodes during the layout (usually with animate:true)
+    ungrabifyWhileSimulating: false,
+  };
 
-  public static COLA_LAYOUT_OPTIONS: any  = {
-  name: 'cola',
-  animate: true, // whether to show the layout as it's running
-  refresh: 1, // number of ticks per frame; higher is faster but more jerky
-  maxSimulationTime: 4000, // max length in ms to run the layout
-  ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
-  fit: true, // on every layout reposition of nodes, fit the viewport
-  padding: 30, // padding around the simulation
-  boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-  nodeDimensionsIncludeLabels: false, // whether labels should be included in determining the space used by a node
+  public static COLA_LAYOUT_OPTIONS: any = {
+    name: 'cola',
+    alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
+    allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
+    animate: true, // whether to show the layout as it's running
+    avoidOverlap: true, // if true, prevents overlap of node bounding boxes
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    convergenceThreshold: 0.01, // when the alpha value (system energy) falls below this value, the layout stops
+    // different methods of specifying edge length
+    // each can be a constant numerical value or a function like `function( edge ){ return 2; }`
+    edgeLength: undefined, // sets edge length directly in simulation
+    edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
+    edgeJaccardLength: undefined, // jaccard edge length in simulation
+    fit: true, // on every layout reposition of nodes, fit the viewport
+    flow: undefined, // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
+    gapInequalities: undefined, // list of inequality constraints for the gap between the nodes, e.g. [{"axis":"y", "left":node1, "right":node2, "gap":25}]
+    handleDisconnected: true, // if true, avoids disconnected components from overlapping
+    // infinite layout options
+    infinite: false, // overrides all other options for a forces-all-the-time mode
+    maxSimulationTime: 4000, // max length in ms to run the layout
+    nodeDimensionsIncludeLabels: false, // whether labels should be included in determining the space used by a node
+    nodeSpacing: node => {
+      return 10;
+    }, // extra spacing around nodes
+    padding: 30, // padding around the simulation
+    // positioning options
+    randomize: false, // use random node positions at beginning of layout
+    refresh: 1, // number of ticks per frame; higher is faster but more jerky
+    // iterations of cola algorithm; uses default values on undefined
+    unconstrIter: undefined, // unconstrained initial layout iterations
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    userConstIter: undefined, // initial layout iterations with user-specified constraints
+    // layout event callbacks
+    ready: () => {}, // on layoutready
+    stop: () => {}, // on layoutstop
+  };
 
-  // layout event callbacks
-  ready: function(){}, // on layoutready
-  stop: function(){}, // on layoutstop
-
-  // positioning options
-  randomize: false, // use random node positions at beginning of layout
-  avoidOverlap: true, // if true, prevents overlap of node bounding boxes
-  handleDisconnected: true, // if true, avoids disconnected components from overlapping
-  convergenceThreshold: 0.01, // when the alpha value (system energy) falls below this value, the layout stops
-  nodeSpacing: function( node ){ return 10; }, // extra spacing around nodes
-  flow: undefined, // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
-  alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
-  gapInequalities: undefined, // list of inequality constraints for the gap between the nodes, e.g. [{"axis":"y", "left":node1, "right":node2, "gap":25}]
-
-  // different methods of specifying edge length
-  // each can be a constant numerical value or a function like `function( edge ){ return 2; }`
-  edgeLength: undefined, // sets edge length directly in simulation
-  edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
-  edgeJaccardLength: undefined, // jaccard edge length in simulation
-
-  // iterations of cola algorithm; uses default values on undefined
-  unconstrIter: undefined, // unconstrained initial layout iterations
-  userConstIter: undefined, // initial layout iterations with user-specified constraints
-  allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
-
-  // infinite layout options
-  infinite: false // overrides all other options for a forces-all-the-time mode
-};
-
-  public static SPINNER_OPTIONS: any  =  {
-  lines: 13, // The number of lines to draw
-  length: 38, // The length of each line
-  width: 17, // The line thickness
-  radius: 45, // The radius of the inner circle
-  scale: 1, // Scales overall size of the spinner
-  corners: 1, // Corner roundness (0..1)
-  color: '#000000', // CSS color or array of colors
-  fadeColor: 'transparent', // CSS color or array of colors
-  speed: 1, // Rounds per second
-  rotate: 0, // The rotation offset
-  animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
-  direction: 1, // 1: clockwise, -1: counterclockwise
-  zIndex: 2e9, // The z-index (defaults to 2000000000)
-  className: 'spinner', // The CSS class to assign to the spinner
-  top: '50%', // Top position relative to parent
-  left: '50%', // Left position relative to parent
-  shadow: '0 0 1px transparent', // Box-shadow for the lines
-  position: 'absolute' // Element positioning
-};
-
-
+  public static SPINNER_OPTIONS: any = {
+    animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
+    className: 'spinner', // The CSS class to assign to the spinner
+    color: '#000000', // CSS color or array of colors
+    corners: 1, // Corner roundness (0..1)
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    fadeColor: 'transparent', // CSS color or array of colors
+    length: 38, // The length of each line
+    lines: 13, // The number of lines to draw
+    position: 'absolute', // Element positioning
+    radius: 45, // The radius of the inner circle
+    rotate: 0, // The rotation offset
+    scale: 1, // Scales overall size of the spinner
+    shadow: '0 0 1px transparent', // Box-shadow for the lines
+    speed: 1, // Rounds per second
+    top: '50%', // Top position relative to parent
+    left: '50%', // Left position relative to parent
+    width: 17, // The line thickness
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+  };
 }
