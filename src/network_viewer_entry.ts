@@ -46,7 +46,7 @@ export class InitializeGraph {
 
   // function
   private initializeCytoscape(): void {
-    var target=document.getElementById('spin-loader') as HTMLDivElement;
+    var target=document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.spinner.spin(target);
     setTimeout(()=>{
       this.cy = cytoscape({
@@ -92,7 +92,7 @@ export class InitializeGraph {
       this.cy.on('layoutstop', () => {
         this.spinner.stop();
       });
-    }, 1000);
+    }, 1);
 
 
   }

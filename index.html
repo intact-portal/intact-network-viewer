@@ -13,16 +13,6 @@
             border: 4px dotted blue;
 
         }
-        #spin-loader {
-            width: 80%;
-            height: 20%;
-            position: absolute;
-            top: 0%;
-            left: 20%;
-
-            border: 4px dotted blue;
-        }
-
     </style>
     <meta charset="utf-8">
     <title>Interaction Viewer Demo</title>
@@ -40,11 +30,11 @@
             /*alert(IntactGraph.Greeter('Anjali'));*/
             $.ajax({
                 //url: 'http://localhost:8080/mi-ws/staticJson/',
-                // url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
+                 url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
                 //  url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
                 //  url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
                 //url:'http://localhost:8080/graph/getGraphCompoundJson?query=P05412%20EBI-10026613',
-                url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
+              //  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
                 //  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=mouse',
                 //url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
                 dataType: 'json',
@@ -72,10 +62,7 @@
 <input type="radio" name="layout" id="fcose" value="fcose" >fcose (default layout)</input>
 <input type="radio" name="layout" id="avsdf" value="avsdf" >avsdf (circular layout)</input>
 <input type="radio" name="layout" id="cola" value="cola" >cola</input>
-<div id="container">
-<div id="spin-loader"  class="spinner">
-</div>
-    </div>
+
 <div id="for-canvas-graph">
 
 
