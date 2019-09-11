@@ -28,13 +28,14 @@ export class InitializeGraph {
   private cy: any;
   private data: JSON;
   public spinner:Spinner;
+  private spinTarget:any;
 
   // constructor
   constructor(graphContainerDivId: string, data) {
     this.graphContainerDivId = graphContainerDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
-
+    this.spinTarget=document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.initializeCytoscape();
 
   }
@@ -46,8 +47,8 @@ export class InitializeGraph {
 
   // function
   private initializeCytoscape(): void {
-    var target=document.getElementById(this.graphContainerDivId) as HTMLDivElement;
-    this.spinner.spin(target);
+    this.startLoadingImage();
+
     setTimeout(()=>{
       this.cy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
@@ -89,9 +90,8 @@ export class InitializeGraph {
           rows: 1
         }
       });
-      this.cy.on('layoutstop', () => {
-        this.spinner.stop();
-      });
+
+      this.stopLoadingImage();
     }, 1);
 
 
@@ -101,30 +101,58 @@ export class InitializeGraph {
 
     switch(layoutName) {
       case 'ngraph': {
+        this.startLoadingImage();
+        setTimeout(()=>{
         const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
         ngraphLayout.execute();
+          this.stopLoadingImage();
+        }, 1);
         break;
       }
       case 'cise': {
+        this.startLoadingImage();
+        setTimeout(()=>{
         const ciseLayout: CiseLayout = new CiseLayout(this.cy);
         ciseLayout.execute();
+        this.stopLoadingImage();
+      }, 1);
         break;
       }
       case 'avsdf':{
+        this.startLoadingImage();
+        setTimeout(()=>{
         const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
         avsdfLayout.execute();
+  this.stopLoadingImage();
+}, 1);
         break;
       }
       case 'cola':{
+        this.startLoadingImage();
+        setTimeout(()=>{
         const colaLayout: ColaLayout = new ColaLayout(this.cy);
         colaLayout.execute();
+  this.stopLoadingImage();
+}, 1);
         break;
       }
       default: {
+        this.startLoadingImage();
+        setTimeout(()=>{
         const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
         fcoseLayout.execute();
+  this.stopLoadingImage();
+}, 1);
         break;
       }
     }
+  }
+
+  public startLoadingImage(): void {
+    this.spinner.spin(this.spinTarget);
+  }
+
+  public stopLoadingImage(): void {
+    this.spinner.stop();
   }
 }
