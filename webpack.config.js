@@ -25,7 +25,7 @@ module.exports = {
                 {
                     loader: 'css-loader',
                     options: {
-                        modules: true
+                        modules: false
                     }
                 }
             ] }
@@ -39,5 +39,8 @@ module.exports = {
         library: 'IntactGraph',
         /*libraryTarget: 'commonjs2',*/
         path: path.resolve(__dirname, 'lib')
-    }
+    },
+    optimization: {
+    minimize: false
+},
 };

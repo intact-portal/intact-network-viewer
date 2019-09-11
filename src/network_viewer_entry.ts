@@ -1,3 +1,4 @@
+import 'spin.js/spin.css';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
 import cise from 'cytoscape-cise';
@@ -18,7 +19,7 @@ cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
 cytoscape.use( avsdf );
 cytoscape.use( cola );
-import 'spin.js/spin.css';
+
 
 
 export class InitializeGraph {
