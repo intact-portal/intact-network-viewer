@@ -116,8 +116,7 @@ export class InitializeGraph {
              // shape: 'vee',// DNA
              // shape:'ellipse',
               shape:'data(shape)',
-              //'shape-polygon-points': '0, 1,   -1, -1,   1, -1, 0,1',
-              'background-color': 'data(color)',
+             'background-color': 'data(color)',
               label: 'data(id)',
             },
           },
