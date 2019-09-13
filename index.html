@@ -96,9 +96,10 @@
                 //  url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
               //   url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
              //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=P05412%20EBI-10026613',
-                url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
+              //  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
+             //   url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens&isCompound=false',
              //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=EBI-10006231',
-               //   url: 'http://localhost:8080/graph/getGraphCompoundJson?query=mouse',
+                  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=mouse',
                // url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
                 dataType: 'json',
                 success: function (data) {
@@ -106,13 +107,15 @@
 
                     //  loadJsonAndProcess('http://localhost:8080/mi-ws/staticJson/',false);
                     object = new IntactGraph.InitializeGraph('for-canvas-graph',data);
-                    $('input:radio[name="layout"]').change(function(){
-                        object.applyLayout($(this).val());
-                    });
+
                     //   EntryPoint.test123();
                     //      loadJsonAndProcess("miserables_small.json",false);
                     //   loadJsonAndProcess(data);
                 }
+            });
+
+            $('input:radio[name="layout"]').change(function(){
+                object.applyLayout($(this).val());
             });
 
         });

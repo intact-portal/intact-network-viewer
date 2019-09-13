@@ -127,7 +127,6 @@ export class InitializeGraph {
               'background-opacity': 0.333,
               'font-size': 50,
               label: 'data(species)',
-              "display": "none"
             },
           },
 
