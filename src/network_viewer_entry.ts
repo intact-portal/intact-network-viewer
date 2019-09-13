@@ -109,6 +109,14 @@ export class InitializeGraph {
           {
             selector: 'node',
             style: {
+              //'shape': 'triangle',// Bioactive Entity
+              //'shape': 'diamond', // RNA
+              //'shape':'round-rectangle',// Gene
+             // 'shape':'circle',//Protein
+             // shape: 'vee',// DNA
+             // shape:'ellipse',
+              shape:'data(shape)',
+              //'shape-polygon-points': '0, 1,   -1, -1,   1, -1, 0,1',
               'background-color': 'data(color)',
               label: 'data(id)',
             },
@@ -120,6 +128,7 @@ export class InitializeGraph {
               'background-opacity': 0.333,
               'font-size': 50,
               label: 'data(species)',
+              "display": "none"
             },
           },
 
