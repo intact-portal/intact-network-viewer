@@ -30,6 +30,8 @@ export class InitializeGraph {
   private data: JSON;
   private spinner: Spinner;
   private spinTarget: any;
+  private edgesSize!: number;
+  private timeout!: number;
 
   // constructor
   constructor(graphContainerDivId: string, data) {
@@ -48,7 +50,7 @@ export class InitializeGraph {
           const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
           ngraphLayout.execute();
           this.stopLoadingImage();
-        }, 1000);
+        }, this.timeout);
         break;
       }
       case 'cise': {
@@ -57,7 +59,7 @@ export class InitializeGraph {
           const ciseLayout: CiseLayout = new CiseLayout(this.cy);
           ciseLayout.execute();
           this.stopLoadingImage();
-        }, 1000);
+        }, this.timeout);
         break;
       }
       case 'avsdf': {
@@ -66,7 +68,7 @@ export class InitializeGraph {
           const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
           avsdfLayout.execute();
           this.stopLoadingImage();
-        }, 1000);
+        }, this.timeout);
         break;
       }
       case 'cola': {
@@ -75,7 +77,7 @@ export class InitializeGraph {
           const colaLayout: ColaLayout = new ColaLayout(this.cy);
           colaLayout.execute();
           this.stopLoadingImage();
-        }, 1000);
+        }, this.timeout);
         break;
       }
       default: {
@@ -84,7 +86,7 @@ export class InitializeGraph {
           const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
           fcoseLayout.execute();
           this.stopLoadingImage();
-        }, 1000);
+        }, this.timeout);
         break;
       }
     }
@@ -148,6 +150,13 @@ export class InitializeGraph {
       });
 
       this.stopLoadingImage();
+      this.edgesSize=this.cy.edges().size();
+      if(this.edgesSize>800){
+        this.timeout = 1000;
+      }else{
+        this.timeout = 1;
+      }
+
     }, 1);
   }
 
