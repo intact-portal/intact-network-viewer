@@ -119,7 +119,7 @@ export class InitializeGraph {
              // shape:'ellipse',
               shape:'data(shape)',
              'background-color': 'data(color)',
-              label: 'data(id)',
+              label: 'data(preferred_id)',
             },
           },
 
