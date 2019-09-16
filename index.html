@@ -90,32 +90,41 @@
         $(document).ready(function() {
             var object;
             /*alert(IntactGraph.Greeter('Anjali'));*/
-            $.ajax({
-                //url: 'http://localhost:8080/mi-ws/staticJson/',
-                // url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
-                //  url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
-              //   url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
-             //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=P05412%20EBI-10026613',
-              //  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
-             //   url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens&isCompound=false',
-             //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=EBI-10006231',
-                  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=mouse',
-               // url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
-                dataType: 'json',
-                success: function (data) {
+            loadjsonData();
+            function loadjsonData() {
+                var isCompound=$('#graph').is(':checked');
+
+                $.ajax({
+                    //url: 'http://localhost:8080/mi-ws/staticJson/',
+                    // url: 'http://localhost:8080/graph/getGraphJson?query=Homo%20sapiens',
+                    //  url: 'http://localhost:8080/graph/getGraphJson?query=mouse',
+                    //   url:'http://localhost:8080/graph/getGraphJson?query=P05412%20EBI-10026613',
+                    //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=P05412%20EBI-10026613',
+                    //  url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens',
+                    //   url: 'http://localhost:8080/graph/getGraphCompoundJson?query=Homo%20sapiens&isCompound='+isCompound,
+                    //   url:'http://localhost:8080/graph/getGraphCompoundJson?query=EBI-10006231',
+                    url: 'http://localhost:8080/graph/getGraphCompoundJson?query=mouse',
+                    // url: 'http://localhost:8080/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
+                    dataType: 'json',
+                    success: function (data) {
 
 
-                    //  loadJsonAndProcess('http://localhost:8080/mi-ws/staticJson/',false);
-                    object = new IntactGraph.InitializeGraph('for-canvas-graph',data);
+                        //  loadJsonAndProcess('http://localhost:8080/mi-ws/staticJson/',false);
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph', data);
 
-                    //   EntryPoint.test123();
-                    //      loadJsonAndProcess("miserables_small.json",false);
-                    //   loadJsonAndProcess(data);
-                }
-            });
+                        //   EntryPoint.test123();
+                        //      loadJsonAndProcess("miserables_small.json",false);
+                        //   loadJsonAndProcess(data);
+                    }
+                });
+            }
 
             $('input:radio[name="layout"]').change(function(){
                 object.applyLayout($(this).val());
+            });
+
+            $('#graph').click(function() {
+                loadjsonData();
             });
 
         });
@@ -128,6 +137,8 @@
 <input type="radio" name="layout" id="fcose" value="fcose" >fcose (default layout)</input>
 <input type="radio" name="layout" id="avsdf" value="avsdf" >avsdf (circular layout)</input>
 <input type="radio" name="layout" id="cola" value="cola" >cola</input>
+
+<input id="graph" type="checkbox" />
 <div id="parent-graph-div">
 <div id="for-canvas-graph">
 

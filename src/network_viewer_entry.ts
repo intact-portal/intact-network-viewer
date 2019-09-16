@@ -48,7 +48,7 @@ export class InitializeGraph {
           const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
           ngraphLayout.execute();
           this.stopLoadingImage();
-        }, 1);
+        }, 1000);
         break;
       }
       case 'cise': {
@@ -57,7 +57,7 @@ export class InitializeGraph {
           const ciseLayout: CiseLayout = new CiseLayout(this.cy);
           ciseLayout.execute();
           this.stopLoadingImage();
-        }, 1);
+        }, 1000);
         break;
       }
       case 'avsdf': {
@@ -66,7 +66,7 @@ export class InitializeGraph {
           const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
           avsdfLayout.execute();
           this.stopLoadingImage();
-        }, 1);
+        }, 1000);
         break;
       }
       case 'cola': {
@@ -75,7 +75,7 @@ export class InitializeGraph {
           const colaLayout: ColaLayout = new ColaLayout(this.cy);
           colaLayout.execute();
           this.stopLoadingImage();
-        }, 1);
+        }, 1000);
         break;
       }
       default: {
@@ -84,7 +84,7 @@ export class InitializeGraph {
           const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
           fcoseLayout.execute();
           this.stopLoadingImage();
-        }, 1);
+        }, 1000);
         break;
       }
     }
@@ -133,9 +133,9 @@ export class InitializeGraph {
           {
             selector: 'edge',
             style: {
-              'line-color': '#ccc',
               'target-arrow-color': '#ccc',
               'target-arrow-shape': 'triangle',
+              'line-color': 'data(color)',
               width: 3,
             },
           },
