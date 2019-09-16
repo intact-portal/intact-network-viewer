@@ -208,7 +208,7 @@ export class Constants {
     name: 'cola',
     alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
     allConstIter: undefined, // initial layout iterations with all constraints including non-overlap
-    animate: true, // whether to show the layout as it's running
+    animate: false, // whether to show the layout as it's running
     avoidOverlap: true, // if true, prevents overlap of node bounding boxes
     boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
     convergenceThreshold: 0.01, // when the alpha value (system energy) falls below this value, the layout stops
