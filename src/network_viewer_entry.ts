@@ -139,6 +139,7 @@ export class InitializeGraph {
               'target-arrow-shape': 'triangle',
               'line-color': 'data(color)',
               width: 3,
+              'curve-style':'bezier',
             },
           },
         ],
