@@ -100,7 +100,15 @@ export class InitializeGraph {
   // function
   private initializeCytoscape(): void {
     this.startLoadingImage();
-
+    var edges = JSON.parse(JSON.stringify(this.data)).filter(function (entry) {
+      return entry.group === 'edges';
+    });
+    this.edgesSize=edges.length;
+    if(this.edgesSize>300){
+      this.timeout = 1000;
+    }else{
+      this.timeout = 1;
+    }
     setTimeout(() => {
       this.cy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
@@ -148,14 +156,7 @@ export class InitializeGraph {
       });
 
       this.stopLoadingImage();
-      this.edgesSize=this.cy.edges().size();
-      if(this.edgesSize>800){
-        this.timeout = 1000;
-      }else{
-        this.timeout = 1;
-      }
-
-    }, 1);
+      }, this.timeout);
   }
 
   private startLoadingImage(): void {

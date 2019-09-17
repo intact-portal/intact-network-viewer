@@ -116,6 +116,7 @@
                     //  url: 'http://localhost:9090/graph/getGraphCompoundJson?query=Homo%20sapiens',
                     //   url: 'http://localhost:9090/graph/getGraphCompoundJson?query=Homo%20sapiens&isCompound='+isCompound,
                    //   url:'http://localhost:9090/graph/getGraphCompoundJson?query=EBI-10006231',
+                   // url:'http://localhost:9090/graph/getGraphCompoundJson?query=dna',
                     url:'http://localhost:9090/graph/getGraphCompoundJson?query='+query+'&isCompound='+isCompound,
                     //url: 'http://localhost:9090/graph/getGraphCompoundJson?query=mouse&isCompound='+isCompound,
                     // url: 'http://localhost:9090/graph/getGraphJson?query=and&speciesFilter=Homo%20sapiens&interactorTypeFilter=protein&detectionMethodFilter=molecular sieving&interactionTypeFilter=physical association&interactionHostOrganismFilter=In vitro&isNegativeFilter=false&minMiScore=0&maxMiScore=1&interSpecies=false',
@@ -163,10 +164,12 @@
         <tr>
             <div style="float: left;width:28%">Graph Size?</div><div style="margin-left: 28%;">
             <select id="graphQuery" name="query">
-                <option value="EBI-10006231">Small Graph</option>
+                <option value="EBI-10006231">Small Graph (3 interactions)</option>
                 <option value="P05412 EBI-10026613">Medium Graph-1 (34 interactions)</option>
                 <option value="mouse" selected>Medium Graph-2 (97 interactions)</option>
-                <option value="Homo sapiens">Large Graph (1284 interactions)</option>
+                <option value="dna" selected>Medium Graph-3 (408 interactions)</option>
+                <option value="and" selected>Large Graph-1 (864 interactions)</option>
+                <option value="Homo sapiens">Large Graph-2 (1284 interactions)</option>
             </select>
         </div>
 
