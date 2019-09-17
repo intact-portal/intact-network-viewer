@@ -26,7 +26,7 @@ export class Constants {
     // Nesting factor (multiplier) to compute ideal edge length for nested edges
     nestingFactor: 0.1,
     // whether to include labels in node dimensions. Valid in "proof" quality
-    nodeDimensionsIncludeLabels: true,
+    nodeDimensionsIncludeLabels: false,
     // Node repulsion (non overlapping) multiplier
     nodeRepulsion: 4500,
     // separation amount between nodes
