@@ -127,7 +127,7 @@ export class InitializeGraph {
             selector: 'node:parent',
             css: {
               'background-opacity': 0.333,
-              'font-size': 50,
+              /*'font-size': 50,*/
               label: 'data(species)',
             },
           },
@@ -144,10 +144,7 @@ export class InitializeGraph {
           },
         ],
 
-        layout: {
-          name: 'fcose',
-          rows: 1,
-        },
+        layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
 
       this.stopLoadingImage();

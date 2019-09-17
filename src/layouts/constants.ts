@@ -26,7 +26,7 @@ export class Constants {
     // Nesting factor (multiplier) to compute ideal edge length for nested edges
     nestingFactor: 0.1,
     // whether to include labels in node dimensions. Valid in "proof" quality
-    nodeDimensionsIncludeLabels: false,
+    nodeDimensionsIncludeLabels: true,
     // Node repulsion (non overlapping) multiplier
     nodeRepulsion: 4500,
     // separation amount between nodes
@@ -112,7 +112,7 @@ export class Constants {
     nodeRepulsion: 4500,
     // separation amount between nodes in a cluster
     // note: increasing this amount will also increase the simulation time
-    nodeSeparation: 12.5,
+    nodeSeparation: 50,
     // Padding in rendered co-ordinates around the layout
     padding: 30,
     // number of ticks per frame; higher is faster but more jerky
@@ -191,7 +191,7 @@ export class Constants {
     // Whether to fit the network view after when done
     fit: true,
     // How apart the nodes are
-    nodeSeparation: 60,
+    nodeSeparation: 120,
     // Padding on fit
     padding: 10,
     // Called on `layoutready`
