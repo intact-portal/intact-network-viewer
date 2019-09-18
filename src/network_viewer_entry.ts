@@ -143,8 +143,8 @@ export class InitializeGraph {
           {
             selector: 'edge',
             style: {
-              'target-arrow-color': '#ccc',
-              'target-arrow-shape': 'triangle',
+              /*'target-arrow-color': '#000000',
+              'target-arrow-shape': 'triangle',*/
               'line-color': 'data(color)',
               width: 3,
               'curve-style':'bezier',
