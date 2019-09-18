@@ -147,6 +147,11 @@
                 loadjsonData();
             });
 
+            $('#expand-edges').click(function() {
+                var expand=$('#expand-edges').is(':checked');
+                object.expandEdges(expand);
+            });
+
             $( "#graphQuery" ).change(function() {
                 $('input[name=layout]').attr('checked',false);
                 query=$('#graphQuery :selected').val();
@@ -177,6 +182,9 @@
             </select>
         </div>
 
+        </tr>
+        <tr>
+            <div style="float: left;width:70%">Expand Edges</div><div style="margin-left: 30%;padding-bottom: 2%"><input id="expand-edges" type="checkbox" /></div>
         </tr>
         </table>
 </div>

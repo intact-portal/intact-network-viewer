@@ -42,6 +42,31 @@ export class InitializeGraph {
     this.initializeCytoscape();
   }
 
+  public expandEdges(isExpand: boolean): void {
+      var controlPointSize;
+      var curveStyle;
+      if (isExpand) {
+          curveStyle='bezier';
+          controlPointSize = 40;
+
+      } else {
+          curveStyle = 'haystack';
+          controlPointSize = 0;
+
+      }
+
+      this.cy.style()
+          .selector('edge')
+          .style({
+              'curve-style':curveStyle,
+              'control-point-step-size': controlPointSize
+          }).update() // indicate the end of your new stylesheet so that it can be updated on elements
+      ;
+
+
+  }
+
+
   public applyLayout(layoutName: string): void {
     switch (layoutName) {
       case 'ngraph': {
@@ -148,6 +173,7 @@ export class InitializeGraph {
               'line-color': 'data(color)',
               width: 3,
               'curve-style':'bezier',
+                'control-point-step-size':0
             },
           },
         ],
