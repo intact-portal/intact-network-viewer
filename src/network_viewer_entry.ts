@@ -66,6 +66,32 @@ export class InitializeGraph {
 
   }
 
+  private loadInteractiveMethods(): void {
+    this.loadEdgeOnclickMethod();
+  }
+
+  private loadEdgeOnclickMethod():void{
+    this.cy.edges().on('click', function(e){
+      var clickedNode = e.target.data('interaction_type');
+      e.target.parallelEdges().forEach( function(ele, i, eles){
+        alert (ele.data('interaction_type'));
+      } );
+
+    });
+  }
+
+  private executeGraphCalculations(): void{
+    var edges = JSON.parse(JSON.stringify(this.data)).filter(function (entry) {
+      return entry.group === 'edges';
+    });
+    this.edgesSize=edges.length;
+    if(this.edgesSize>300){
+      this.timeout = 1000;
+    }else{
+      this.timeout = 1;
+    }
+  }
+
 
   public applyLayout(layoutName: string): void {
     switch (layoutName) {
@@ -125,15 +151,7 @@ export class InitializeGraph {
   // function
   private initializeCytoscape(): void {
     this.startLoadingImage();
-    var edges = JSON.parse(JSON.stringify(this.data)).filter(function (entry) {
-      return entry.group === 'edges';
-    });
-    this.edgesSize=edges.length;
-    if(this.edgesSize>300){
-      this.timeout = 1000;
-    }else{
-      this.timeout = 1;
-    }
+    this.executeGraphCalculations();
     setTimeout(() => {
       this.cy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
@@ -180,7 +198,7 @@ export class InitializeGraph {
 
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
-
+      this.loadInteractiveMethods();
       this.stopLoadingImage();
       }, this.timeout);
   }
