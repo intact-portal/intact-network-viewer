@@ -195,7 +195,7 @@ export class InitializeGraph {
             },
           },
         ],
-
+        boxSelectionEnabled: false,
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();
