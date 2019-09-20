@@ -68,6 +68,8 @@ export class InitializeGraph {
 
   private loadInteractiveMethods(): void {
     this.loadEdgeOnclickMethod();
+    this.loadOnSelectBoxMethod();
+    this.unSelectNodeMethod();
   }
 
   private loadEdgeOnclickMethod():void{
@@ -76,6 +78,22 @@ export class InitializeGraph {
       e.target.parallelEdges().forEach( function(ele, i, eles){
         alert (ele.data('interaction_type'));
       } );
+
+    });
+  }
+
+  private loadOnSelectBoxMethod():void{
+    this.cy.nodes().on('boxselect', function(e){
+      var boxNode = e.target;
+      boxNode.addClass('highlight');
+
+    });
+  }
+
+  private unSelectNodeMethod():void{
+    this.cy.nodes().on('unselect', function(e){
+      var boxNode = e.target;
+      boxNode.removeClass('highlight');
 
     });
   }
@@ -160,6 +178,14 @@ export class InitializeGraph {
         style: [
           // the stylesheet for the graph
           {
+            selector: 'node.highlight',
+            style: {
+              'overlay-color': '#000000',
+              'overlay-padding': '8px',
+              'overlay-opacity':0.333
+            }
+          },
+          {
             selector: 'node',
             style: {
               //'shape': 'triangle',// Bioactive Entity
@@ -195,7 +221,7 @@ export class InitializeGraph {
             },
           },
         ],
-        boxSelectionEnabled: false,
+        /*boxSelectionEnabled: false,*/
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();
