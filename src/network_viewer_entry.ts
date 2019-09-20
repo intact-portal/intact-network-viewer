@@ -105,6 +105,7 @@ export class InitializeGraph {
     this.cy.nodes().on('tap', function(e){
       var tappedNode = e.target;
       var directlyConnectedEdges = tappedNode.closedNeighbourhood();
+      tappedNode.addClass('highlight');
       directlyConnectedEdges.addClass('neighbour-highlight');
       directlyConnectedEdges.nodes().addClass('neighbour-highlight');
       localCy.fit(directlyConnectedEdges.nodes());
@@ -116,6 +117,7 @@ export class InitializeGraph {
     this.cy.nodes().on('tapunselect', function(e){
       var tappedNode = e.target;
       var directlyConnectedEdges = tappedNode.closedNeighbourhood();
+      tappedNode.removeClass('highlight');
       directlyConnectedEdges.removeClass('neighbour-highlight');
       directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
       localCy.fit(localCy.nodes());
