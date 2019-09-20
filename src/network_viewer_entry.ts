@@ -108,7 +108,7 @@ export class InitializeGraph {
       tappedNode.addClass('highlight');
       directlyConnectedEdges.addClass('neighbour-highlight');
       directlyConnectedEdges.nodes().addClass('neighbour-highlight');
-      localCy.fit(directlyConnectedEdges.nodes());
+      localCy.fit(directlyConnectedEdges);
     });
   }
 
