@@ -69,7 +69,9 @@ export class InitializeGraph {
   private loadInteractiveMethods(): void {
     this.loadEdgeOnclickMethod();
     this.loadOnSelectBoxMethod();
-    this.unSelectNodeMethod();
+    this.loadUnSelectNodeMethod();
+    this.loadOnNodeTapMethod();
+    this.loadOnTapUnselectMethod();
   }
 
   private loadEdgeOnclickMethod():void{
@@ -90,13 +92,37 @@ export class InitializeGraph {
     });
   }
 
-  private unSelectNodeMethod():void{
+  private loadUnSelectNodeMethod():void{
     this.cy.nodes().on('unselect', function(e){
       var boxNode = e.target;
       boxNode.removeClass('highlight');
 
     });
   }
+
+  private loadOnNodeTapMethod():void{
+    var localCy=this.cy;// need to do this as you cannot have this inside function
+    this.cy.nodes().on('tap', function(e){
+      var tappedNode = e.target;
+      var directlyConnectedEdges = tappedNode.closedNeighbourhood();
+      directlyConnectedEdges.addClass('neighbour-highlight');
+      directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+      localCy.fit(directlyConnectedEdges.nodes());
+    });
+  }
+
+  private loadOnTapUnselectMethod():void{
+    var localCy=this.cy;// need to do this as you cannot have this inside function
+    this.cy.nodes().on('tapunselect', function(e){
+      var tappedNode = e.target;
+      var directlyConnectedEdges = tappedNode.closedNeighbourhood();
+      directlyConnectedEdges.removeClass('neighbour-highlight');
+      directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
+      localCy.fit(localCy.nodes());
+    });
+  }
+
+
 
   private executeGraphCalculations(): void{
     var edges = JSON.parse(JSON.stringify(this.data)).filter(function (entry) {
@@ -186,6 +212,13 @@ export class InitializeGraph {
             }
           },
           {
+            selector: 'node.neighbour-highlight',
+            style: {
+              'border-color': '#CC0000',
+              'border-width': '4px'
+            }
+          },
+          {
             selector: 'node',
             style: {
               //'shape': 'triangle',// Bioactive Entity
@@ -220,6 +253,12 @@ export class InitializeGraph {
                 'control-point-step-size':0
             },
           },
+          {
+            selector: 'edge.neighbour-highlight',
+            style: {
+              'line-color': '#CC0000',
+            }
+          }
         ],
         /*boxSelectionEnabled: false,*/
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
