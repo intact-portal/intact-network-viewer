@@ -43,6 +43,12 @@
 
         }
 
+        #miscore-legend-scale{
+            height: 20px;
+            width: 86%;
+            background: linear-gradient(to right, #FBE723 0%, #440256 99%)
+        }
+
         #legend{
             width: 30%;
             height: 100%;
@@ -233,7 +239,7 @@
     </div>
 
 
-    <div class='shape-legend-scale' style="height: 55%;">
+    <div class='shape-legend-scale' style="height: 25%;">
         <h3 style="text-align: center">Node Shape Legend</h3>
         <div style="width:50%;float: left;">
 <table >
@@ -257,6 +263,17 @@
 </div>
 
     </div>
+
+    <div class='collapsed-edge-color-legend-scale' style="height: 25%;">
+        <h3 style="text-align: center">MI Score gradient scale Legend</h3>
+        <div id="miscore-legend-scale">
+            <pre>
+|____|____|____|____|____|____|____|____|____|____|
+0   0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9   1
+</pre>
+            </div>
+
+        </div>
 
 </div>
 </div>
