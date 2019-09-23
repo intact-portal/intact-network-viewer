@@ -120,7 +120,7 @@ export class InitializeGraph {
       tappedNode.removeClass('highlight');
       directlyConnectedEdges.removeClass('neighbour-highlight');
       directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
-      localCy.fit(localCy.nodes());
+      localCy.fit();
     });
   }
 
@@ -250,6 +250,7 @@ export class InitializeGraph {
               /*'target-arrow-color': '#000000',
               'target-arrow-shape': 'triangle',*/
               'line-color': 'data(color)',
+              'line-style':'data(shape)',
               width: 3,
               'curve-style':'bezier',
                 'control-point-step-size':0
