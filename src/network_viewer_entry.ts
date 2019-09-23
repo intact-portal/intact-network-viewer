@@ -59,7 +59,19 @@ export class InitializeGraph {
           .selector('edge')
           .style({
               'curve-style':curveStyle,
-              'control-point-step-size': controlPointSize
+              'control-point-step-size': controlPointSize,
+            'line-style':edge => {
+              if(isExpand){
+               return edge.data('shape');
+              }
+              return this.edgeShape(edge);
+            },
+              'line-color': edge => {
+                  if(isExpand){
+                      return edge.data('color');
+                  }
+                  return this.edgeColor(edge);
+              }
           }).update() // indicate the end of your new stylesheet so that it can be updated on elements
       ;
 
@@ -249,8 +261,12 @@ export class InitializeGraph {
             style: {
               /*'target-arrow-color': '#000000',
               'target-arrow-shape': 'triangle',*/
-              'line-color': 'data(color)',
-              'line-style':'data(shape)',
+              'line-color': edge => {
+                return this.edgeColor(edge);
+              },
+              'line-style':edge => {
+                  return this.edgeShape(edge);
+              },
               width: 3,
               'curve-style':'bezier',
                 'control-point-step-size':0
@@ -278,4 +294,18 @@ export class InitializeGraph {
   private stopLoadingImage(): void {
     this.spinner.stop();
   }
+
+  private edgeShape(edge:any): string {
+  if(edge.parallelEdges().size()>1){
+    return 'solid';
+  }
+  return edge.data('shape');
+}
+
+    private edgeColor(edge:any): string{
+        if(edge.parallelEdges().size()>1){
+            return edge.data('collapsed_color');
+        }
+        return edge.data('color');
+    }
 }
