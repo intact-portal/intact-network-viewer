@@ -46,35 +46,11 @@ export class InitializeGraph {
       var controlPointSize;
       var curveStyle;
       if (isExpand) {
-          curveStyle='bezier';
-          controlPointSize = 40;
-
+          this.cy.edges().addClass('expand');
       } else {
-          curveStyle = 'haystack';
-          controlPointSize = 0;
+          this.cy.edges().removeClass('expand');
 
       }
-
-      this.cy.style()
-          .selector('edge')
-          .style({
-              'curve-style':curveStyle,
-              'control-point-step-size': controlPointSize,
-            'line-style':edge => {
-              if(isExpand){
-               return edge.data('shape');
-              }
-              return this.edgeShape(edge);
-            },
-              'line-color': edge => {
-                  if(isExpand){
-                      return edge.data('color');
-                  }
-                  return this.edgeColor(edge);
-              }
-          }).update() // indicate the end of your new stylesheet so that it can be updated on elements
-      ;
-
 
   }
 
@@ -272,6 +248,21 @@ export class InitializeGraph {
                 'control-point-step-size':0
             },
           },
+            {
+                selector: 'edge.expand',
+                style:  {
+                'control-point-step-size': 40,
+                'line-style':edge => {
+                      return edge.data('shape');
+
+                },
+                'line-color': edge => {
+                    return edge.data('color');
+
+
+                }
+            }
+            },
           {
             selector: 'edge.neighbour-highlight',
             style: {
