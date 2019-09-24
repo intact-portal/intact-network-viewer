@@ -211,8 +211,8 @@
 </div>
 <div id='legend' class='my-legend'>
 
-    <div class='legend-scale' style="height: 45%;">
-        <h3 >Color Legend</h3>
+    <div class='shape-legend-scale' style="height: 25%;">
+        <h3 style="text-align: center">Node Color Legend</h3>
         <!--<ul class='legend-labels' >-->
            <!-- <li><span style='background:rgb(51, 94, 148); '></span>Homo Sapiens</li>
             <li><span style='background:rgb(88, 115, 29); '></span>Mus musculus</li>
@@ -223,21 +223,54 @@
             <li><span style='background:rgb(144, 163, 198); '></span>Escherichia coli</li>
             <li><span style='background:rgb(141, 102, 102); '></span>Chemical synthesis</li>
             <li><span style='background:rgb(173, 188, 148);'></span>Others</li>-->
-<table>
-            <tr><th>Color</th><th>Node Legend</th><th>Edge Legend</th><tr>
-            <tr><td><span style='background:rgb(51, 94, 148); '></span></td><td>Homo Sapiens</td><td>Physical Association</td></tr>
-            <tr><td><span style='background:rgb(88, 115, 29); '></span></td><td>Mus musculus</td><td>Direct Interaction</td></tr>
-            <tr><td><span style='background:rgb(107, 13, 10); '></span></td><td>Saccharomyces cerevisiae</td><td>Association</td></tr>
-            <tr><td><span style='background:rgb(97, 74, 124); '></span></td><td>Arabidopsis thaliana (Mouse-ear cress)</td><td>Colocalization</td></tr>
-            <tr><td><span style='background:rgb(47, 132, 156); '></span></td><td>Drosophila melanogaster</td><td>Phosphorylation Reaction</td></tr>
-            <tr><td><span style='background:rgb(202, 115, 47); '></span></td><td>Caenorhabditis elegans</td><td>Ubiquitination Reaction</td></tr>
-            <tr><td><span style='background:rgb(144, 163, 198); '></span></td><td>Escherichia coli</td><td>Dephosphorylation Reaction</td></tr>
-            <tr><td><span style='background:rgb(141, 102, 102); '></span></td><td>Chemical synthesis</td><td>Enzymatic Reaction</td></tr>
-            <tr><td><span style='background:rgb(173, 188, 148); '></span></td><td>Others</td><td>Others</td></tr>
-    </table>
+        <div style="width:50%;float: left;">
+            <table >
+                <tr><td><span style='background:rgb(51, 94, 148); '></span></td><td>Homo Sapiens</td></tr>
+                <tr><td><span style='background:rgb(88, 115, 29); '></span></td><td>Mus musculus</td></tr>
+                <tr><td><span style='background:rgb(107, 13, 10); '></span></td><td>Saccharomyces cerevisiae</td></tr>
+                <tr><td><span style='background:rgb(97, 74, 124); '></span></td><td>Arabidopsis thaliana (Mouse-ear cress)</td></tr>
+                <tr><td><span style='background:rgb(47, 132, 156); '></span></td><td>Drosophila melanogaster</td></tr>
+            </table>
+        </div>
+        <div style="width:50%;margin-left: 50%;">
+            <table >
+                <tr><td><span style='background:rgb(202, 115, 47); '></span></td><td>Caenorhabditis elegans</td></tr>
+                <tr><td><span style='background:rgb(144, 163, 198); '></span></td><td>Escherichia coli</td></tr>
+                <tr><td><span style='background:rgb(141, 102, 102); '></span></td><td>Chemical synthesis</td></tr>
+                <tr><td><span style='background:rgb(173, 188, 148); '></span></td><td>Others</td></tr>
+
+
+            </table>
+
+        </div>
 
     </div>
 
+    <div class='shape-legend-scale' style="height: 25%;">
+        <h3 style="text-align: center">Edge Color Legend</h3>
+        <div style="width:50%;float: left;">
+            <table >
+                <tr><td><span style='background:rgb(153,204,0); '></span></td><td>Physical Association</td></tr>
+                <tr><td><span style='background:rgb(153,153,255); '></span></td><td>Association</td></tr>
+                <tr><td><span style='background:rgb(255,51,0); '></span></td><td>Direct Interaction</td></tr>
+                <tr><td><span style='background:rgb(255,222,62); '></span></td><td>Colocalization</td></tr>
+
+
+
+            </table>
+        </div>
+        <div style="width:50%;margin-left: 50%;">
+            <table >
+                <tr><td><span style='background:rgb(153,0,0); '></span></td><td>Phosphorylation Reaction</td></tr>
+                <tr><td><span style='background:rgb(153,153,0); '></span></td><td>Dephosphorylation Reaction</td></tr>
+                <tr><td><span style='background:rgb(153,153,153); '></span></td><td>Others</td></tr>
+
+
+            </table>
+
+        </div>
+
+    </div>
 
     <div class='shape-legend-scale' style="height: 25%;">
         <h3 style="text-align: center">Node Shape Legend</h3>
