@@ -32,14 +32,16 @@ export class InitializeGraph {
   private spinTarget: any;
   private edgesSize!: number;
   private timeout!: number;
+  private isExpand:boolean;
 
   // constructor
-  constructor(graphContainerDivId: string, data) {
+  constructor(graphContainerDivId: string, data,isExpand:boolean) {
     this.graphContainerDivId = graphContainerDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.initializeCytoscape();
+    this.isExpand=isExpand;
   }
 
   public expandEdges(isExpand: boolean): void {
@@ -274,6 +276,7 @@ export class InitializeGraph {
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();
+      this.expandEdges(this.isExpand);
       this.stopLoadingImage();
       }, this.timeout);
   }

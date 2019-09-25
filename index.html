@@ -113,7 +113,7 @@
             loadjsonData();
             function loadjsonData() {
                 var isCompound=$('#graph').is(':checked');
-
+                var expand=$('#expand-edges').is(':checked');
                 $.ajax({
                //     headers: {  'Access-Control-Allow-Origin': 'http://172.23.41.235:9090/graph' },
                     //url: 'http://localhost:9090/mi-ws/staticJson/',
@@ -135,7 +135,7 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph', data);
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph', data, expand);
 
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
@@ -159,8 +159,10 @@
             });
 
             $( "#graphQuery" ).change(function() {
+                $('#expand-edges').prop('checked', false); // Unchecks it
                 $('input[name=layout]').attr('checked',false);
                 query=$('#graphQuery :selected').val();
+
                 loadjsonData();
             });
 
