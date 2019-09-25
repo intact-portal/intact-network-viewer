@@ -245,7 +245,9 @@ export class InitializeGraph {
               'line-style':edge => {
                   return this.edgeShape(edge);
               },
-              width: 3,
+              width: edge => {
+                  return this.edgeWidth(edge);
+              },
               'curve-style':'bezier',
                 'control-point-step-size':0
             },
@@ -262,7 +264,8 @@ export class InitializeGraph {
                     return edge.data('color');
 
 
-                }
+                },
+                width : 3
             }
             },
           {
@@ -295,6 +298,13 @@ export class InitializeGraph {
   }
   return edge.data('shape');
 }
+
+    private edgeWidth(edge:any): number {
+        if(edge.parallelEdges().size()>1){
+            return 6;
+        }
+        return 3;
+    }
 
     private edgeColor(edge:any): string{
         if(edge.parallelEdges().size()>1){
