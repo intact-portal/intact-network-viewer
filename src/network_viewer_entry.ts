@@ -33,25 +33,32 @@ export class InitializeGraph {
   private edgesSize!: number;
   private timeout!: number;
   private isExpand:boolean;
+  private isMutationDisrupted:boolean;
 
   // constructor
-  constructor(graphContainerDivId: string, data,isExpand:boolean) {
+  constructor(graphContainerDivId: string, data,isExpand:boolean,isMutationDisrupted:boolean) {
     this.graphContainerDivId = graphContainerDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.initializeCytoscape();
     this.isExpand=isExpand;
+    this.isMutationDisrupted=isMutationDisrupted;
   }
 
-  public expandEdges(isExpand: boolean): void {
-      var controlPointSize;
-      var curveStyle;
+  public expandEdges(isExpand: boolean,isMutationDisrupted:boolean): void {
       if (isExpand) {
           this.cy.edges().addClass('expand');
       } else {
           this.cy.edges().removeClass('expand');
+      }
 
+      if(isMutationDisrupted){
+          this.cy.edges().addClass('disrupted');
+          this.cy.nodes().addClass('disrupted');
+      } else{
+          this.cy.edges().removeClass('disrupted');
+          this.cy.nodes().removeClass('disrupted');
       }
 
   }
@@ -268,6 +275,33 @@ export class InitializeGraph {
                 width : 3
             }
             },
+            {
+                selector: 'edge.disrupted',
+                style:  {
+                    'line-color': edge => {
+                        if(edge.data('disrupted_mutation')){
+                            return '#CC0000';
+                        }
+                        return edge.data('color');
+                    }
+                }
+            },
+            {
+                selector: 'node.disrupted',
+                style: {
+                    'border-color': node => {
+                        if(node.data('disrupted_by_mutation')){
+                            return '#CC0000';
+                        }
+                    },
+                    'border-width': node => {
+                        if (node.data('disrupted_by_mutation')) {
+                            return '4px';
+                        }
+                    }
+                },
+
+            },
           {
             selector: 'edge.neighbour-highlight',
             style: {
@@ -279,7 +313,7 @@ export class InitializeGraph {
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();
-      this.expandEdges(this.isExpand);
+      this.expandEdges(this.isExpand,this.isMutationDisrupted);
       this.stopLoadingImage();
       }, this.timeout);
   }

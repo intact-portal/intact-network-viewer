@@ -74,7 +74,7 @@
         .my-legend a {
             color: #777;
         }
-        span{
+        /*span{
             display: block;
             float: left;
             height: 16px;
@@ -82,7 +82,7 @@
             margin-right: 5px;
             margin-left: 0;
             border: 1px solid #999;
-        }
+        }*/
         /*legend css*/
         .legend-scale,.legend-scale table {
             border-collapse: collapse;
@@ -114,6 +114,7 @@
             function loadjsonData() {
                 var isCompound=$('#graph').is(':checked');
                 var expand=$('#expand-edges').is(':checked');
+                var disrupted_mutation=$('#show-mutation-disrupted').is(':checked');
                 $.ajax({
                //     headers: {  'Access-Control-Allow-Origin': 'http://172.23.41.235:9090/graph' },
                     //url: 'http://localhost:9090/mi-ws/staticJson/',
@@ -135,7 +136,7 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph', data, expand);
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph', data, expand,disrupted_mutation);
 
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
@@ -153,17 +154,29 @@
                 loadjsonData();
             });
 
-            $('#expand-edges').click(function() {
-                var expand=$('#expand-edges').is(':checked');
-                object.expandEdges(expand);
-            });
-
             $( "#graphQuery" ).change(function() {
-                $('#expand-edges').prop('checked', false); // Unchecks it
-                $('input[name=layout]').attr('checked',false);
-                query=$('#graphQuery :selected').val();
+            $('#expand-edges').prop('checked', false); // Unchecks it
+            $('input[name=layout]').attr('checked',false);
+            query=$('#graphQuery :selected').val();
 
                 loadjsonData();
+            });
+
+            $("#nested-checkboxes").find("input:checkbox").click(function()
+            {
+              if(!$('#expand-edges').is(':checked')) {
+                   $(this).next().find('input[type=checkbox]').prop('checked', this.checked);
+               }
+                if($('#show-mutation-disrupted').is(':checked')) {
+                    // go up the hierarchy - and check/uncheck depending on number of children checked/unchecked
+                    $(this).parents('ul').prev('input[type=checkbox]').prop('checked', function () {
+                        return $(this).next().find(':checked').length;
+                    });
+                }
+                var expand=$('#expand-edges').is(':checked');
+                var disrupted_mutation=$('#show-mutation-disrupted').is(':checked');
+                object.expandEdges(expand,disrupted_mutation);
+
             });
 
         });
@@ -192,7 +205,21 @@
 
         </tr>
         <tr>
-            <div style="float: left;width:70%">Expand Edges</div><div style="margin-left: 30%;padding-bottom: 2%"><input id="expand-edges" type="checkbox" /></div>
+            <div style="float: left"  id='nested-checkboxes' >
+
+            <ul>
+                <li>
+                     <input id="expand-edges" type="checkbox">Expand Edges
+                     <ul>
+                        <li>
+                            <input id="show-mutation-disrupted" type="checkbox">Disrupted By Mutation
+                        </li>
+                      </ul>
+                    </li>
+                </ul>
+
+
+           <!-- <input id="expand-edges" type="checkbox" />--></div>
         </tr>
         </table>
 </div>
