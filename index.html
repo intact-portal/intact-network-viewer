@@ -74,7 +74,7 @@
         .my-legend a {
             color: #777;
         }
-        /*span{
+        .shape-legend-scale span{
             display: block;
             float: left;
             height: 16px;
@@ -82,7 +82,7 @@
             margin-right: 5px;
             margin-left: 0;
             border: 1px solid #999;
-        }*/
+        }
         /*legend css*/
         .legend-scale,.legend-scale table {
             border-collapse: collapse;
@@ -156,6 +156,7 @@
 
             $( "#graphQuery" ).change(function() {
             $('#expand-edges').prop('checked', false); // Unchecks it
+            $('#show-mutation-disrupted').prop('checked', false);
             $('input[name=layout]').attr('checked',false);
             query=$('#graphQuery :selected').val();
 
@@ -266,6 +267,7 @@
                 <tr><td><span style='background:rgb(202, 115, 47); '></span></td><td>Caenorhabditis elegans</td></tr>
                 <tr><td><span style='background:rgb(144, 163, 198); '></span></td><td>Escherichia coli</td></tr>
                 <tr><td><span style='background:rgb(141, 102, 102); '></span></td><td>Chemical synthesis</td></tr>
+                <tr><td><span style='background:rgb(255, 0, 0); '></span></td><td>Mutated Interactor</td></tr>
                 <tr><td><span style='background:rgb(173, 188, 148); '></span></td><td>Others</td></tr>
 
 
@@ -283,7 +285,7 @@
                 <tr><td><span style='background:rgb(153,153,255); '></span></td><td>Association</td></tr>
                 <tr><td><span style='background:rgb(255,51,0); '></span></td><td>Direct Interaction</td></tr>
                 <tr><td><span style='background:rgb(255,222,62); '></span></td><td>Colocalization</td></tr>
-
+                <tr><td><span style='background:rgb(153,153,153); '></span></td><td>Others</td></tr>
 
 
             </table>
@@ -292,7 +294,7 @@
             <table >
                 <tr><td><span style='background:rgb(153,0,0); '></span></td><td>Phosphorylation Reaction</td></tr>
                 <tr><td><span style='background:rgb(153,153,0); '></span></td><td>Dephosphorylation Reaction</td></tr>
-                <tr><td><span style='background:rgb(153,153,153); '></span></td><td>Others</td></tr>
+                <tr><td><span style='background:rgb(255, 0, 0); '></span></td><td>Disrupted By Mutation</td></tr>
 
 
             </table>

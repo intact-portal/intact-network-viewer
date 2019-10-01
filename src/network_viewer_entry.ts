@@ -8,10 +8,13 @@ import fcose from 'cytoscape-fcose';
 import { AvsdfLayout } from './layouts/avsdf_layout';
 import { CiseLayout } from './layouts/cise_layout';
 import { ColaLayout } from './layouts/cola_layout';
+import { Color } from './layouts/constants/color';
 import { Constants } from './layouts/constants';
 import { FcoseLayout } from './layouts/fcose_layout';
 import { NgraphLayout } from './layouts/ngraph_layout';
+import { Shape } from './layouts/constants/shape';
 import { Spinner } from 'spin.js';
+import { Width } from './layouts/constants/width';
 
 import 'spin.js/spin.css';
 
@@ -273,7 +276,7 @@ export class InitializeGraph {
 
 
                 },
-                width : 3
+                width : Width.DEFAULT_EDGE
             }
             },
             {
@@ -281,7 +284,7 @@ export class InitializeGraph {
                 style:  {
                     'line-color': edge => {
                         if(edge.data('disrupted_by_mutation')){
-                            return '#CC0000';
+                            return Color.HIGHLIGHT_MUTATION;
                         }
                         return edge.data('color');
                     }
@@ -292,13 +295,15 @@ export class InitializeGraph {
                 style: {
                     'border-color': node => {
                         if(node.data('mutation')){
-                            return '#CC0000';
+                            return Color.HIGHLIGHT_MUTATION;
                         }
+                        return Color.DEFAULT_NODE_BORDER;
                     },
                     'border-width': node => {
                         if (node.data('mutation')) {
-                            return '4px';
+                            return Width.MUTATED_NODE_BORDER;
                         }
+                        return Width.DEFAULT_NODE_BORDER;
                     }
                 },
 
@@ -329,16 +334,16 @@ export class InitializeGraph {
 
   private edgeShape(edge:any): string {
   if(edge.parallelEdges().size()>1){
-    return 'solid';
+    return Shape.COLLAPSED_EDGE;
   }
   return edge.data('shape');
 }
 
     private edgeWidth(edge:any): number {
         if(edge.parallelEdges().size()>1){
-            return 6;
+            return Width.COLLAPSED_EDGE;
         }
-        return 3;
+        return Width.DEFAULT_EDGE;
     }
 
     private edgeColor(edge:any): string{
