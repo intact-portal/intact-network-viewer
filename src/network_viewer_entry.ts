@@ -55,10 +55,10 @@ export class InitializeGraph {
 
       if(isMutationDisrupted){
           this.cy.edges().addClass('disrupted');
-          this.cy.nodes().addClass('disrupted');
+          this.cy.nodes().addClass('mutation');
       } else{
           this.cy.edges().removeClass('disrupted');
-          this.cy.nodes().removeClass('disrupted');
+          this.cy.nodes().removeClass('mutation');
       }
 
   }
@@ -73,10 +73,11 @@ export class InitializeGraph {
 
   private loadEdgeOnclickMethod():void{
     this.cy.edges().on('click', function(e){
-      var clickedNode = e.target.data('interaction_type');
-      e.target.parallelEdges().forEach( function(ele, i, eles){
+      var clickedNode = e.target.data('interaction_ac');
+        alert('ac is'+clickedNode);
+      /*e.target.parallelEdges().forEach( function(ele, i, eles){
         alert (ele.data('interaction_type'));
-      } );
+      } );*/
 
     });
   }
@@ -279,7 +280,7 @@ export class InitializeGraph {
                 selector: 'edge.disrupted',
                 style:  {
                     'line-color': edge => {
-                        if(edge.data('disrupted_mutation')){
+                        if(edge.data('disrupted_by_mutation')){
                             return '#CC0000';
                         }
                         return edge.data('color');
@@ -287,15 +288,15 @@ export class InitializeGraph {
                 }
             },
             {
-                selector: 'node.disrupted',
+                selector: 'node.mutation',
                 style: {
                     'border-color': node => {
-                        if(node.data('disrupted_by_mutation')){
+                        if(node.data('mutation')){
                             return '#CC0000';
                         }
                     },
                     'border-width': node => {
-                        if (node.data('disrupted_by_mutation')) {
+                        if (node.data('mutation')) {
                             return '4px';
                         }
                     }
