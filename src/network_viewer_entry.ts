@@ -19,7 +19,9 @@ import { Width } from './layouts/constants/width';
 import 'spin.js/spin.css';
 
 import $ from 'jquery';
-
+import {Export} from "./export";
+var graphml = require('cytoscape-graphml');
+graphml( cytoscape, $ );
 cytoscape.use(fcose);
 cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
@@ -65,6 +67,11 @@ export class InitializeGraph {
       }
 
   }
+
+    public export(exportTo:string ): void {
+        const exportObj: Export = new Export(this.cy);
+        exportObj.exportAsGraphml();
+    }
 
   private loadInteractiveMethods(): void {
     this.loadEdgeOnclickMethod();
