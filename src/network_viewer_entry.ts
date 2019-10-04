@@ -54,8 +54,10 @@ export class InitializeGraph {
   public expandEdges(isExpand: boolean,isMutationDisrupted:boolean): void {
       if (isExpand) {
           this.cy.edges().addClass('expand');
+          this.cy.$(':loop').addClass('expand');
       } else {
           this.cy.edges().removeClass('expand');
+          this.cy.$(':loop').removeClass('expand');
       }
 
       if(isMutationDisrupted){
@@ -273,15 +275,10 @@ export class InitializeGraph {
             {
                 selector: 'edge:loop',
                 style: {
-                    /*'target-arrow-color': '#000000',
-                     'target-arrow-shape': 'triangle',*/
                     'line-color': edge => {
                         return this.edgeColor(edge);
                     },
                     'line-style':edge => {
-                        if(edge.isLoop()){
-                          // alert('I am here expand');
-                        }
                         return this.edgeShape(edge);
                     },
                     width: edge => {
@@ -310,7 +307,8 @@ export class InitializeGraph {
 
 
                 },
-                width : Width.DEFAULT_EDGE
+                width : Width.DEFAULT_EDGE,
+                display:'element',
                 }
             },
             {
@@ -388,9 +386,6 @@ export class InitializeGraph {
     }
 
     private edgeDisplay(edge:any): string {
-
-       // alert(edge.isEdge());
-       // alert('is loop'+edge.isLoop());
 
         if(edge.parallelEdges().size()>1){
             var sortedEdges=edge.parallelEdges().sort(function( a, b ){
