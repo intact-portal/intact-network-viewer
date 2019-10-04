@@ -271,6 +271,33 @@ export class InitializeGraph {
             },
           },
             {
+                selector: 'edge:loop',
+                style: {
+                    /*'target-arrow-color': '#000000',
+                     'target-arrow-shape': 'triangle',*/
+                    'line-color': edge => {
+                        return this.edgeColor(edge);
+                    },
+                    'line-style':edge => {
+                        if(edge.isLoop()){
+                          // alert('I am here expand');
+                        }
+                        return this.edgeShape(edge);
+                    },
+                    width: edge => {
+                        return this.edgeWidth(edge);
+                    },
+
+                    'curve-style':'bezier',
+                    'control-point-step-size':40,
+                    display: edge => {
+                        return this.edgeDisplay(edge);
+                    }
+
+
+                },
+            },
+            {
                 selector: 'edge.expand',
                 style:  {
                 'control-point-step-size': 40,
@@ -284,7 +311,7 @@ export class InitializeGraph {
 
                 },
                 width : Width.DEFAULT_EDGE
-            }
+                }
             },
             {
                 selector: 'edge.disrupted',
@@ -359,4 +386,21 @@ export class InitializeGraph {
         }
         return edge.data('color');
     }
+
+    private edgeDisplay(edge:any): string {
+
+       // alert(edge.isEdge());
+       // alert('is loop'+edge.isLoop());
+
+        if(edge.parallelEdges().size()>1){
+            var sortedEdges=edge.parallelEdges().sort(function( a, b ){
+                return a.data('id') - b.data('id');
+            });
+            var firstEdge=sortedEdges.first();
+            if(firstEdge.data('id')!=edge.data('id')){
+              return 'none';
+            }
+         }
+        return 'element';
+   }
 }
