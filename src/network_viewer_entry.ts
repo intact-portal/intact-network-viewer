@@ -214,7 +214,7 @@ export class InitializeGraph {
         elements: this.data,
 
         style: this.style.applicationCSS,
-        /*boxSelectionEnabled: false,*/
+       // boxSelectionEnabled: false,
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();

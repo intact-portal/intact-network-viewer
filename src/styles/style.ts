@@ -24,8 +24,8 @@ export class Style {
     {
       selector: 'node.neighbour-highlight',
       style: {
-        'border-color': '#CC0000',
-        'border-width': '4px'
+        'border-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'border-width': Width.NEIGHBOUR_NODE_BORDER
       }
     },
     {
@@ -141,7 +141,7 @@ export class Style {
     {
       selector: 'edge.neighbour-highlight',
       style: {
-        'line-color': '#CC0000',
+        'line-color': Color.HIGHLIGHT_NEIGHBOUR,
       }
     }
   ];
