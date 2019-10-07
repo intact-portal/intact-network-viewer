@@ -116,7 +116,7 @@ export class Style {
           if(edge.data('disrupted_by_mutation')){
             return Color.HIGHLIGHT_MUTATION;
           }
-          return edge.data('color');
+          return Color.LOWLIGHT;
         }
       }
     },
