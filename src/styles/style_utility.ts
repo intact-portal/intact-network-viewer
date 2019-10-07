@@ -19,10 +19,7 @@ export class StyleUtility {
     }
 
     public edgeColor(edge:any): string{
-        if(edge.parallelEdges().size()>1){
-            return edge.data('collapsed_color');
-        }
-        return edge.data('color');
+        return edge.data('collapsed_color');
     }
 
     public edgeDisplay(edge:any): string {
