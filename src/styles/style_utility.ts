@@ -35,4 +35,12 @@ export class StyleUtility {
         }
         return 'element';
     }
+
+    public nodeWidth(node:any): string {
+
+        if(node.data('shape')===Shape.ROUNDED_RECTANGLE){
+           return Width.RECTANGULAR_NODE_WIDTH;
+        }
+        return node.height();
+    }
 }

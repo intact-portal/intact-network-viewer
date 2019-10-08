@@ -38,6 +38,9 @@ export class Style {
         // shape: 'vee',// DNA
         // shape:'ellipse',
         shape:'data(shape)',
+          width:node => {
+              return this.styleUtility.nodeWidth(node);
+          },
         'background-color': 'data(color)',
         /*label: 'data(preferred_id)',*/
       },
