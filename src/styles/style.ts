@@ -63,9 +63,7 @@ export class Style {
         'line-color': edge => {
           return this.styleUtility.edgeColor(edge);
         },
-        'line-style':edge => {
-          return this.styleUtility.edgeShape(edge);
-        },
+        'line-style':Shape.COLLAPSED_EDGE,
         width: edge => {
           return this.styleUtility.edgeWidth(edge);
         },
@@ -79,9 +77,7 @@ export class Style {
         'line-color': edge => {
           return this.styleUtility.edgeColor(edge);
         },
-        'line-style':edge => {
-          return this.styleUtility.edgeShape(edge);
-        },
+        'line-style':Shape.COLLAPSED_EDGE,
         width: edge => {
           return this.styleUtility.edgeWidth(edge);
         },

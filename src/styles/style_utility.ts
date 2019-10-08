@@ -4,13 +4,6 @@ import { Width } from './constants/width';
 
 export class StyleUtility {
 
-    public edgeShape(edge:any): string {
-        if(edge.parallelEdges().size()>1){
-            return Shape.COLLAPSED_EDGE;
-        }
-        return edge.data('shape');
-    }
-
     public edgeWidth(edge:any): number {
         if(edge.parallelEdges().size()>1){
             return Width.COLLAPSED_EDGE;
