@@ -17,6 +17,7 @@ import {Style} from "./styles/style";
 import 'spin.js/spin.css';
 
 import $ from 'jquery';
+import {ParentLegend} from "./legends/parent_legend";
 
 var graphml = require('cytoscape-graphml');
 graphml( cytoscape, $ );
@@ -29,6 +30,7 @@ cytoscape.use(cola);
 export class InitializeGraph {
   // field
   private graphContainerDivId: string;
+  private legendDivId: string;
   private cy: any;
   private data: JSON;
   private spinner: Spinner;
@@ -40,15 +42,16 @@ export class InitializeGraph {
   private isMutationDisrupted:boolean;
 
   // constructor
-  constructor(graphContainerDivId: string, data,isExpand:boolean,isMutationDisrupted:boolean) {
+  constructor(graphContainerDivId: string,legendDivId: string, data,isExpand:boolean,isMutationDisrupted:boolean) {
     this.graphContainerDivId = graphContainerDivId;
+    this.legendDivId= legendDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style=new Style();
-    this.initializeCytoscape();
     this.isExpand=isExpand;
     this.isMutationDisrupted=isMutationDisrupted;
+    this.initializeCytoscape();
   }
 
   public expandEdges(isExpand: boolean,isMutationDisrupted:boolean): void {
@@ -219,6 +222,8 @@ export class InitializeGraph {
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand,this.isMutationDisrupted);
+      let legend = new ParentLegend(this.cy);
+      legend.createLegend(this.legendDivId,'collapsed');
       this.stopLoadingImage();
       }, this.timeout);
   }
