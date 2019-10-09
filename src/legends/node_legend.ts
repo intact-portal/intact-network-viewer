@@ -1,3 +1,5 @@
+import {Constants} from "./constants";
+import {Style} from "./style";
 export class NodeLegend {
 
     private nodes: any;
@@ -8,11 +10,11 @@ export class NodeLegend {
 
     public createLegend(layoutType:string): HTMLDivElement {
         var nodeShapeLegendDiv = <HTMLDivElement>(document.createElement('div'));
-        nodeShapeLegendDiv.setAttribute("id", "node-shape-legend");
+        nodeShapeLegendDiv.setAttribute("id", Constants.NODE_SHAPE_LEGEND_DIV_ID);
 
         var nodeShapeLegendHeader = <HTMLElement>(document.createElement('h3'));
-        nodeShapeLegendHeader.setAttribute("style", "text-align: center;");
-        nodeShapeLegendHeader.innerHTML='Node Shape Legend';
+        nodeShapeLegendHeader.setAttribute("style", Style.LEGEND_HEADER);
+        nodeShapeLegendHeader.innerHTML=Constants.NODE_SHAPE_LEGEND_TITLE;
 
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
