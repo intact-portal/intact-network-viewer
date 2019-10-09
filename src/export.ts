@@ -1,13 +1,12 @@
 export class Export {
+  private cy: any;
 
-    private cy: any;
+  constructor(cy: any) {
+    this.cy = cy;
+  }
 
-    constructor(cy: any) {
-        this.cy = cy;
-    }
-
-    public exportAsGraphml(): void {
-        alert(this.cy);
-        this.cy.graphml();
-    }
+  public exportAsGraphml(): void {
+    alert(this.cy);
+    this.cy.graphml();
+  }
 }

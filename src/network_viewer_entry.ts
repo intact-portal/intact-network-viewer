@@ -9,18 +9,18 @@ import { AvsdfLayout } from './layouts/avsdf_layout';
 import { CiseLayout } from './layouts/cise_layout';
 import { ColaLayout } from './layouts/cola_layout';
 import { Constants } from './layouts/constants';
-import {Export} from "./export";
+import { Export } from './export';
 import { FcoseLayout } from './layouts/fcose_layout';
 import { NgraphLayout } from './layouts/ngraph_layout';
 import { Spinner } from 'spin.js';
-import {Style} from "./styles/style";
+import { Style } from './styles/style';
 import 'spin.js/spin.css';
 
 import $ from 'jquery';
-import {ParentLegend} from "./legends/parent_legend";
+import { ParentLegend } from './legends/parent_legend';
 
 var graphml = require('cytoscape-graphml');
-graphml( cytoscape, $ );
+graphml(cytoscape, $);
 cytoscape.use(fcose);
 cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
@@ -38,45 +38,44 @@ export class InitializeGraph {
   private style: Style;
   private edgesSize!: number;
   private timeout!: number;
-  private isExpand:boolean;
-  private isMutationDisrupted:boolean;
+  private isExpand: boolean;
+  private isMutationDisrupted: boolean;
 
   // constructor
-  constructor(graphContainerDivId: string,legendDivId: string, data,isExpand:boolean,isMutationDisrupted:boolean) {
+  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean) {
     this.graphContainerDivId = graphContainerDivId;
-    this.legendDivId= legendDivId;
+    this.legendDivId = legendDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
-    this.style=new Style();
-    this.isExpand=isExpand;
-    this.isMutationDisrupted=isMutationDisrupted;
+    this.style = new Style();
+    this.isExpand = isExpand;
+    this.isMutationDisrupted = isMutationDisrupted;
     this.initializeCytoscape();
   }
 
-  public expandEdges(isExpand: boolean,isMutationDisrupted:boolean): void {
-      if (isExpand) {
-          this.cy.edges().addClass('expand');
-          this.cy.$(':loop').addClass('expand');
-      } else {
-          this.cy.edges().removeClass('expand');
-          this.cy.$(':loop').removeClass('expand');
-      }
+  public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
+    if (isExpand) {
+      this.cy.edges().addClass('expand');
+      this.cy.$(':loop').addClass('expand');
+    } else {
+      this.cy.edges().removeClass('expand');
+      this.cy.$(':loop').removeClass('expand');
+    }
 
-      if(isMutationDisrupted){
-          this.cy.edges().addClass('disrupted');
-          this.cy.nodes().addClass('mutation');
-      } else{
-          this.cy.edges().removeClass('disrupted');
-          this.cy.nodes().removeClass('mutation');
-      }
-
+    if (isMutationDisrupted) {
+      this.cy.edges().addClass('disrupted');
+      this.cy.nodes().addClass('mutation');
+    } else {
+      this.cy.edges().removeClass('disrupted');
+      this.cy.nodes().removeClass('mutation');
+    }
   }
 
-    public export(exportTo:string ): void {
-        const exportObj: Export = new Export(this.cy);
-        exportObj.exportAsGraphml();
-    }
+  public export(exportTo: string): void {
+    const exportObj: Export = new Export(this.cy);
+    exportObj.exportAsGraphml();
+  }
 
   private loadInteractiveMethods(): void {
     this.loadEdgeOnclickMethod();
@@ -86,36 +85,33 @@ export class InitializeGraph {
     this.loadOnTapUnselectMethod();
   }
 
-  private loadEdgeOnclickMethod():void{
-    this.cy.edges().on('click', function(e){
+  private loadEdgeOnclickMethod(): void {
+    this.cy.edges().on('click', function(e) {
       var clickedNode = e.target.data('interaction_ac');
-        alert('ac is'+clickedNode);
+      alert('ac is' + clickedNode);
       /*e.target.parallelEdges().forEach( function(ele, i, eles){
         alert (ele.data('interaction_type'));
       } );*/
-
     });
   }
 
-  private loadOnSelectBoxMethod():void{
-    this.cy.nodes().on('boxselect', function(e){
+  private loadOnSelectBoxMethod(): void {
+    this.cy.nodes().on('boxselect', function(e) {
       var boxNode = e.target;
       boxNode.addClass('highlight');
-
     });
   }
 
-  private loadUnSelectNodeMethod():void{
-    this.cy.nodes().on('unselect', function(e){
+  private loadUnSelectNodeMethod(): void {
+    this.cy.nodes().on('unselect', function(e) {
       var boxNode = e.target;
       boxNode.removeClass('highlight');
-
     });
   }
 
-  private loadOnNodeTapMethod():void{
-    var localCy=this.cy;// need to do this as you cannot have this inside function
-    this.cy.nodes().on('tap', function(e){
+  private loadOnNodeTapMethod(): void {
+    var localCy = this.cy; // need to do this as you cannot have this inside function
+    this.cy.nodes().on('tap', function(e) {
       var tappedNode = e.target;
       var directlyConnectedEdges = tappedNode.closedNeighbourhood();
       tappedNode.addClass('highlight');
@@ -125,9 +121,9 @@ export class InitializeGraph {
     });
   }
 
-  private loadOnTapUnselectMethod():void{
-    var localCy=this.cy;// need to do this as you cannot have this inside function
-    this.cy.nodes().on('tapunselect', function(e){
+  private loadOnTapUnselectMethod(): void {
+    var localCy = this.cy; // need to do this as you cannot have this inside function
+    this.cy.nodes().on('tapunselect', function(e) {
       var tappedNode = e.target;
       var directlyConnectedEdges = tappedNode.closedNeighbourhood();
       tappedNode.removeClass('highlight');
@@ -137,20 +133,17 @@ export class InitializeGraph {
     });
   }
 
-
-
-  private executeGraphCalculations(): void{
-    var edges = JSON.parse(JSON.stringify(this.data)).filter(function (entry) {
+  private executeGraphCalculations(): void {
+    var edges = JSON.parse(JSON.stringify(this.data)).filter(function(entry) {
       return entry.group === 'edges';
     });
-    this.edgesSize=edges.length;
-    if(this.edgesSize>300){
+    this.edgesSize = edges.length;
+    if (this.edgesSize > 300) {
       this.timeout = 1000;
-    }else{
+    } else {
       this.timeout = 1;
     }
   }
-
 
   public applyLayout(layoutName: string): void {
     switch (layoutName) {
@@ -217,15 +210,15 @@ export class InitializeGraph {
         elements: this.data,
 
         style: this.style.applicationCSS,
-       // boxSelectionEnabled: false,
+        // boxSelectionEnabled: false,
         layout: Constants.FCOSE_LAYOUT_OPTIONS,
       });
       this.loadInteractiveMethods();
-      this.expandEdges(this.isExpand,this.isMutationDisrupted);
+      this.expandEdges(this.isExpand, this.isMutationDisrupted);
       let legend = new ParentLegend(this.cy);
-      legend.createLegend(this.legendDivId,'collapsed');
+      legend.createLegend(this.legendDivId, 'collapsed');
       this.stopLoadingImage();
-      }, this.timeout);
+    }, this.timeout);
   }
 
   private startLoadingImage(): void {
@@ -235,6 +228,4 @@ export class InitializeGraph {
   private stopLoadingImage(): void {
     this.spinner.stop();
   }
-
-
 }
