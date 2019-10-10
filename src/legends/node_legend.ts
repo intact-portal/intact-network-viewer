@@ -3,18 +3,42 @@ import { Style } from './style';
 
 export class NodeLegend {
   private nodes: any;
-  private shapes: Set<string>;
+  private shapes: Array<string>;
+
+  private TAG=  require('./images/tag.svg');
+  private ELLIPSE=  require('./images/ellipse.svg');
+  private TRIANGLE=  require('./images/triangle.svg');
+  private DIAMOND=  require('./images/diamond.svg');
+  private ROUNDED_RECTANGLE=  require('./images/rounded-rectangle.svg');
+  private CUT_TRIANGLE=  require('./images/upsidedown-cut-triangle.svg');
 
   constructor(nodes: any) {
     this.nodes = nodes;
-    this.shapes = new Set<string>();
-    this.initializeNodeShapes();
+    this.shapes = this.initializeNodeShapes();
   }
 
-  private initializeNodeShapes(): void {
+  private initializeNodeShapes(): Array<string> {
+
+      let shapesSet=new Set<string>();
       this.nodes.forEach(node => {
-           this.shapes.add(<string>node.data('shape'));
+           shapesSet.add(<string>node.data('shape'));
       });
+
+     let shapesArray=Array.from(shapesSet.values());
+     shapesArray.sort(function(a, b){
+         if(a=='tag'){
+             return 1;
+         }
+         if (a > b) {
+             return 1;
+         }
+         if (b > a) {
+             return -1;
+         }
+         return 0;
+     });
+
+      return shapesArray;
   }
 
   private createDivElementFor(elementImage:string,elementText:string):HTMLDivElement {
@@ -46,32 +70,32 @@ export class NodeLegend {
     this.shapes.forEach(shape => {
           switch(shape){
               case 'ellipse': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/ellipse.svg',Constants.NODE_SHAPE_ELLIPSE_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ELLIPSE,Constants.NODE_SHAPE_ELLIPSE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case 'triangle': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/triangle.svg',Constants.NODE_SHAPE_TRIANGLE_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TRIANGLE,Constants.NODE_SHAPE_TRIANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case 'diamond': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/diamond.svg',Constants.NODE_SHAPE_DIAMOND_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.DIAMOND,Constants.NODE_SHAPE_DIAMOND_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case 'round-rectangle': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/rounded-rectangle.svg',Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ROUNDED_RECTANGLE,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case 'vee': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/upsidedown-cut-triangle.svg',Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.CUT_TRIANGLE,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               default: {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor('./images/tag.svg',Constants.NODE_SHAPE_TAG_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TAG,Constants.NODE_SHAPE_TAG_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }

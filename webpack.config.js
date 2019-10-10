@@ -28,11 +28,22 @@ module.exports = {
                         modules: false
                     }
                 }
-            ] }
+            ] },
+            {
+                test: /\.(png|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192
+                        }
+                    }
+                ]
+            }
         ]
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js','.css' ]
+        extensions: [ '.tsx', '.ts', '.js','.css','.svg' ]
     },
     output: {
         filename: 'intact_network.js',
