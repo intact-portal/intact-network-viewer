@@ -12,7 +12,6 @@ export class NodeColorLegend {
     private DROSOPHILA_MELANOGASTER_IMG_URL=  require('./images/node-colors/drosophila-melanogaster.svg');
     private ESCHERICHIA_COLI_IMG_URL=  require('./images/node-colors/escherichia-coli.svg');
     private MOUSE_IMG_URL=  require('./images/node-colors/mouse.svg');
-    private MUTATED_INTERACTOR_IMG_URL=  require('./images/node-colors/mutated-interactor.svg');
     private SACCHAROMYCES_CEREVISIAE_IMG_URL=  require('./images/node-colors/saccharomyces-cerevisiae.svg');
     private OTHERS_IMG_URL=  require('./images/node-colors/others.svg');
 
@@ -47,8 +46,8 @@ export class NodeColorLegend {
         nodeShapeLegendHeader.innerHTML = Constants.NODE_COLOR_LEGEND_TITLE;
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
-        this.colors.forEach(shape => {
-            switch(shape){
+        this.colors.forEach(color => {
+            switch(color){
                 case Constants.NODE_COLOR_HOMO_SAPIENS: {
                     let nodeShapeLegendDivListElement =this.createDivElementFor(this.HOMO_SAPIENS_IMG_URL,Constants.NODE_COLOR_HOMO_SAPIENS_LABEL);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);

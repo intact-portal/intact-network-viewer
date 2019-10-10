@@ -18,6 +18,7 @@ import 'spin.js/spin.css';
 
 import $ from 'jquery';
 import { ParentLegend } from './legends/parent_legend';
+import {NetworkViewerStates} from "./network_viewer_states";
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -33,6 +34,7 @@ export class InitializeGraph {
   private legendDivId: string;
   private cy: any;
   private data: JSON;
+  private legend!: ParentLegend;
   private spinner: Spinner;
   private spinTarget: any;
   private style: Style;
@@ -66,6 +68,8 @@ export class InitializeGraph {
     if (isMutationDisrupted) {
       this.cy.edges().addClass('disrupted');
       this.cy.nodes().addClass('mutation');
+      this.legend = new ParentLegend(this.cy);
+      this.legend.createLegend(this.legendDivId,NetworkViewerStates.MUTATION_EFFECTED);
     } else {
       this.cy.edges().removeClass('disrupted');
       this.cy.nodes().removeClass('mutation');
@@ -215,8 +219,8 @@ export class InitializeGraph {
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand, this.isMutationDisrupted);
-      let legend = new ParentLegend(this.cy);
-      legend.createLegend(this.legendDivId, 'collapsed');
+      this.legend = new ParentLegend(this.cy);
+      this.legend.createLegend(this.legendDivId, 'collapsed');
       this.stopLoadingImage();
     }, this.timeout);
   }

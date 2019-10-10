@@ -1,5 +1,6 @@
 
 import {NodeLegend} from "./node_legend";
+import {NetworkViewerStates} from "../network_viewer_states";
 export class ParentLegend {
   private cy: any;
   private nodeLegend: NodeLegend;
@@ -15,5 +16,9 @@ export class ParentLegend {
 
     parentDiv.appendChild(this.nodeLegend.createShapeLegend('collapsed'));
     parentDiv.appendChild(this.nodeLegend.createColorLegend('collapsed'));
+
+    if(layoutType==NetworkViewerStates.MUTATION_EFFECTED){
+      parentDiv.appendChild(this.nodeLegend.createBorderLegend('collapsed'));
+    }
   }
 }

@@ -5,6 +5,9 @@ export class Constants {
   public static NODE_COLOR_LEGEND_DIV_ID: string = 'node-color-legend';
   public static NODE_COLOR_LEGEND_TITLE: string = 'Node Color Legend';
 
+  public static NODE_BORDER_LEGEND_DIV_ID: string = 'node-border-legend';
+  public static NODE_BORDER_LEGEND_TITLE: string = 'Node Border Legend';
+
   public static NODE_SHAPE_ELLIPSE_LABEL: string = 'Protein';
   public static NODE_SHAPE_TRIANGLE_LABEL: string = 'Bioactive Entity';
   public static NODE_SHAPE_DIAMOND_LABEL: string = 'RNA';
@@ -18,6 +21,8 @@ export class Constants {
   public static NODE_SHAPE_ROUNDED_RECTANGLE: string = 'round-rectangle';
   public static NODE_SHAPE_CUT_TRIANGLE: string = 'vee';
   public static NODE_SHAPE_TAG: string = 'tag';
+
+  public static NODE_BORDER_MUTATED_LABEL: string = 'Mutated Interactor';
 
   public static NODE_COLOR_HOMO_SAPIENS = 'rgb(51, 94, 148)';
   public static NODE_COLOR_ARABIDOPSIS_THALIANA = 'rgb(97, 74, 124)';
