@@ -4,12 +4,12 @@ import { Style } from './style';
 export class NodeShapeLegend {
   private shapes: Array<string>;
 
-  private TAG=  require('./images/node-shapes/tag.svg');
-  private ELLIPSE=  require('./images/node-shapes/ellipse.svg');
-  private TRIANGLE=  require('./images/node-shapes/triangle.svg');
-  private DIAMOND=  require('./images/node-shapes/diamond.svg');
-  private ROUNDED_RECTANGLE=  require('./images/node-shapes/rounded-rectangle.svg');
-  private CUT_TRIANGLE=  require('./images/node-shapes/upsidedown-cut-triangle.svg');
+  private TAG_IMG_URL=  require('./images/node-shapes/tag.svg');
+  private ELLIPSE_IMG_URL=  require('./images/node-shapes/ellipse.svg');
+  private TRIANGLE_IMG_URL=  require('./images/node-shapes/triangle.svg');
+  private DIAMOND_IMG_URL=  require('./images/node-shapes/diamond.svg');
+  private ROUNDED_RECTANGLE_IMG_URL=  require('./images/node-shapes/rounded-rectangle.svg');
+  private CUT_TRIANGLE_IMG_URL=  require('./images/node-shapes/upsidedown-cut-triangle.svg');
 
   constructor(shapes: any) {
     this.shapes = shapes;
@@ -44,33 +44,33 @@ export class NodeShapeLegend {
 
     this.shapes.forEach(shape => {
           switch(shape){
-              case 'ellipse': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ELLIPSE,Constants.NODE_SHAPE_ELLIPSE_LABEL);
+              case Constants.NODE_SHAPE_ELLIPSE: {
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ELLIPSE_IMG_URL,Constants.NODE_SHAPE_ELLIPSE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
-              case 'triangle': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TRIANGLE,Constants.NODE_SHAPE_TRIANGLE_LABEL);
+              case Constants.NODE_SHAPE_TRIANGLE: {
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TRIANGLE_IMG_URL,Constants.NODE_SHAPE_TRIANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
-              case 'diamond': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.DIAMOND,Constants.NODE_SHAPE_DIAMOND_LABEL);
+              case Constants.NODE_SHAPE_DIAMOND: {
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.DIAMOND_IMG_URL,Constants.NODE_SHAPE_DIAMOND_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
-              case 'round-rectangle': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ROUNDED_RECTANGLE,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL);
+              case Constants.NODE_SHAPE_ROUNDED_RECTANGLE: {
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.ROUNDED_RECTANGLE_IMG_URL,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
-              case 'vee': {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.CUT_TRIANGLE,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
+              case Constants.NODE_SHAPE_CUT_TRIANGLE: {
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.CUT_TRIANGLE_IMG_URL,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               default: {
-                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TAG,Constants.NODE_SHAPE_TAG_LABEL);
+                  let nodeShapeLegendDivListElement =this.createDivElementFor(this.TAG_IMG_URL,Constants.NODE_SHAPE_TAG_LABEL);
                   nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }

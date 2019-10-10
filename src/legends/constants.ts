@@ -12,6 +12,13 @@ export class Constants {
   public static NODE_SHAPE_CUT_TRIANGLE_LABEL: string = 'DNA';
   public static NODE_SHAPE_TAG_LABEL: string = 'Others';
 
+  public static NODE_SHAPE_ELLIPSE: string = 'ellipse';
+  public static NODE_SHAPE_TRIANGLE: string = 'triangle';
+  public static NODE_SHAPE_DIAMOND: string = 'diamond';
+  public static NODE_SHAPE_ROUNDED_RECTANGLE: string = 'round-rectangle';
+  public static NODE_SHAPE_CUT_TRIANGLE: string = 'vee';
+  public static NODE_SHAPE_TAG: string = 'tag';
+
   public static NODE_COLOR_HOMO_SAPIENS = 'rgb(51, 94, 148)';
   public static NODE_COLOR_ARABIDOPSIS_THALIANA = 'rgb(97, 74, 124)';
   public static NODE_COLOR_CAENORHABDITIS_ELEGANS = 'rgb(202, 115, 47)';
