@@ -2,7 +2,6 @@ import { Constants } from './constants';
 import { Style } from './style';
 
 export class NodeShapeLegend {
-  private nodes: any;
   private shapes: Array<string>;
 
   private TAG=  require('./images/node-shapes/tag.svg');
@@ -12,33 +11,8 @@ export class NodeShapeLegend {
   private ROUNDED_RECTANGLE=  require('./images/node-shapes/rounded-rectangle.svg');
   private CUT_TRIANGLE=  require('./images/node-shapes/upsidedown-cut-triangle.svg');
 
-  constructor(nodes: any) {
-    this.nodes = nodes;
-    this.shapes = this.initializeNodeShapes();
-  }
-
-  private initializeNodeShapes(): Array<string> {
-
-      let shapesSet=new Set<string>();
-      this.nodes.forEach(node => {
-           shapesSet.add(<string>node.data('shape'));
-      });
-
-     let shapesArray=Array.from(shapesSet.values());
-     shapesArray.sort(function(a, b){
-         if(a=='tag'){
-             return 1;
-         }
-         if (a > b) {
-             return 1;
-         }
-         if (b > a) {
-             return -1;
-         }
-         return 0;
-     });
-
-      return shapesArray;
+  constructor(shapes: any) {
+    this.shapes = shapes;
   }
 
   private createDivElementFor(elementImage:string,elementText:string):HTMLDivElement {
