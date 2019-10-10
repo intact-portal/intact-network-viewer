@@ -5,12 +5,12 @@ export class NodeLegend {
   private nodes: any;
   private shapes: Array<string>;
 
-  private TAG=  require('./images/tag.svg');
-  private ELLIPSE=  require('./images/ellipse.svg');
-  private TRIANGLE=  require('./images/triangle.svg');
-  private DIAMOND=  require('./images/diamond.svg');
-  private ROUNDED_RECTANGLE=  require('./images/rounded-rectangle.svg');
-  private CUT_TRIANGLE=  require('./images/upsidedown-cut-triangle.svg');
+  private TAG=  require('./images/node-shapes/tag.svg');
+  private ELLIPSE=  require('./images/node-shapes/ellipse.svg');
+  private TRIANGLE=  require('./images/node-shapes/triangle.svg');
+  private DIAMOND=  require('./images/node-shapes/diamond.svg');
+  private ROUNDED_RECTANGLE=  require('./images/node-shapes/rounded-rectangle.svg');
+  private CUT_TRIANGLE=  require('./images/node-shapes/upsidedown-cut-triangle.svg');
 
   constructor(nodes: any) {
     this.nodes = nodes;
