@@ -1,7 +1,7 @@
 import { Constants } from './constants';
 import { Style } from './style';
 
-export class NodeLegend {
+export class NodeShapeLegend {
   private nodes: any;
   private shapes: Array<string>;
 
