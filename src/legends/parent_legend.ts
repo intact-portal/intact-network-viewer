@@ -14,5 +14,6 @@ export class ParentLegend {
     parentDiv.innerHTML = '';
 
     parentDiv.appendChild(this.nodeLegend.createShapeLegend('collapsed'));
+    parentDiv.appendChild(this.nodeLegend.createColorLegend('collapsed'));
   }
 }

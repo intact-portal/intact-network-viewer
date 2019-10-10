@@ -35,6 +35,7 @@ export class NodeShapeLegend {
   public createLegend(layoutType: string): HTMLDivElement {
     var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
     nodeShapeLegendDiv.setAttribute('id', Constants.NODE_SHAPE_LEGEND_DIV_ID);
+    nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
 
     var nodeShapeLegendHeader = <HTMLElement>document.createElement('h3');
     nodeShapeLegendHeader.setAttribute('style', Style.LEGEND_HEADER);
