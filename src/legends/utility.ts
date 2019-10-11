@@ -7,7 +7,7 @@ export class Utility {
         if(isSingleDiv){
             divStyle =  Style.LEGEND_SUB_DIV;
         }else {
-            divStyle = Style.NODE_SHAPE_DIV_LIST;
+            divStyle = Style.DIV_LIST;
         }
         nodeShapeLegendDivListElement.setAttribute('style', divStyle);
 
@@ -18,13 +18,13 @@ export class Utility {
        if(isEdge){
            imgStyle = Style.EDGE_IMG;
        }else{
-           imgStyle = Style.NODE_SHAPE_IMG;
+           imgStyle = Style.NODE_IMG;
        }
         nodeShapeLegendImage.setAttribute('style',imgStyle);
         nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
 
         let nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
-        nodeShapeLegendImageLabel.setAttribute('style',Style.NODE_SHAPE_TEXT);
+        nodeShapeLegendImageLabel.setAttribute('style',Style.TEXT);
         nodeShapeLegendImageLabel.innerHTML=elementText;
         nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
 
