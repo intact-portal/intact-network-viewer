@@ -2,6 +2,7 @@ import { Constants } from './constants';
 import {NodeColorLegend} from "./node_color_legend";
 import {NodeShapeLegend} from "./node_shape_legend";
 import {NodeBorderColorLegend} from "./node_border_color_legend";
+import {Utility} from "./utility";
 
 export class NodeLegend {
     private shapes!:Array<string>;
@@ -12,11 +13,11 @@ export class NodeLegend {
     private nodeColorLegend: NodeColorLegend;
     private nodeBorderColorLegend: NodeBorderColorLegend;
 
-    constructor(nodes: any) {
+    constructor(nodes: any,utility:Utility) {
         this.initializeNodeShapesColorsAndBorders(nodes);
-        this.nodeShapeLegend = new NodeShapeLegend(this.shapes);
-        this.nodeColorLegend = new NodeColorLegend(this.colors);
-        this.nodeBorderColorLegend = new NodeBorderColorLegend(this.borderColors);
+        this.nodeShapeLegend = new NodeShapeLegend(this.shapes,utility);
+        this.nodeColorLegend = new NodeColorLegend(this.colors,utility);
+        this.nodeBorderColorLegend = new NodeBorderColorLegend(this.borderColors,utility);
     }
 
     private initializeNodeShapesColorsAndBorders(nodes : any):void {

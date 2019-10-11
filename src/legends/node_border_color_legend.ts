@@ -1,30 +1,17 @@
 import { Constants } from './constants';
 import { Style } from './style';
+import {Color} from "../styles/constants/color";
+import {Utility} from "./utility";
 
 export class NodeBorderColorLegend {
     private borders: Array<string>;
+    private utility: Utility;
 
     private MUTATED_INTERACTOR_IMG_URL=  require('./images/node-borders/mutated-interactor.svg');
 
-    constructor(borders: any) {
+    constructor(borders: any,utility: Utility) {
+        this.utility = utility;
         this.borders = borders;
-    }
-
-    private createDivElementFor(elementImage:string,elementText:string):HTMLDivElement {
-        var nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
-        nodeShapeLegendDivListElement.setAttribute('style', Style.NODE_SHAPE_DIV_LIST);
-
-        var nodeShapeLegendImage = <HTMLImageElement>document.createElement('img');
-        nodeShapeLegendImage.setAttribute('src',elementImage);
-        nodeShapeLegendImage.setAttribute('style',Style.NODE_SHAPE_IMG);
-        nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
-
-        var nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
-        nodeShapeLegendImageLabel.setAttribute('style',Style.NODE_SHAPE_TEXT);
-        nodeShapeLegendImageLabel.innerHTML=elementText;
-        nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
-
-        return nodeShapeLegendDivListElement;
     }
 
     public createLegend(): HTMLDivElement {
@@ -37,11 +24,10 @@ export class NodeBorderColorLegend {
         nodeShapeLegendHeader.innerHTML = Constants.NODE_BORDER_LEGEND_TITLE;
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
-
         this.borders.forEach(border => {
             switch(border){
-                case Constants.NODE_BORDER_COLOR_MUTATED: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.MUTATED_INTERACTOR_IMG_URL,Constants.NODE_BORDER_MUTATED_LABEL);
+                case Color.HIGHLIGHT_MUTATION: {
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.MUTATED_INTERACTOR_IMG_URL,Constants.NODE_BORDER_MUTATED_LABEL,true);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }

@@ -1,13 +1,16 @@
 
 import {NodeLegend} from "./node_legend";
 import {NetworkViewerStates} from "../network_viewer_states";
+import {Utility} from "./utility";
 export class ParentLegend {
   private cy: any;
   private nodeLegend: NodeLegend;
 
   constructor(cy: any) {
     this.cy = cy;
-    this.nodeLegend = new NodeLegend(cy.nodes());
+    let utility = new Utility();
+    this.nodeLegend = new NodeLegend(cy.nodes(),utility);
+
   }
 
   public createLegend(parentLegendId: string, layoutType: string): void {

@@ -68,17 +68,30 @@ export class InitializeGraph {
     if (isMutationDisrupted) {
       this.cy.edges().addClass('disrupted');
       this.cy.nodes().addClass('mutation');
-      this.legend = new ParentLegend(this.cy);
-      this.legend.createLegend(this.legendDivId,NetworkViewerStates.MUTATION_EFFECTED);
     } else {
       this.cy.edges().removeClass('disrupted');
       this.cy.nodes().removeClass('mutation');
     }
+
+    this.updateLegendsWithGraphState(isExpand,isMutationDisrupted);
   }
 
   public export(exportTo: string): void {
     const exportObj: Export = new Export(this.cy);
     exportObj.exportAsGraphml();
+  }
+
+  private updateLegendsWithGraphState(isExpand: boolean, isMutationDisrupted: boolean): void {
+    if (isMutationDisrupted){
+      this.legend = new ParentLegend(this.cy);
+      this.legend.createLegend(this.legendDivId,NetworkViewerStates.MUTATION_EFFECTED);
+    } else if (isExpand){
+      this.legend = new ParentLegend(this.cy);
+      this.legend.createLegend(this.legendDivId,NetworkViewerStates.EXPANDED);
+    } else {
+      this.legend = new ParentLegend(this.cy);
+      this.legend.createLegend(this.legendDivId,NetworkViewerStates.COLLAPSED);
+    }
   }
 
   private loadInteractiveMethods(): void {
@@ -219,8 +232,6 @@ export class InitializeGraph {
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand, this.isMutationDisrupted);
-      this.legend = new ParentLegend(this.cy);
-      this.legend.createLegend(this.legendDivId, 'collapsed');
       this.stopLoadingImage();
     }, this.timeout);
   }

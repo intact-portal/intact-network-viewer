@@ -5,6 +5,8 @@ export class Style {
 
   public static NODE_SHAPE_DIV_LIST: string ='float: left; width: 50%;';
 
+  public static LEGEND_SUB_DIV: string ='margin: 0 auto; width: 34%;';
+
   public static NODE_SHAPE_LI: string = 'width: 50%;' + 'float: left;';
 
   public static NODE_SHAPE_IMG: string = 'float: left;';

@@ -1,13 +1,13 @@
 import { Color } from './constants/color';
 import { Shape } from './constants/shape';
-import { StyleUtility } from './style_utility';
+import { Utility } from './utility';
 import { Width } from './constants/width';
 
 export class Style {
-  private styleUtility: StyleUtility;
+  private styleUtility: Utility;
 
   constructor() {
-    this.styleUtility = new StyleUtility();
+    this.styleUtility = new Utility();
   }
 
   public applicationCSS: any = [

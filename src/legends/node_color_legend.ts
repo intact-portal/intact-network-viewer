@@ -1,9 +1,11 @@
 import { Constants } from './constants';
 import { Style } from './style';
 import {NetworkViewerStates} from "../network_viewer_states";
+import {Utility} from "./utility";
 
 export class NodeColorLegend {
     private colors: Array<string>;
+    private utility: Utility;
 
     private HOMO_SAPIENS_IMG_URL=  require('./images/node-colors/homo-sapiens.svg');
     private ARABIDOPSIS_THALIANA_IMG_URL = require('./images/node-colors/arabidopsis-thaliana.svg');
@@ -15,25 +17,10 @@ export class NodeColorLegend {
     private SACCHAROMYCES_CEREVISIAE_IMG_URL=  require('./images/node-colors/saccharomyces-cerevisiae.svg');
     private OTHERS_IMG_URL=  require('./images/node-colors/others.svg');
 
-    constructor(colors: any) {
+    constructor(colors: any,utility: Utility) {
+        this.utility = utility;
         this.colors = colors;
-    }
-
-    private createDivElementFor(elementImage:string,elementText:string):HTMLDivElement {
-        var nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
-        nodeShapeLegendDivListElement.setAttribute('style', Style.NODE_SHAPE_DIV_LIST);
-
-        var nodeShapeLegendImage = <HTMLImageElement>document.createElement('img');
-        nodeShapeLegendImage.setAttribute('src',elementImage);
-        nodeShapeLegendImage.setAttribute('style',Style.NODE_SHAPE_IMG);
-        nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
-
-        var nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
-        nodeShapeLegendImageLabel.setAttribute('style',Style.NODE_SHAPE_TEXT);
-        nodeShapeLegendImageLabel.innerHTML=elementText;
-        nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
-
-        return nodeShapeLegendDivListElement;
+        this.utility = new Utility();
     }
 
     public createLegend(layoutType: string): HTMLDivElement {
@@ -46,50 +33,55 @@ export class NodeColorLegend {
         nodeShapeLegendHeader.innerHTML = Constants.NODE_COLOR_LEGEND_TITLE;
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
+        let isSingleElement : boolean = false;
+        if(this.colors.length == 1){
+            isSingleElement = true;
+        }
+
         this.colors.forEach(color => {
             switch(color){
                 case Constants.NODE_COLOR_HOMO_SAPIENS: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.HOMO_SAPIENS_IMG_URL,Constants.NODE_COLOR_HOMO_SAPIENS_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.HOMO_SAPIENS_IMG_URL,Constants.NODE_COLOR_HOMO_SAPIENS_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_ARABIDOPSIS_THALIANA: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.ARABIDOPSIS_THALIANA_IMG_URL,Constants.NODE_COLOR_ARABIDOPSIS_THALIANA_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ARABIDOPSIS_THALIANA_IMG_URL,Constants.NODE_COLOR_ARABIDOPSIS_THALIANA_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.CAENORHABDITIS_ELEGANS_IMG_URL,Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.CAENORHABDITIS_ELEGANS_IMG_URL,Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_CHEMICAL_SYNTHESIS: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.CHEMICAL_SYNTHESIS_IMG_URL,Constants.NODE_COLOR_CHEMICAL_SYNTHESIS_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.CHEMICAL_SYNTHESIS_IMG_URL,Constants.NODE_COLOR_CHEMICAL_SYNTHESIS_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.DROSOPHILA_MELANOGASTER_IMG_URL,Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.DROSOPHILA_MELANOGASTER_IMG_URL,Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_ESCHERICHIA_COLI: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.ESCHERICHIA_COLI_IMG_URL,Constants.NODE_COLOR_ESCHERICHIA_COLI_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ESCHERICHIA_COLI_IMG_URL,Constants.NODE_COLOR_ESCHERICHIA_COLI_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_MOUSE: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.MOUSE_IMG_URL,Constants.NODE_COLOR_MOUSE_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.MOUSE_IMG_URL,Constants.NODE_COLOR_MOUSE_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 case Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.SACCHAROMYCES_CEREVISIAE_IMG_URL,Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.SACCHAROMYCES_CEREVISIAE_IMG_URL,Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 default: {
-                    let nodeShapeLegendDivListElement =this.createDivElementFor(this.OTHERS_IMG_URL,Constants.NODE_COLOR_OTHERS_LABEL);
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.OTHERS_IMG_URL,Constants.NODE_COLOR_OTHERS_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }

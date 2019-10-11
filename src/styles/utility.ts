@@ -2,7 +2,7 @@ import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
 
-export class StyleUtility {
+export class Utility {
   public edgeWidth(edge: any): number {
     if (edge.parallelEdges().size() > 1) {
       return Width.COLLAPSED_EDGE;
