@@ -15,6 +15,7 @@ export class NodeColorLegend {
     private ESCHERICHIA_COLI_IMG_URL=  require('./images/node-colors/escherichia-coli.svg');
     private MOUSE_IMG_URL=  require('./images/node-colors/mouse.svg');
     private SACCHAROMYCES_CEREVISIAE_IMG_URL=  require('./images/node-colors/saccharomyces-cerevisiae.svg');
+    private META_NODE_IMG_URL=  require('./images/node-colors/meta-node.svg');
     private OTHERS_IMG_URL=  require('./images/node-colors/others.svg');
 
     constructor(colors: any,utility: Utility) {
@@ -23,7 +24,7 @@ export class NodeColorLegend {
         this.utility = new Utility();
     }
 
-    public createLegend(layoutType: string): HTMLDivElement {
+    public createLegend(): HTMLDivElement {
         var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
         nodeShapeLegendDiv.setAttribute('id', Constants.NODE_COLOR_LEGEND_DIV_ID);
         nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
@@ -78,6 +79,11 @@ export class NodeColorLegend {
                 }
                 case Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE: {
                     let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.SACCHAROMYCES_CEREVISIAE_IMG_URL,Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL,isSingleElement);
+                    nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                    break;
+                }
+                case Constants.META_NODE_COLOR: {
+                    let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.META_NODE_IMG_URL,Constants.META_NODE_COLOR_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }

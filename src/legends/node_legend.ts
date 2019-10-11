@@ -27,8 +27,8 @@ export class NodeLegend {
         let borderColorSet=new Set<string>();
 
         nodes.forEach(node => {
-            shapesSet.add(<string>node.data('shape'));
-            colorsSet.add(<string>node.data('color'));
+            shapesSet.add(node.style('shape'));
+            colorsSet.add(node.style('background-color'));
             borderColorSet.add(node.style( 'border-color' ));
         });
 
@@ -51,11 +51,18 @@ export class NodeLegend {
 
         this.colors=Array.from(colorsSet.values());
         this.colors.sort(function(a, b){
-            if(a.replace(/\s/g, "")=='rgb(173,188,148)'){
+            let colorA=a.replace(/\s/g, "");
+            let colorB=b.replace(/\s/g, "");
+            if(colorA=='rgb(173,188,148)'){
                 return 1;
-            }
-            if(b.replace(/\s/g, "")=='rgb(173,188,148)'){
+            }else if (colorA=='rgb(220,220,220)'){
                 return -1;
+            }
+
+            if(colorB=='rgb(173,188,148)'){
+                return -1;
+            }else if (colorB=='rgb(220,220,220)'){
+                return 1;
             }
             if (a > b) {
                 return 1;
@@ -81,11 +88,11 @@ export class NodeLegend {
     }
 
     public createShapeLegend(layoutType: string): HTMLDivElement {
-        return this.nodeShapeLegend.createLegend('collapsed') ;
+        return this.nodeShapeLegend.createLegend() ;
     }
 
     public createColorLegend(layoutType: string): HTMLDivElement {
-        return this.nodeColorLegend.createLegend('collapsed') ;
+        return this.nodeColorLegend.createLegend() ;
     }
 
     public createBorderLegend(layoutType: string): HTMLDivElement {

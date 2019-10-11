@@ -33,6 +33,7 @@ export class Constants {
   public static NODE_COLOR_MOUSE = 'rgb(88,115,29)';
   public static NODE_COLOR_OTHERS = 'rgb(173,188,148)';
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE = 'rgb(107,13,10)';
+  public static META_NODE_COLOR = 'rgb(220,220,220)';
 
 
   public static NODE_COLOR_HOMO_SAPIENS_LABEL = 'Homo sapiens';
@@ -44,4 +45,5 @@ export class Constants {
   public static NODE_COLOR_MOUSE_LABEL = 'Mus musculus';
   public static NODE_COLOR_OTHERS_LABEL = 'Others';
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL = 'Saccharomyces cerevisiae';
+  public static META_NODE_COLOR_LABEL='Grouped by species';
 }

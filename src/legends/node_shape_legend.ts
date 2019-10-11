@@ -18,7 +18,7 @@ export class NodeShapeLegend {
     this.shapes = shapes;
   }
 
- public createLegend(layoutType: string): HTMLDivElement {
+ public createLegend(): HTMLDivElement {
     var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
     nodeShapeLegendDiv.setAttribute('id', Constants.NODE_SHAPE_LEGEND_DIV_ID);
     nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
