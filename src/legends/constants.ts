@@ -46,4 +46,30 @@ export class Constants {
   public static NODE_COLOR_OTHERS_LABEL = 'Others';
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL = 'Saccharomyces cerevisiae';
   public static META_NODE_COLOR_LABEL='Grouped by species';
+
+  // edges
+
+  public static EDGE_COLOR_LEGEND_DIV_ID: string = 'edge-color-legend';
+  public static EDGE_COLOR_LEGEND_TITLE: string = 'Edge Color Legend';
+
+  public static EDGE_COLOR_PHYSICAL_ASSOCIATION = 'rgb(153,204,0)';
+  public static EDGE_COLOR_ASSOCIATION = 'rgb(153,153,255)';
+  public static EDGE_COLOR_COLOCALIZATION = 'rgb(255,222,62)';
+  public static EDGE_COLOR_DEPHOSPHORYLATION_REACTION = 'rgb(153,153,0)';
+  public static EDGE_COLOR_PHOSPHORYLATION_REACTION = 'rgb(153,0,0)';
+  public static EDGE_COLOR_DIRECT_INTERACTION = 'rgb(255,165,0)';
+  public static EDGE_COLOR_MUTATION_IN_INTERACTION = 'rgb(255, 0, 0)';
+  public static EDGE_COLOR_OTHERS = 'rgb(153,153,153)';
+
+  public static EDGE_COLOR_PHYSICAL_ASSOCIATION_LABEL: string = 'Physical association';
+  public static EDGE_COLOR_ASSOCIATION_LABEL: string = 'Association';
+  public static EDGE_COLOR_COLOCALIZATION_LABEL: string = 'Colocalization';
+  public static EDGE_COLOR_DEPHOSPHORYLATION_REACTION_LABEL: string = 'Dephosphorylation reaction';
+  public static EDGE_COLOR_PHOSPHORYLATION_REACTION_LABEL: string = 'Phosphorylation reaction';
+  public static EDGE_COLOR_DIRECT_INTERACTION_LABEL: string = 'Direct interaction';
+  public static EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL: string = 'Mutation in Interaction';
+  public static EDGE_COLOR_OTHERS_LABEL: string = 'Others';
+
+
+
 }

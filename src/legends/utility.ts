@@ -1,7 +1,7 @@
 import {Style} from "./style";
 export class Utility {
 
-   public createDivElementFor(elementImage:string,elementText:string,isSingleDiv:boolean):HTMLDivElement {
+   public createDivElementFor(elementImage:string,elementText:string,isSingleDiv:boolean,isEdge : boolean):HTMLDivElement {
         let nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
         let divStyle;
         if(isSingleDiv){
@@ -13,7 +13,14 @@ export class Utility {
 
         let nodeShapeLegendImage = <HTMLImageElement>document.createElement('img');
         nodeShapeLegendImage.setAttribute('src',elementImage);
-        nodeShapeLegendImage.setAttribute('style',Style.NODE_SHAPE_IMG);
+
+       let imgStyle;
+       if(isEdge){
+           imgStyle = Style.EDGE_IMG;
+       }else{
+           imgStyle = Style.NODE_SHAPE_IMG;
+       }
+        nodeShapeLegendImage.setAttribute('style',imgStyle);
         nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
 
         let nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');

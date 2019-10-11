@@ -11,6 +11,8 @@ export class Style {
 
   public static NODE_SHAPE_IMG: string = 'float: left;';
 
+  public static EDGE_IMG: string = 'float: left; margin-top: 7%;';
+
   public static NODE_SHAPE_TEXT: string =
       'float: left; ' +
       'margin-top: 7px;' +
