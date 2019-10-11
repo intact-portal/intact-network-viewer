@@ -4,10 +4,13 @@ export class Utility {
    public createDivElementFor(elementImage:string,elementText:string,isSingleDiv:boolean,isEdge : boolean):HTMLDivElement {
         let nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
         let divStyle;
+       let  textstyle;
         if(isSingleDiv){
             divStyle =  Style.LEGEND_SUB_DIV;
+            textstyle= Style.TEXT;
         }else {
             divStyle = Style.DIV_LIST;
+            textstyle= Style.TEXTS;
         }
         nodeShapeLegendDivListElement.setAttribute('style', divStyle);
 
@@ -24,7 +27,7 @@ export class Utility {
         nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
 
         let nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
-        nodeShapeLegendImageLabel.setAttribute('style',Style.TEXT);
+        nodeShapeLegendImageLabel.setAttribute('style',textstyle);
         nodeShapeLegendImageLabel.innerHTML=elementText;
         nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
 

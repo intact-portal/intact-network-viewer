@@ -11,10 +11,16 @@ export class Style {
 
   public static EDGE_IMG: string = 'float: left; margin-top: 7%;';
 
-  public static TEXT: string =
+  public static TEXTS: string =
       'float: left; ' +
       'margin-top: 3%;' +
       'margin-left: 1%;' +
       'width: 75%;';
+
+   public static TEXT: string =
+        'float: left; ' +
+        'margin-top: 3%;' +
+        'margin-left: 1%;';
+
 
 }
