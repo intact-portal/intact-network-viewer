@@ -25,8 +25,9 @@ export class NodeBorderColorLegend {
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
         this.borders.forEach(border => {
-            switch(border){
-                case Color.HIGHLIGHT_MUTATION: {
+            let trimmedBorder = border.replace(/\s/g, "");
+            switch(trimmedBorder){
+                    case Color.HIGHLIGHT_MUTATION: {
                     let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.MUTATED_INTERACTOR_IMG_URL,Constants.NODE_BORDER_MUTATED_LABEL,true);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;

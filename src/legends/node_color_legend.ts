@@ -39,7 +39,8 @@ export class NodeColorLegend {
         }
 
         this.colors.forEach(color => {
-            switch(color){
+            let trimmedColor = color.replace(/\s/g, "");
+            switch(trimmedColor){
                 case Constants.NODE_COLOR_HOMO_SAPIENS: {
                     let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.HOMO_SAPIENS_IMG_URL,Constants.NODE_COLOR_HOMO_SAPIENS_LABEL,isSingleElement);
                     nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);

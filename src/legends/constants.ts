@@ -24,15 +24,15 @@ export class Constants {
 
   public static NODE_BORDER_MUTATED_LABEL: string = 'Mutated Interactor';
 
-  public static NODE_COLOR_HOMO_SAPIENS = 'rgb(51, 94, 148)';
-  public static NODE_COLOR_ARABIDOPSIS_THALIANA = 'rgb(97, 74, 124)';
-  public static NODE_COLOR_CAENORHABDITIS_ELEGANS = 'rgb(202, 115, 47)';
-  public static NODE_COLOR_CHEMICAL_SYNTHESIS = 'rgb(141, 102, 102)';
-  public static NODE_COLOR_DROSOPHILA_MELANOGASTER = 'rgb(47, 132, 156)';
-  public static NODE_COLOR_ESCHERICHIA_COLI = 'rgb(144, 163, 198)';
-  public static NODE_COLOR_MOUSE = 'rgb(88, 115, 29)';
-  public static NODE_COLOR_OTHERS = 'rgb(173, 188, 148)';
-  public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE = 'rgb(107, 13, 10)';
+  public static NODE_COLOR_HOMO_SAPIENS = 'rgb(51,94,148)';
+  public static NODE_COLOR_ARABIDOPSIS_THALIANA = 'rgb(97,74,124)';
+  public static NODE_COLOR_CAENORHABDITIS_ELEGANS = 'rgb(202,115,47)';
+  public static NODE_COLOR_CHEMICAL_SYNTHESIS = 'rgb(141,102,102)';
+  public static NODE_COLOR_DROSOPHILA_MELANOGASTER = 'rgb(47,132,156)';
+  public static NODE_COLOR_ESCHERICHIA_COLI = 'rgb(144,163,198)';
+  public static NODE_COLOR_MOUSE = 'rgb(88,115,29)';
+  public static NODE_COLOR_OTHERS = 'rgb(173,188,148)';
+  public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE = 'rgb(107,13,10)';
 
 
   public static NODE_COLOR_HOMO_SAPIENS_LABEL = 'Homo sapiens';
