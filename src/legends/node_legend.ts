@@ -37,6 +37,9 @@ export class NodeLegend {
             if(a=='tag'){
                 return 1;
             }
+            if(b=='tag'){
+                return -1;
+            }
             if (a > b) {
                 return 1;
             }
@@ -48,8 +51,11 @@ export class NodeLegend {
 
         this.colors=Array.from(colorsSet.values());
         this.colors.sort(function(a, b){
-            if(a=='rgb(173, 188, 148)'){
+            if(a.replace(/\s/g, "")=='rgb(173,188,148)'){
                 return 1;
+            }
+            if(b.replace(/\s/g, "")=='rgb(173,188,148)'){
+                return -1;
             }
             if (a > b) {
                 return 1;
