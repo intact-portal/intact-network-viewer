@@ -1,7 +1,7 @@
-import { Constants } from './constants';
-import { Style } from './style';
-import {Color} from "../styles/constants/color";
-import {Utility} from "./utility";
+import { Constants } from './../constants';
+import { Style } from './../style';
+import {Color} from "../../styles/constants/color";
+import {Utility} from "./../utility";
 
 export class NodeBorderColorLegend {
     private borders: Array<string>;

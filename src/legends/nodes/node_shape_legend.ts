@@ -1,6 +1,6 @@
-import { Constants } from './constants';
-import { Style } from './style';
-import {Utility} from "./utility";
+import { Constants } from './../constants';
+import { Style } from './../style';
+import {Utility} from "./../utility";
 
 export class NodeShapeLegend {
   private shapes: Array<string>;

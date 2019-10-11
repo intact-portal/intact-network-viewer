@@ -1,8 +1,8 @@
-import { Constants } from './constants';
+import { Constants } from './../constants';
 import {NodeColorLegend} from "./node_color_legend";
 import {NodeShapeLegend} from "./node_shape_legend";
 import {NodeBorderColorLegend} from "./node_border_color_legend";
-import {Utility} from "./utility";
+import {Utility} from "./../utility";
 
 export class NodeLegend {
     private shapes!:Array<string>;

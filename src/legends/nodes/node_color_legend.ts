@@ -1,7 +1,6 @@
-import { Constants } from './constants';
-import { Style } from './style';
-import {NetworkViewerStates} from "../network_viewer_states";
-import {Utility} from "./utility";
+import { Constants } from './../constants';
+import { Style } from './../style';
+import {Utility} from "./../utility";
 
 export class NodeColorLegend {
     private colors: Array<string>;

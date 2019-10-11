@@ -1,5 +1,5 @@
 
-import {NodeLegend} from "./node_legend";
+import {NodeLegend} from "./nodes/node_legend";
 import {NetworkViewerStates} from "../network_viewer_states";
 import {Utility} from "./utility";
 export class ParentLegend {
