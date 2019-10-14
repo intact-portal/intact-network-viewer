@@ -19,16 +19,10 @@ export class NodeShapeLegend {
   }
 
  public createLegend(): HTMLDivElement {
-    var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
-    nodeShapeLegendDiv.setAttribute('id', Constants.NODE_SHAPE_LEGEND_DIV_ID);
-    nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
 
-    var nodeShapeLegendHeader = <HTMLElement>document.createElement('h3');
-    nodeShapeLegendHeader.setAttribute('style', Style.LEGEND_HEADER);
-    nodeShapeLegendHeader.innerHTML = Constants.NODE_SHAPE_LEGEND_TITLE;
-    nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
+    let legendDiv = this.utility.createLegendDivFor(Constants.NODE_SHAPE_LEGEND_DIV_ID,Constants.NODE_SHAPE_LEGEND_TITLE);
 
-     let isSingleElement : boolean = false;
+    let isSingleElement : boolean = false;
      if(this.shapes.length == 1){
          isSingleElement = true;
      }
@@ -37,37 +31,37 @@ export class NodeShapeLegend {
           switch(shape){
               case Constants.NODE_SHAPE_ELLIPSE: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ELLIPSE_IMG_URL,Constants.NODE_SHAPE_ELLIPSE_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case Constants.NODE_SHAPE_TRIANGLE: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.TRIANGLE_IMG_URL,Constants.NODE_SHAPE_TRIANGLE_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case Constants.NODE_SHAPE_DIAMOND: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.DIAMOND_IMG_URL,Constants.NODE_SHAPE_DIAMOND_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case Constants.NODE_SHAPE_ROUNDED_RECTANGLE: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ROUNDED_RECTANGLE_IMG_URL,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               case Constants.NODE_SHAPE_CUT_TRIANGLE: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.CUT_TRIANGLE_IMG_URL,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
               default: {
                   let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.TAG_IMG_URL,Constants.NODE_SHAPE_TAG_LABEL,isSingleElement,false);
-                  nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                  legendDiv.appendChild(nodeShapeLegendDivListElement);
                   break;
               }
           }
       });
 
-    return nodeShapeLegendDiv;
+    return legendDiv;
   }
 }

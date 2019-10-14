@@ -43,17 +43,11 @@ export class EdgeColorLegend {
     }
 
     public createLegend(graphState: string): HTMLDivElement {
-        var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
-        nodeShapeLegendDiv.setAttribute('id', Constants.EDGE_COLOR_LEGEND_DIV_ID);
-        nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
 
-        var nodeShapeLegendHeader = <HTMLElement>document.createElement('h3');
-        nodeShapeLegendHeader.setAttribute('style', Style.LEGEND_HEADER);
-        nodeShapeLegendHeader.innerHTML = Constants.EDGE_COLOR_LEGEND_TITLE;
-        nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
+        let legendDiv = this.utility.createLegendDivFor(Constants.EDGE_COLOR_LEGEND_DIV_ID,Constants.EDGE_COLOR_LEGEND_TITLE);
 
         if(graphState==NetworkViewerStates.COLLAPSED){
-            nodeShapeLegendDiv.appendChild(this.createMiScoreDivElement(this.MI_SCORE_IMG_URL));
+            legendDiv.appendChild(this.createMiScoreDivElement(this.MI_SCORE_IMG_URL));
         }else {
 
             let isSingleElement:boolean = false;
@@ -67,55 +61,55 @@ export class EdgeColorLegend {
                     case Constants.EDGE_COLOR_PHYSICAL_ASSOCIATION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.PHYSICAL_ASSOCIATION_IMG_URL, Constants.EDGE_COLOR_PHYSICAL_ASSOCIATION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_ASSOCIATION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.ASSOCIATION_IMG_URL, Constants.EDGE_COLOR_ASSOCIATION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_COLOCALIZATION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.COLOCALIZATION_IMG_URL, Constants.EDGE_COLOR_COLOCALIZATION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_DEPHOSPHORYLATION_REACTION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.DEPHOSPHORYLATION_REACTION_IMG_URL, Constants.EDGE_COLOR_DEPHOSPHORYLATION_REACTION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_DIRECT_INTERACTION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.DIRECT_INTERACTION_IMG_URL, Constants.EDGE_COLOR_DIRECT_INTERACTION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_MUTATION_IN_INTERACTION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.MUTATION_IN_INTERACTION_IMG_URL, Constants.EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     case Constants.EDGE_COLOR_PHOSPHORYLATION_REACTION:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.PHOSPHORYLATION_REACTION_IMG_URL, Constants.EDGE_COLOR_PHOSPHORYLATION_REACTION_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                     default:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.OTHERS_IMG_URL, Constants.EDGE_COLOR_OTHERS_LABEL, isSingleElement, true);
-                        nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
                 }
             });
         }
 
-        return nodeShapeLegendDiv;
+        return legendDiv;
     }
 }

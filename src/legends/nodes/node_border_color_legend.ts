@@ -15,21 +15,15 @@ export class NodeBorderColorLegend {
     }
 
     public createLegend(): HTMLDivElement {
-        var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
-        nodeShapeLegendDiv.setAttribute('id', Constants.NODE_BORDER_LEGEND_DIV_ID);
-        nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
 
-        var nodeShapeLegendHeader = <HTMLElement>document.createElement('h3');
-        nodeShapeLegendHeader.setAttribute('style', Style.LEGEND_HEADER);
-        nodeShapeLegendHeader.innerHTML = Constants.NODE_BORDER_LEGEND_TITLE;
-        nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
+        let legendDiv = this.utility.createLegendDivFor(Constants.NODE_BORDER_LEGEND_DIV_ID,Constants.NODE_BORDER_LEGEND_TITLE);
 
         this.borders.forEach(border => {
             let trimmedBorder = border.replace(/\s/g, "");
             switch(trimmedBorder){
                     case Color.HIGHLIGHT_MUTATION: {
                     let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.MUTATED_INTERACTOR_IMG_URL,Constants.NODE_BORDER_MUTATED_LABEL,true,false);
-                    nodeShapeLegendDiv.appendChild(nodeShapeLegendDivListElement);
+                        legendDiv.appendChild(nodeShapeLegendDivListElement);
                     break;
                 }
                 default: {
@@ -38,6 +32,6 @@ export class NodeBorderColorLegend {
             }
         });
 
-        return nodeShapeLegendDiv;
+        return legendDiv;
     }
 }

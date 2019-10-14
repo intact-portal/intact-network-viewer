@@ -33,4 +33,17 @@ export class Utility {
 
         return nodeShapeLegendDivListElement;
     }
+
+    public createLegendDivFor(legendDivId:string,legendTitle:string):HTMLDivElement{
+    var legendDiv = <HTMLDivElement>document.createElement('div');
+        legendDiv.setAttribute('id', legendDivId);
+        legendDiv.setAttribute('style', Style.LEGEND_DIV);
+
+    var legendHeader = <HTMLElement>document.createElement('h3');
+        legendHeader.setAttribute('style', Style.LEGEND_HEADER);
+        legendHeader.innerHTML = legendTitle;
+        legendDiv.appendChild(legendHeader);
+
+        return legendDiv;
+}
 }
