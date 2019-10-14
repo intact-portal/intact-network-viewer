@@ -90,7 +90,7 @@ export class EdgeColorLegend {
                     }
                     case Constants.EDGE_COLOR_MUTATION_IN_INTERACTION:
                     {
-                        let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.MUTATION_IN_INTERACTION_IMG_URL, Constants.EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL, isSingleElement, true);
+                        let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.MUTATION_IN_INTERACTION_IMG_URL, Constants.EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL, true, true);
                         legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
@@ -100,10 +100,14 @@ export class EdgeColorLegend {
                         legendDiv.appendChild(nodeShapeLegendDivListElement);
                         break;
                     }
-                    default:
+                    case Constants.EDGE_COLOR_OTHERS:
                     {
                         let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.OTHERS_IMG_URL, Constants.EDGE_COLOR_OTHERS_LABEL, isSingleElement, true);
                         legendDiv.appendChild(nodeShapeLegendDivListElement);
+                        break;
+                    }
+                    default:
+                    {
                         break;
                     }
                 }

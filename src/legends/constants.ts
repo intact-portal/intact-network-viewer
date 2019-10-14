@@ -59,7 +59,7 @@ export class Constants {
   public static EDGE_COLOR_DEPHOSPHORYLATION_REACTION = 'rgb(153,153,0)';
   public static EDGE_COLOR_PHOSPHORYLATION_REACTION = 'rgb(153,0,0)';
   public static EDGE_COLOR_DIRECT_INTERACTION = 'rgb(255,165,0)';
-  public static EDGE_COLOR_MUTATION_IN_INTERACTION = 'rgb(255, 0, 0)';
+  public static EDGE_COLOR_MUTATION_IN_INTERACTION = 'rgb(255,0,0)';
   public static EDGE_COLOR_OTHERS = 'rgb(153,153,153)';
 
   public static EDGE_COLOR_PHYSICAL_ASSOCIATION_LABEL: string = 'Physical association';

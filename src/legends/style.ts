@@ -5,7 +5,7 @@ export class Style {
 
   public static DIV_LIST: string ='float: left; width: 50%;height: 32px';
 
-  public static LEGEND_SUB_DIV: string ='margin: 0 auto; width: 34%;';
+  public static LEGEND_SUB_DIV: string ='margin: 0 auto; width: 44%;';
 
   public static MISCORE_SUB_DIV: string ='margin: 0 auto; width: 100%;';
 
