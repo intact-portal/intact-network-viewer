@@ -30,7 +30,7 @@ module.exports = {
                 }
             ] },
             {
-                test: /\.(png|svg)$/,
+                test: /\.(png|svg|jpg)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -43,7 +43,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js','.css','.svg' ]
+        extensions: [ '.tsx', '.ts', '.js','.css','.svg','jpg' ]
     },
     output: {
         filename: 'intact_network.js',
