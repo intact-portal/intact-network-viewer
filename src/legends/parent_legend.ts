@@ -20,17 +20,22 @@ export class ParentLegend {
     let parentDiv = document.getElementById(parentLegendId) as HTMLDivElement;
     parentDiv.innerHTML = '';
 
-    parentDiv.appendChild(this.nodeLegend.createShapeLegend());
     parentDiv.appendChild(this.nodeLegend.createColorLegend());
 
     if(graphState==NetworkViewerStates.MUTATION_EFFECTED){
       parentDiv.appendChild(this.nodeLegend.createBorderLegend());
     }
 
+    parentDiv.appendChild(this.nodeLegend.createShapeLegend());
+
     parentDiv.appendChild(this.edgeLegend.createColorLegend(graphState));
 
     if(graphState==NetworkViewerStates.COLLAPSED){
       parentDiv.appendChild(this.edgeLegend.createThicknessLegend());
+    }
+
+    if(graphState==NetworkViewerStates.EXPANDED || graphState==NetworkViewerStates.MUTATION_EFFECTED){
+      parentDiv.appendChild(this.edgeLegend.createShapesLegend());
     }
   }
 }

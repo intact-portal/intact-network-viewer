@@ -48,7 +48,7 @@ export class Constants {
   public static META_NODE_COLOR_LABEL='Grouped by species';
   public static MI_SCORE_LABEL = 'MI Score';
 
-  // edges
+  // edges color
 
   public static EDGE_COLOR_LEGEND_DIV_ID: string = 'edge-color-legend';
   public static EDGE_COLOR_LEGEND_TITLE: string = 'Edge Color Legend';
@@ -71,10 +71,19 @@ export class Constants {
   public static EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL: string = 'Mutation in interaction';
   public static EDGE_COLOR_OTHERS_LABEL: string = 'Others';
 
+  // edge thickness
   public static EDGE_THICKNESS_LEGEND_DIV_ID: string = 'edge-thickness-legend';
   public static EDGE_THICKNESS_LEGEND_TITLE: string = 'Edge Thickness Legend';
 
   public static EDGE_SINGLE_INTERACTION_COLLAPSED_LABEL: string = 'Single interaction';
   public static EDGE_MULT_INTERACTION_COLLAPSED_LABEL: string = 'Multiple interaction';
+
+  // edge shapes
+  public static EDGE_SHAPES_LEGEND_DIV_ID: string = 'edge-shapes-legend';
+  public static EDGE_SHAPES_LEGEND_TITLE: string = 'Edge Shapes Legend';
+
+  public static EDGE_SHAPE_SPOKE_EXPANDED='dashed';
+
+  public static EDGE_SHAPE_SPOKE_EXPANDED_LABEL: string = 'Spoke expanded';
 
 }

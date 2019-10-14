@@ -1,6 +1,7 @@
 import {Utility} from "./../utility";
 import {EdgeColorLegend} from "./edge_color_legend";
 import {EdgeThicknessLegend} from "./edge_thickness_legend";
+import {EdgeShapesLegend} from "./edge_shape_legend";
 
 export class EdgeLegend {
     private shapes!:Array<string>;
@@ -8,12 +9,14 @@ export class EdgeLegend {
     private thickness!:Array<string>;
     private edgeColorLegend:EdgeColorLegend;
     private edgeThicknessLegend:EdgeThicknessLegend;
+    private edgeShapesLegend:EdgeShapesLegend;
 
     constructor(edges: any,utility:Utility) {
         this.initializeEdgeShapesColorsAndThickness(edges);
         /*this.nodeShapeLegend = new NodeShapeLegend(this.shapes,utility);*/
         this.edgeColorLegend = new EdgeColorLegend(this.colors,utility);
        this.edgeThicknessLegend= new EdgeThicknessLegend(this.thickness,utility);
+        this.edgeShapesLegend= new EdgeShapesLegend(this.shapes,utility);
     }
 
     private initializeEdgeShapesColorsAndThickness(edges : any):void {
@@ -83,5 +86,9 @@ export class EdgeLegend {
 
     public createThicknessLegend(): HTMLDivElement {
         return this.edgeThicknessLegend.createLegend();
+    }
+
+    public createShapesLegend(): HTMLDivElement {
+        return this.edgeShapesLegend.createLegend();
     }
 }
