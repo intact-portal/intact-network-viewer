@@ -23,22 +23,26 @@ export class EdgeColorLegend {
     }
 
     private createMiScoreDivElement(elementImage:string):HTMLDivElement {
-        let nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
-        let divStyle;
-        let  textstyle;
+        let miscoreLegendDivElement = <HTMLDivElement>document.createElement('div');
 
-        nodeShapeLegendDivListElement.setAttribute('style', Style.LEGEND_SUB_DIV);
+        miscoreLegendDivElement.setAttribute('style', Style.MISCORE_SUB_DIV);
 
-        let nodeShapeLegendImage = <HTMLImageElement>document.createElement('img');
-        nodeShapeLegendImage.setAttribute('src',elementImage);
+        let miScoreLegendImage = <HTMLImageElement>document.createElement('img');
+        miScoreLegendImage.setAttribute('src',elementImage);
 
-        //nodeShapeLegendImage.setAttribute('style',imgStyle);
-        nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
+        miScoreLegendImage.setAttribute('style',Style.MISCORE_GRADIENT_IMG);
+        miscoreLegendDivElement.appendChild(miScoreLegendImage);
 
-        return nodeShapeLegendDivListElement;
+        let miScoreLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
+        miScoreLegendImageLabel.setAttribute('style',Style.MISCORE_TEXT);
+        miScoreLegendImageLabel.innerHTML=Constants.MI_SCORE_LABEL;
+        miscoreLegendDivElement.appendChild(miScoreLegendImageLabel);
+
+
+        return miscoreLegendDivElement;
     }
 
-    public createLegend(layoutType: string): HTMLDivElement {
+    public createLegend(graphState: string): HTMLDivElement {
         var nodeShapeLegendDiv = <HTMLDivElement>document.createElement('div');
         nodeShapeLegendDiv.setAttribute('id', Constants.EDGE_COLOR_LEGEND_DIV_ID);
         nodeShapeLegendDiv.setAttribute('style', Style.LEGEND_DIV);
@@ -48,7 +52,7 @@ export class EdgeColorLegend {
         nodeShapeLegendHeader.innerHTML = Constants.EDGE_COLOR_LEGEND_TITLE;
         nodeShapeLegendDiv.appendChild(nodeShapeLegendHeader);
 
-        if(layoutType==NetworkViewerStates.COLLAPSED){
+        if(graphState==NetworkViewerStates.COLLAPSED){
             nodeShapeLegendDiv.appendChild(this.createMiScoreDivElement(this.MI_SCORE_IMG_URL));
         }else {
 

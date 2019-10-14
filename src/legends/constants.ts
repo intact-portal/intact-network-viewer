@@ -46,6 +46,7 @@ export class Constants {
   public static NODE_COLOR_OTHERS_LABEL = 'Others';
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL = 'Saccharomyces cerevisiae';
   public static META_NODE_COLOR_LABEL='Grouped by species';
+  public static MI_SCORE_LABEL = 'MI Score';
 
   // edges
 

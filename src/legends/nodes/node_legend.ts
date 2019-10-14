@@ -87,15 +87,15 @@ export class NodeLegend {
 
     }
 
-    public createShapeLegend(layoutType: string): HTMLDivElement {
+    public createShapeLegend(): HTMLDivElement {
         return this.nodeShapeLegend.createLegend() ;
     }
 
-    public createColorLegend(layoutType: string): HTMLDivElement {
+    public createColorLegend(): HTMLDivElement {
         return this.nodeColorLegend.createLegend() ;
     }
 
-    public createBorderLegend(layoutType: string): HTMLDivElement {
+    public createBorderLegend(): HTMLDivElement {
         return this.nodeBorderColorLegend.createLegend() ;
     }
 

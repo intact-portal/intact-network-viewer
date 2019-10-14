@@ -16,17 +16,17 @@ export class ParentLegend {
 
   }
 
-  public createLegend(parentLegendId: string, layoutType: string): void {
+  public createLegend(parentLegendId: string, graphState: string): void {
     let parentDiv = document.getElementById(parentLegendId) as HTMLDivElement;
     parentDiv.innerHTML = '';
 
-    parentDiv.appendChild(this.nodeLegend.createShapeLegend('collapsed'));
-    parentDiv.appendChild(this.nodeLegend.createColorLegend('collapsed'));
+    parentDiv.appendChild(this.nodeLegend.createShapeLegend());
+    parentDiv.appendChild(this.nodeLegend.createColorLegend());
 
-    if(layoutType==NetworkViewerStates.MUTATION_EFFECTED){
-      parentDiv.appendChild(this.nodeLegend.createBorderLegend('collapsed'));
+    if(graphState==NetworkViewerStates.MUTATION_EFFECTED){
+      parentDiv.appendChild(this.nodeLegend.createBorderLegend());
     }
 
-    parentDiv.appendChild(this.edgeLegend.createColorLegend('collapsed'));
+    parentDiv.appendChild(this.edgeLegend.createColorLegend(graphState));
   }
 }

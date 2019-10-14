@@ -7,9 +7,15 @@ export class Style {
 
   public static LEGEND_SUB_DIV: string ='margin: 0 auto; width: 34%;';
 
+  public static MISCORE_SUB_DIV: string ='margin: 0 auto; width: 100%;';
+
   public static NODE_IMG: string = 'float: left;';
 
   public static EDGE_IMG: string = 'float: left; margin-top: 7%;';
+
+  public static MISCORE_GRADIENT_IMG: string = 'width: 83%;';
+
+  public static MISCORE_TEXT: string = 'margin: 0 auto; width: 27%;';
 
   public static TEXTS: string =
       'float: left; ' +

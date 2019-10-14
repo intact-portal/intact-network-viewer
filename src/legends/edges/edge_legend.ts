@@ -75,7 +75,7 @@ export class EdgeLegend {
         });
     }
 
-    public createColorLegend(layoutType: string): HTMLDivElement {
-        return this.edgeColorLegend.createLegend(layoutType);
+    public createColorLegend(graphState: string): HTMLDivElement {
+        return this.edgeColorLegend.createLegend(graphState);
     }
 }
