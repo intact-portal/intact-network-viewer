@@ -22,7 +22,7 @@ export class Constants {
   public static NODE_SHAPE_CUT_TRIANGLE: string = 'vee';
   public static NODE_SHAPE_TAG: string = 'tag';
 
-  public static NODE_BORDER_MUTATED_LABEL: string = 'Mutated Interactor';
+  public static NODE_BORDER_MUTATED_LABEL: string = 'Mutated interactor';
 
   public static NODE_COLOR_HOMO_SAPIENS = 'rgb(51,94,148)';
   public static NODE_COLOR_ARABIDOPSIS_THALIANA = 'rgb(97,74,124)';
@@ -68,9 +68,13 @@ export class Constants {
   public static EDGE_COLOR_DEPHOSPHORYLATION_REACTION_LABEL: string = 'Dephosphorylation reaction';
   public static EDGE_COLOR_PHOSPHORYLATION_REACTION_LABEL: string = 'Phosphorylation reaction';
   public static EDGE_COLOR_DIRECT_INTERACTION_LABEL: string = 'Direct interaction';
-  public static EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL: string = 'Mutation in Interaction';
+  public static EDGE_COLOR_MUTATION_IN_INTERACTION_LABEL: string = 'Mutation in interaction';
   public static EDGE_COLOR_OTHERS_LABEL: string = 'Others';
 
+  public static EDGE_THICKNESS_LEGEND_DIV_ID: string = 'edge-thickness-legend';
+  public static EDGE_THICKNESS_LEGEND_TITLE: string = 'Edge Thickness Legend';
 
+  public static EDGE_SINGLE_INTERACTION_COLLAPSED_LABEL: string = 'Single interaction';
+  public static EDGE_MULT_INTERACTION_COLLAPSED_LABEL: string = 'Multiple interaction';
 
 }

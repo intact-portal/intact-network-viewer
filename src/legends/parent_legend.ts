@@ -28,5 +28,9 @@ export class ParentLegend {
     }
 
     parentDiv.appendChild(this.edgeLegend.createColorLegend(graphState));
+
+    if(graphState==NetworkViewerStates.COLLAPSED){
+      parentDiv.appendChild(this.edgeLegend.createThicknessLegend());
+    }
   }
 }

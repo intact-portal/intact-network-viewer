@@ -5,13 +5,20 @@ export class Style {
 
   public static DIV_LIST: string ='float: left; width: 50%;height: 32px';
 
-  public static LEGEND_SUB_DIV: string ='margin: 0 auto; width: 44%;';
+  public static LEGEND_SUB_DIV: string =
+      'margin: 0 auto;' +
+      'width: 44%;' +
+      'height: 32px;';
 
   public static MISCORE_SUB_DIV: string ='margin: 0 auto; width: 100%;';
 
   public static NODE_IMG: string = 'float: left;';
 
-  public static EDGE_IMG: string = 'float: left; margin-top: 7%;';
+  public static EDGE_IMG: string =
+      'float: left;' +
+      'position: relative;' +
+      'top: 45%;' +
+      'transform: translateY(-50%);';
 
   public static MISCORE_GRADIENT_IMG: string = 'width: 83%;';
 
@@ -21,7 +28,7 @@ export class Style {
       'float: left; ' +
       'margin-top: 3%;' +
       'margin-left: 1%;' +
-      'width: 75%;';
+      'width: 73%;';
 
    public static TEXT: string =
         'float: left; ' +
