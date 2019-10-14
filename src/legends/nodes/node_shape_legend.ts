@@ -30,33 +30,33 @@ export class NodeShapeLegend {
     this.shapes.forEach(shape => {
           switch(shape){
               case Constants.NODE_SHAPE_ELLIPSE: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ELLIPSE_IMG_URL,Constants.NODE_SHAPE_ELLIPSE_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.ELLIPSE_IMG_URL,Constants.NODE_SHAPE_ELLIPSE_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
               case Constants.NODE_SHAPE_TRIANGLE: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.TRIANGLE_IMG_URL,Constants.NODE_SHAPE_TRIANGLE_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.TRIANGLE_IMG_URL,Constants.NODE_SHAPE_TRIANGLE_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
               case Constants.NODE_SHAPE_DIAMOND: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.DIAMOND_IMG_URL,Constants.NODE_SHAPE_DIAMOND_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.DIAMOND_IMG_URL,Constants.NODE_SHAPE_DIAMOND_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
               case Constants.NODE_SHAPE_ROUNDED_RECTANGLE: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.ROUNDED_RECTANGLE_IMG_URL,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.ROUNDED_RECTANGLE_IMG_URL,Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
               case Constants.NODE_SHAPE_CUT_TRIANGLE: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.CUT_TRIANGLE_IMG_URL,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.CUT_TRIANGLE_IMG_URL,Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
               default: {
-                  let nodeShapeLegendDivListElement =this.utility.createDivElementFor(this.TAG_IMG_URL,Constants.NODE_SHAPE_TAG_LABEL,isSingleElement,false);
-                  legendDiv.appendChild(nodeShapeLegendDivListElement);
+                  let divListElement =this.utility.createDivElementFor(this.TAG_IMG_URL,Constants.NODE_SHAPE_TAG_LABEL,isSingleElement,false);
+                  legendDiv.appendChild(divListElement);
                   break;
               }
           }

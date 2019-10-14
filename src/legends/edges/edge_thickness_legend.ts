@@ -30,14 +30,14 @@ export class EdgeThicknessLegend {
                switch (thickness) {
                     case Width.COLLAPSED_EDGE:
                     {
-                        let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.MULT_INTERACTION_COLLAPSED_IMG_URL, Constants.EDGE_MULT_INTERACTION_COLLAPSED_LABEL, isSingleElement, true);
-                        legendDiv.appendChild(nodeShapeLegendDivListElement);
+                        let divListElement = this.utility.createDivElementFor(this.MULT_INTERACTION_COLLAPSED_IMG_URL, Constants.EDGE_MULT_INTERACTION_COLLAPSED_LABEL, isSingleElement, true);
+                        legendDiv.appendChild(divListElement);
                         break;
                     }
                     case Width.DEFAULT_EDGE:
                     {
-                        let nodeShapeLegendDivListElement = this.utility.createDivElementFor(this.SINGLE_INTERACTION_COLLAPSED_IMG_URL, Constants.EDGE_SINGLE_INTERACTION_COLLAPSED_LABEL, isSingleElement, true);
-                        legendDiv.appendChild(nodeShapeLegendDivListElement);
+                        let divListElement = this.utility.createDivElementFor(this.SINGLE_INTERACTION_COLLAPSED_IMG_URL, Constants.EDGE_SINGLE_INTERACTION_COLLAPSED_LABEL, isSingleElement, true);
+                        legendDiv.appendChild(divListElement);
                         break;
                     }
 
