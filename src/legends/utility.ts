@@ -5,6 +5,7 @@ export class Utility {
         let nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
         let divStyle;
        let  textstyle;
+
         if(isSingleDiv){
             divStyle =  Style.LEGEND_SUB_DIV;
             textstyle= Style.TEXT;

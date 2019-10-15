@@ -6,9 +6,10 @@ export class Style {
   public static DIV_LIST: string ='float: left; width: 50%;height: 32px';
 
   public static LEGEND_SUB_DIV: string =
-      'margin: 0 auto;' +
-      'width: 44%;' +
-      'height: 32px;';
+      'width: 100%;' +
+      'float: left;' +
+      'height: 40px;';
+
 
   public static MISCORE_SUB_DIV: string ='margin: 0 auto; width: 100%;';
 
