@@ -115,6 +115,7 @@
                 var isCompound=$('#graph').is(':checked');
                 var expand=$('#expand-edges').is(':checked');
                 var disrupted_mutation=$('#show-mutation-disrupted').is(':checked');
+                var layoutName = $('input[name=layout]:checked').val();
                 $.ajax({
                //     headers: {  'Access-Control-Allow-Origin': 'http://172.23.41.235:9090/graph' },
                     //url: 'http://localhost:9090/mi-ws/staticJson/',
@@ -136,7 +137,7 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend', data, expand,disrupted_mutation);
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend', data, expand,disrupted_mutation,layoutName);
 
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
@@ -150,14 +151,14 @@
             });
 
             $('#graph').click(function() {
-                $('input[name=layout]').attr('checked',false);
+               // $('input[name=layout]').attr('checked',false);
                 loadjsonData();
             });
 
             $( "#graphQuery" ).change(function() {
             $('#expand-edges').prop('checked', false); // Unchecks it
             $('#show-mutation-disrupted').prop('checked', false);
-            $('input[name=layout]').attr('checked',false);
+            $('input:radio[name="layout"][value="fcose"]').prop('checked', true);
             query=$('#graphQuery :selected').val();
 
                 loadjsonData();
@@ -227,7 +228,7 @@
 
 <div id="top-panel">
     <input type="radio" name="layout" id="cise" value="cise"  >cise (cluster layout)</input>
-    <input type="radio" name="layout" id="fcose" value="fcose" >fcose (default layout)</input>
+    <input type="radio" name="layout" id="fcose" value="fcose" checked >fcose (default layout)</input>
     <input type="radio" name="layout" id="avsdf" value="avsdf" >avsdf (circular layout)</input>
     <!--<input type="radio" name="layout" id="cola" value="cola" >cola</input>-->
 </div>

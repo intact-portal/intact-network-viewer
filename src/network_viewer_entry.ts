@@ -42,9 +42,10 @@ export class InitializeGraph {
   private timeout!: number;
   private isExpand: boolean;
   private isMutationDisrupted: boolean;
+  private layoutName: string;
 
   // constructor
-  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean) {
+  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string) {
     this.graphContainerDivId = graphContainerDivId;
     this.legendDivId = legendDivId;
     this.data = data;
@@ -53,6 +54,7 @@ export class InitializeGraph {
     this.style = new Style();
     this.isExpand = isExpand;
     this.isMutationDisrupted = isMutationDisrupted;
+    this.layoutName = layoutName;
     this.initializeCytoscape();
   }
 
@@ -228,12 +230,34 @@ export class InitializeGraph {
 
         style: this.style.applicationCSS,
         // boxSelectionEnabled: false,
-        layout: Constants.FCOSE_LAYOUT_OPTIONS,
+        layout:this.getLayoutOption(),
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand, this.isMutationDisrupted);
       this.stopLoadingImage();
     }, this.timeout);
+  }
+
+  private getLayoutOption(): any{
+
+    let layoutOption : any;
+
+    switch (this.layoutName) {
+     case 'cise': {
+        layoutOption= Constants.CISE_LAYOUT_OPTIONS;
+        break;
+      }
+      case 'avsdf': {
+        layoutOption= Constants.AVSDF_LAYOUT_OPTIONS;
+        break;
+      }
+     default: {
+        layoutOption= Constants.FCOSE_LAYOUT_OPTIONS;
+        break;
+      }
+    }
+
+    return layoutOption;
   }
 
   private startLoadingImage(): void {
