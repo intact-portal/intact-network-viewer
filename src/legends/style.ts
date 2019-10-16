@@ -1,5 +1,5 @@
 export class Style {
-  public static LEGEND_HEADER: string = 'text-align: center;';
+  public static LEGEND_HEADER: string = 'margin-left: 27%;';
 
   public static LEGEND_DIV: string = 'width: 100%; float: left;';
 
