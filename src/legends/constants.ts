@@ -76,7 +76,7 @@ export class Constants {
   public static EDGE_THICKNESS_LEGEND_TITLE: string = 'Edge Thickness Legend';
 
   public static EDGE_SINGLE_INTERACTION_COLLAPSED_LABEL: string = 'Single interaction';
-  public static EDGE_MULT_INTERACTION_COLLAPSED_LABEL: string = 'Multiple interaction';
+  public static EDGE_MULT_INTERACTION_COLLAPSED_LABEL: string = 'Multiple interactions';
 
   // edge shapes
   public static EDGE_SHAPES_LEGEND_DIV_ID: string = 'edge-shapes-legend';
