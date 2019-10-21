@@ -261,4 +261,8 @@ export class Constants {
     width: 17, // The line thickness
     zIndex: 2e9, // The z-index (defaults to 2000000000)
   };
+
+  public static INITIAL_MAX_ZOOM: number = 1.5;
+  public static USER_MAX_ZOOM: number = 10;
+  public static MIN_ZOOM: number = 0;
 }

@@ -165,12 +165,14 @@ export class InitializeGraph {
   }
 
   public applyLayout(layoutName: string): void {
+    this.setInitialMaxZoomLevel();
     switch (layoutName) {
       case 'ngraph': {
         this.startLoadingImage();
         setTimeout(() => {
           const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
           ngraphLayout.execute();
+          this.setUserMaxZoomLevel();
           this.stopLoadingImage();
         }, this.timeout);
         break;
@@ -180,6 +182,7 @@ export class InitializeGraph {
         setTimeout(() => {
           const ciseLayout: CiseLayout = new CiseLayout(this.cy);
           ciseLayout.execute();
+          this.setUserMaxZoomLevel();
           this.stopLoadingImage();
         }, this.timeout);
         break;
@@ -189,6 +192,7 @@ export class InitializeGraph {
         setTimeout(() => {
           const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
           avsdfLayout.execute();
+          this.setUserMaxZoomLevel();
           this.stopLoadingImage();
         }, this.timeout);
         break;
@@ -198,6 +202,7 @@ export class InitializeGraph {
         setTimeout(() => {
           const colaLayout: ColaLayout = new ColaLayout(this.cy);
           colaLayout.execute();
+          this.setUserMaxZoomLevel();
           this.stopLoadingImage();
         }, this.timeout);
         break;
@@ -207,11 +212,13 @@ export class InitializeGraph {
         setTimeout(() => {
           const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
           fcoseLayout.execute();
+          this.setUserMaxZoomLevel();
           this.stopLoadingImage();
         }, this.timeout);
         break;
       }
     }
+
   }
 
   // function
@@ -228,12 +235,15 @@ export class InitializeGraph {
         container: $('#' + this.graphContainerDivId), // container to render in
         elements: this.data,
 
+        'maxZoom':Constants.INITIAL_MAX_ZOOM,
+        'minZoom':Constants.MIN_ZOOM,
         style: this.style.applicationCSS,
         // boxSelectionEnabled: false,
         layout:this.getLayoutOption(),
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand, this.isMutationDisrupted);
+      this.setUserMaxZoomLevel()
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -266,5 +276,13 @@ export class InitializeGraph {
 
   private stopLoadingImage(): void {
     this.spinner.stop();
+  }
+
+  private setInitialMaxZoomLevel(): void{
+    this.cy.maxZoom(Constants.INITIAL_MAX_ZOOM);
+  }
+
+  private setUserMaxZoomLevel(): void{
+    this.cy.maxZoom(Constants.USER_MAX_ZOOM);
   }
 }
