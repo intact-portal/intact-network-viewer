@@ -22,6 +22,10 @@ export class ParentLegend {
 
     parentDiv.appendChild(this.nodeLegend.createColorLegend());
 
+    if(this.cy.nodes().parent().length>0){
+      parentDiv.appendChild(this.nodeLegend.createCompoundNodeColorLegend());
+    }
+
     if(graphState==NetworkViewerStates.MUTATION_EFFECTED){
       parentDiv.appendChild(this.nodeLegend.createBorderLegend());
     }

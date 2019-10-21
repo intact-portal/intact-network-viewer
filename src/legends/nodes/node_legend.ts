@@ -3,32 +3,40 @@ import {NodeColorLegend} from "./node_color_legend";
 import {NodeShapeLegend} from "./node_shape_legend";
 import {NodeBorderColorLegend} from "./node_border_color_legend";
 import {Utility} from "./../utility";
+import {CompoundNodeColorLegend} from "./compound_node_color_legend";
 
 export class NodeLegend {
     private shapes!:Array<string>;
     private colors!:Array<string>;
     private borderColors!:Array<string>;
+    private compoundNodeColors!:Array<string>;
 
     private nodeShapeLegend: NodeShapeLegend;
     private nodeColorLegend: NodeColorLegend;
     private nodeBorderColorLegend: NodeBorderColorLegend;
+    private compoundNodeColorLegend: CompoundNodeColorLegend;
 
     constructor(nodes: any,utility:Utility) {
         this.initializeNodeShapesColorsAndBorders(nodes);
-        this.nodeShapeLegend = new NodeShapeLegend(this.shapes,utility);
-        this.nodeColorLegend = new NodeColorLegend(this.colors,utility);
-        this.nodeBorderColorLegend = new NodeBorderColorLegend(this.borderColors,utility);
+        this.nodeShapeLegend = new NodeShapeLegend(this.shapes, utility);
+        this.nodeColorLegend = new NodeColorLegend(this.colors, utility);
+        this.nodeBorderColorLegend = new NodeBorderColorLegend(this.borderColors, utility);
+        this.compoundNodeColorLegend = new CompoundNodeColorLegend(this.compoundNodeColors, utility);
     }
-
     private initializeNodeShapesColorsAndBorders(nodes : any):void {
 
         let shapesSet=new Set<string>();
         let colorsSet=new Set<string>();
         let borderColorSet=new Set<string>();
+        let compoundNodeColorSet=new Set<string>();
 
         nodes.forEach(node => {
             shapesSet.add(node.style('shape'));
-            colorsSet.add(node.style('background-color'));
+            if(node.isParent()){
+                compoundNodeColorSet.add(node.style('background-color'));
+            }else {
+                colorsSet.add(node.style('background-color'));
+            }
             borderColorSet.add(node.style( 'border-color' ));
         });
 
@@ -84,6 +92,17 @@ export class NodeLegend {
             return 0;
         });
 
+        this.compoundNodeColors=Array.from(compoundNodeColorSet.values());
+        this.compoundNodeColors.sort(function(a, b){
+            if (a > b) {
+                return 1;
+            }
+            if (b > a) {
+                return -1;
+            }
+            return 0;
+        });
+
 
     }
 
@@ -97,6 +116,10 @@ export class NodeLegend {
 
     public createBorderLegend(): HTMLDivElement {
         return this.nodeBorderColorLegend.createLegend() ;
+    }
+
+    public createCompoundNodeColorLegend(): HTMLDivElement {
+        return this.compoundNodeColorLegend.createLegend() ;
     }
 
 }
