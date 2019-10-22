@@ -33,4 +33,12 @@ export class Utility {
     }
     return node.height();
   }
+
+  public parentNodeLabelSize(node: any) : number{
+    if(node.style('font-size')>20){
+      return 20;
+    } else {
+      return node.style('font-size');
+    }
+  }
 }

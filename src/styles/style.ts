@@ -2,6 +2,7 @@ import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Utility } from './utility';
 import { Width } from './constants/width';
+import {Size} from "./constants/size";
 
 export class Style {
   private styleUtility: Utility;
@@ -49,8 +50,12 @@ export class Style {
       selector: 'node:parent',
       css: {
         'background-opacity': 0.333,
-        /*'font-size': 50,*/
-        label: 'data(species)',
+        'font-size': Size.COMPOUND_NODE_LABEL_SIZE,
+        'text-wrap': 'wrap',
+        'text-max-width': node => {
+          return node.width();
+        },
+        label : 'data(species)',
       },
     },
 
