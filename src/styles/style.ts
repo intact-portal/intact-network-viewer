@@ -71,7 +71,7 @@ export class Style {
         width: edge => {
           return this.styleUtility.edgeWidth(edge);
         },
-        'curve-style': 'bezier',
+        'curve-style': 'haystack',
         'control-point-step-size': 0,
       },
     },
@@ -97,6 +97,7 @@ export class Style {
       selector: 'edge.expand',
       style: {
         'control-point-step-size': 40,
+        'curve-style': 'bezier',
         'line-style': edge => {
           return edge.data('shape');
         },
