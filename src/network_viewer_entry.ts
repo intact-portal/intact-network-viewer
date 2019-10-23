@@ -40,9 +40,9 @@ export class InitializeGraph {
   private style: Style;
   private edgesSize!: number;
   private timeout!: number;
-  private isExpand: boolean;
-  private isMutationDisrupted: boolean;
-  private layoutName: string;
+  private isExpand!: boolean;
+  private isMutationDisrupted!: boolean;
+  private layoutName!: string;
 
   // constructor
   constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string) {
@@ -52,16 +52,22 @@ export class InitializeGraph {
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style = new Style();
-    this.isExpand = isExpand;
-    this.isMutationDisrupted = isMutationDisrupted;
-    this.layoutName = layoutName;
+    this.updateGraphState(isExpand,isMutationDisrupted,layoutName);
     this.initializeCytoscape();
   }
 
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
     this.updateGraphState(isExpand,isMutationDisrupted,null);
 
-    if (isExpand) {
+    this.changeEdgeState();
+
+    this.updateLegends();
+  }
+
+
+  private changeEdgeState(): void {
+
+    if (this.isExpand) {
       this.cy.edges().addClass('expand');
       this.cy.$(':loop').addClass('expand');
     } else {
@@ -69,15 +75,13 @@ export class InitializeGraph {
       this.cy.$(':loop').removeClass('expand');
     }
 
-    if (isMutationDisrupted) {
+    if (this.isMutationDisrupted) {
       this.cy.edges().addClass('disrupted');
       this.cy.nodes().addClass('mutation');
     } else {
       this.cy.edges().removeClass('disrupted');
       this.cy.nodes().removeClass('mutation');
     }
-
-    this.updateLegendsWithGraphState(isExpand,isMutationDisrupted);
   }
 
   public export(exportTo: string): void {
@@ -89,11 +93,11 @@ export class InitializeGraph {
    this.initializeCytoscape();
   }
 
-  private updateLegendsWithGraphState(isExpand: boolean, isMutationDisrupted: boolean): void {
-    if (isMutationDisrupted){
+  private updateLegends(): void {
+    if (this.isMutationDisrupted){
       this.legend = new ParentLegend(this.cy);
       this.legend.createLegend(this.legendDivId,NetworkViewerStates.MUTATION_EFFECTED);
-    } else if (isExpand){
+    } else if (this.isExpand){
       this.legend = new ParentLegend(this.cy);
       this.legend.createLegend(this.legendDivId,NetworkViewerStates.EXPANDED);
     } else {
@@ -249,7 +253,8 @@ export class InitializeGraph {
         layout:this.getLayoutOption(),
       });
       this.loadInteractiveMethods();
-      this.expandEdges(this.isExpand, this.isMutationDisrupted);
+      this.changeEdgeState();
+      this.updateLegends();
       this.setUserMaxZoomLevel();
       this.stopLoadingImage();
     }, this.timeout);
