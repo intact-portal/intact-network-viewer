@@ -264,5 +264,7 @@ export class Constants {
 
   public static INITIAL_MAX_ZOOM: number = 1.5;
   public static USER_MAX_ZOOM: number = 10;
-  public static MIN_ZOOM: number = 0.2;
+  public static INITIAL_MIN_ZOOM: number = 0;
+  public static USER_MIN_ZOOM: number = 0.2;
+
 }

@@ -58,10 +58,9 @@ export class InitializeGraph {
 
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
     this.updateGraphState(isExpand,isMutationDisrupted,null);
-
     this.changeEdgeState();
-
     this.updateLegends();
+    this.fit();
   }
 
 
@@ -255,7 +254,7 @@ export class InitializeGraph {
       this.loadInteractiveMethods();
       this.changeEdgeState();
       this.updateLegends();
-      this.setUserMaxZoomLevel();
+      this.fit();
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -308,5 +307,11 @@ export class InitializeGraph {
     if(layoutName!=null){
       this.layoutName = layoutName;
     }
+  }
+
+  private fit(): void{
+    this.setInitialMaxZoomLevel();
+    this.cy.fit();
+    this.setUserMaxZoomLevel();
   }
 }
