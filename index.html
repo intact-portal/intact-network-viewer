@@ -22,6 +22,14 @@
 
         }
 
+        #graph-controllers-div{
+            width: 5%;
+            height: 100%;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+        }
+
         #left-side-panel{
             width: 20%;
             height: 80%;
@@ -33,11 +41,11 @@
         }
 
         #for-canvas-graph {
-            width: 70%;
+            width: 65%;
             height: 100%;
             position: absolute;
             top: 0%;
-            left: 0%;
+            left: 5%;
 
             /*border: 4px dotted blue;*/
 
@@ -181,6 +189,10 @@
 
             });
 
+            $("#reset").click(function(){
+                object.reset();
+            });
+
         });
 
     </script>
@@ -233,6 +245,9 @@
     <!--<input type="radio" name="layout" id="cola" value="cola" >cola</input>-->
 </div>
 <div id="parent-graph-div">
+    <div id="graph-controllers-div">
+        <img id='reset' style="width: 20px;height: 20px" src="images/reset.png" alt="Reset"/>
+    </div>
 
 <div id="for-canvas-graph">
 

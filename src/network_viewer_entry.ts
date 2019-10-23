@@ -59,6 +59,8 @@ export class InitializeGraph {
   }
 
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
+    this.updateGraphState(isExpand,isMutationDisrupted,null);
+
     if (isExpand) {
       this.cy.edges().addClass('expand');
       this.cy.$(':loop').addClass('expand');
@@ -81,6 +83,10 @@ export class InitializeGraph {
   public export(exportTo: string): void {
     const exportObj: Export = new Export(this.cy);
     exportObj.exportAsGraphml();
+  }
+
+  public reset(): void {
+   this.initializeCytoscape();
   }
 
   private updateLegendsWithGraphState(isExpand: boolean, isMutationDisrupted: boolean): void {
@@ -165,6 +171,7 @@ export class InitializeGraph {
   }
 
   public applyLayout(layoutName: string): void {
+    this.updateGraphState(null,null,layoutName);
     this.setInitialMaxZoomLevel();
     switch (layoutName) {
       case 'ngraph': {
@@ -243,7 +250,7 @@ export class InitializeGraph {
       });
       this.loadInteractiveMethods();
       this.expandEdges(this.isExpand, this.isMutationDisrupted);
-      this.setUserMaxZoomLevel()
+      this.setUserMaxZoomLevel();
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -284,5 +291,17 @@ export class InitializeGraph {
 
   private setUserMaxZoomLevel(): void{
     this.cy.maxZoom(Constants.USER_MAX_ZOOM);
+  }
+
+  private updateGraphState(isExpand: any, isMutationDisrupted: any,layoutName: any){
+    if(isExpand!=null){
+      this.isExpand = isExpand;
+    }
+    if(isMutationDisrupted!=null){
+      this.isMutationDisrupted = isMutationDisrupted;
+    }
+    if(layoutName!=null){
+      this.layoutName = layoutName;
+    }
   }
 }
