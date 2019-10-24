@@ -89,7 +89,7 @@ export class InitializeGraph {
   }
 
   public reset(): void {
-   this.initializeCytoscape();
+    this.initializeCytoscape();
   }
 
   private updateLegends(): void {
@@ -118,8 +118,8 @@ export class InitializeGraph {
       var clickedNode = e.target.data('interaction_ac');
       alert('ac is' + clickedNode);
       /*e.target.parallelEdges().forEach( function(ele, i, eles){
-        alert (ele.data('interaction_type'));
-      } );*/
+       alert (ele.data('interaction_type'));
+       } );*/
     });
   }
 
@@ -176,58 +176,42 @@ export class InitializeGraph {
   public applyLayout(layoutName: string): void {
     this.updateGraphState(null,null,layoutName);
     this.setInitialMaxZoomLevel();
+    this.setInitialMinZoomLevel();
+    this.startLoadingImage();
+    setTimeout(() => {
     switch (layoutName) {
       case 'ngraph': {
-        this.startLoadingImage();
-        setTimeout(() => {
           const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
           ngraphLayout.execute();
-          this.setUserMaxZoomLevel();
-          this.stopLoadingImage();
-        }, this.timeout);
         break;
       }
       case 'cise': {
-        this.startLoadingImage();
-        setTimeout(() => {
           const ciseLayout: CiseLayout = new CiseLayout(this.cy);
           ciseLayout.execute();
-          this.setUserMaxZoomLevel();
-          this.stopLoadingImage();
-        }, this.timeout);
         break;
       }
       case 'avsdf': {
-        this.startLoadingImage();
-        setTimeout(() => {
           const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
           avsdfLayout.execute();
-          this.setUserMaxZoomLevel();
-          this.stopLoadingImage();
-        }, this.timeout);
         break;
       }
       case 'cola': {
-        this.startLoadingImage();
-        setTimeout(() => {
           const colaLayout: ColaLayout = new ColaLayout(this.cy);
           colaLayout.execute();
-          this.setUserMaxZoomLevel();
-          this.stopLoadingImage();
-        }, this.timeout);
         break;
       }
       default: {
-        this.startLoadingImage();
-        setTimeout(() => {
           const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
           fcoseLayout.execute();
-          this.setUserMaxZoomLevel();
-          this.stopLoadingImage();
-        }, this.timeout);
         break;
       }
     }
+      this.cy.on('layoutstop', (e)=> {
+        this.setUserMaxZoomLevel();
+        this.setUserMinZoomLevel();
+     });
+      this.stopLoadingImage();
+    }, this.timeout);
 
   }
 
@@ -246,15 +230,17 @@ export class InitializeGraph {
         elements: this.data,
 
         'maxZoom':Constants.INITIAL_MAX_ZOOM,
-        'minZoom':Constants.MIN_ZOOM,
+        'minZoom':Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
         // boxSelectionEnabled: false,
         layout:this.getLayoutOption(),
       });
-      this.loadInteractiveMethods();
+      this.cy.on('layoutstop', (e)=> {
+        this.loadInteractiveMethods();
+        this.fit();
+      });
       this.changeEdgeState();
       this.updateLegends();
-      this.fit();
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -264,7 +250,7 @@ export class InitializeGraph {
     let layoutOption : any;
 
     switch (this.layoutName) {
-     case 'cise': {
+      case 'cise': {
         layoutOption= Constants.CISE_LAYOUT_OPTIONS;
         break;
       }
@@ -272,7 +258,7 @@ export class InitializeGraph {
         layoutOption= Constants.AVSDF_LAYOUT_OPTIONS;
         break;
       }
-     default: {
+      default: {
         layoutOption= Constants.FCOSE_LAYOUT_OPTIONS;
         break;
       }
@@ -297,6 +283,18 @@ export class InitializeGraph {
     this.cy.maxZoom(Constants.USER_MAX_ZOOM);
   }
 
+  private setUserMinZoomLevel(): void{
+    if(this.cy.zoom()<0.2){
+      this.cy.minZoom(this.cy.zoom());
+    }else {
+      this.cy.minZoom(Constants.USER_MIN_ZOOM);
+    }
+  }
+
+  private setInitialMinZoomLevel(): void{
+    this.cy.minZoom(Constants.INITIAL_MIN_ZOOM);
+  }
+
   private updateGraphState(isExpand: any, isMutationDisrupted: any,layoutName: any){
     if(isExpand!=null){
       this.isExpand = isExpand;
@@ -311,7 +309,9 @@ export class InitializeGraph {
 
   private fit(): void{
     this.setInitialMaxZoomLevel();
+    this.setInitialMinZoomLevel();
     this.cy.fit();
     this.setUserMaxZoomLevel();
+    this.setUserMinZoomLevel();
   }
 }
