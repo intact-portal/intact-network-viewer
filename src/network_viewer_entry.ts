@@ -60,7 +60,6 @@ export class InitializeGraph {
     this.updateGraphState(isExpand,isMutationDisrupted,null);
     this.changeEdgeState();
     this.updateLegends();
-    this.fit();
   }
 
 
@@ -309,6 +308,14 @@ export class InitializeGraph {
 
   private fit(): void{
     this.setInitialMaxZoomLevel();
+    this.setInitialMinZoomLevel();
+    this.cy.fit();
+    this.setUserMaxZoomLevel();
+    this.setUserMinZoomLevel();
+  }
+
+  private fitWithCurrentZoom(): void{
+    this.cy.maxZoom(this.cy.zoom());
     this.setInitialMinZoomLevel();
     this.cy.fit();
     this.setUserMaxZoomLevel();
