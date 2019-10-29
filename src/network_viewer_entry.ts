@@ -115,7 +115,6 @@ export class InitializeGraph {
   private loadEdgeOnclickMethod(): void {
     this.cy.edges().on('click', function(e) {
       var clickedNode = e.target.data('interaction_ac');
-      alert('ac is' + clickedNode);
       /*e.target.parallelEdges().forEach( function(ele, i, eles){
        alert (ele.data('interaction_type'));
        } );*/
@@ -142,9 +141,11 @@ export class InitializeGraph {
       var tappedNode = e.target;
       var directlyConnectedEdges = tappedNode.closedNeighbourhood();
       tappedNode.addClass('highlight');
-      directlyConnectedEdges.addClass('neighbour-highlight');
-      directlyConnectedEdges.nodes().addClass('neighbour-highlight');
-      localCy.fit(directlyConnectedEdges);
+      if(!e.originalEvent.shiftKey){
+        directlyConnectedEdges.addClass('neighbour-highlight');
+        directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+        localCy.fit(directlyConnectedEdges);
+      }
     });
   }
 
