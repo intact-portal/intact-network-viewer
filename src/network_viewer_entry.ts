@@ -4,6 +4,9 @@ import cola from 'cytoscape-cola';
 import cyforcelayout from 'cytoscape-ngraph.forcelayout';
 import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
+import popper from 'cytoscape-popper';
+import tippy from 'tippy.js';
+import PopperJs from 'popper.js';
 
 import { AvsdfLayout } from './layouts/avsdf_layout';
 import { CiseLayout } from './layouts/cise_layout';
@@ -15,6 +18,8 @@ import { NgraphLayout } from './layouts/ngraph_layout';
 import { Spinner } from 'spin.js';
 import { Style } from './styles/style';
 import 'spin.js/spin.css';
+/*import 'tippy.js/dist/tippy.css';*/
+
 
 import $ from 'jquery';
 import { ParentLegend } from './legends/parent_legend';
@@ -27,6 +32,8 @@ cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
 cytoscape.use(avsdf);
 cytoscape.use(cola);
+cytoscape.use( popper );
+
 
 export class InitializeGraph {
   // field
@@ -110,6 +117,55 @@ export class InitializeGraph {
     this.loadUnSelectNodeMethod();
     this.loadOnNodeTapMethod();
     this.loadOnTapUnselectMethod();
+    this.loadEdgeOnHoverMethod();
+  }
+
+  private loadEdgeOnHoverMethod(): void {
+    this.cy.edges().on('mouseover', function(e) {
+      //var clickedNode = e.target.data('interaction_ac');
+      var hoveredNode = e.target;
+
+      let ref = hoveredNode.popperRef(); // used only for positioning
+
+      var makeTippy = function (node, text) {
+        return tippy(node.popperRef(), {
+          content: function () {
+            var div = document.createElement('div');
+            div.innerHTML = text;
+            return div;
+          },
+          trigger: 'manual',
+          arrow: true,
+          placement: 'bottom',
+          hideOnClick: false,
+          multiple: true,
+          sticky: true
+        });
+      };
+      var tippyA = makeTippy(hoveredNode, 'foo');
+      (tippyA as any).show();
+
+      //
+
+
+      /*let toolTip = new (ref, { // tippy options:
+        content: () => {
+          let content = <HTMLDivElement>document.createElement('div');
+
+          content.innerHTML = 'Tippy content';
+
+          return content;
+        },
+        trigger: 'manual' // probably want manual mode
+      });
+      toolTip.show();*/
+
+
+     /* node.on('tap', () => tippy.show());*/
+      /*e.target.parallelEdges().forEach( function(ele, i, eles){
+       alert (ele.data('interaction_type'));
+       } );*/
+    });
   }
 
   private loadEdgeOnclickMethod(): void {
