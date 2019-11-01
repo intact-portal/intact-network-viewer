@@ -122,7 +122,7 @@ export class InitializeGraph {
 
   private loadEdgeOnHoverInAndOutMethod(): void {
 
-    var tippyToolTip;
+    var tippyToolTip : any;
     this.cy.edges().on('mouseover', function(e) {
       var hoveredNode = e.target;
 
@@ -142,12 +142,12 @@ export class InitializeGraph {
         });
       };
       tippyToolTip = makeTippy(hoveredNode, 'foo');
-      (tippyToolTip as any).show();
+      tippyToolTip.show();
     });
 
     this.cy.edges().on('mouseout', function(e) {
-      (tippyToolTip as any).hide();
-      (tippyToolTip as any).destroy();
+      tippyToolTip.hide();
+      tippyToolTip.destroy();
     });
   }
 
