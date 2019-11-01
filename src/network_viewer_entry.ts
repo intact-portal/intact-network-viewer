@@ -117,15 +117,14 @@ export class InitializeGraph {
     this.loadUnSelectNodeMethod();
     this.loadOnNodeTapMethod();
     this.loadOnTapUnselectMethod();
-    this.loadEdgeOnHoverMethod();
+    this.loadEdgeOnHoverInAndOutMethod();
   }
 
-  private loadEdgeOnHoverMethod(): void {
-    this.cy.edges().on('mouseover', function(e) {
-      //var clickedNode = e.target.data('interaction_ac');
-      var hoveredNode = e.target;
+  private loadEdgeOnHoverInAndOutMethod(): void {
 
-      let ref = hoveredNode.popperRef(); // used only for positioning
+    var tippyToolTip;
+    this.cy.edges().on('mouseover', function(e) {
+      var hoveredNode = e.target;
 
       var makeTippy = function (node, text) {
         return tippy(node.popperRef(), {
@@ -142,29 +141,13 @@ export class InitializeGraph {
           sticky: true
         });
       };
-      var tippyA = makeTippy(hoveredNode, 'foo');
-      (tippyA as any).show();
+      tippyToolTip = makeTippy(hoveredNode, 'foo');
+      (tippyToolTip as any).show();
+    });
 
-      //
-
-
-      /*let toolTip = new (ref, { // tippy options:
-        content: () => {
-          let content = <HTMLDivElement>document.createElement('div');
-
-          content.innerHTML = 'Tippy content';
-
-          return content;
-        },
-        trigger: 'manual' // probably want manual mode
-      });
-      toolTip.show();*/
-
-
-     /* node.on('tap', () => tippy.show());*/
-      /*e.target.parallelEdges().forEach( function(ele, i, eles){
-       alert (ele.data('interaction_type'));
-       } );*/
+    this.cy.edges().on('mouseout', function(e) {
+      (tippyToolTip as any).hide();
+      (tippyToolTip as any).destroy();
     });
   }
 
