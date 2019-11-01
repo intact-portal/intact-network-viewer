@@ -2,15 +2,19 @@ import cytoscape from 'cytoscape';
 import popper from 'cytoscape-popper';
 import tippy from 'tippy.js';
 import PopperJs from 'popper.js';
+import {EdgeDetails} from "./edge_details";
+import {Utility} from "./utility";
 
 cytoscape.use(popper);
 
 export class Interaction {
 
     private cy: any;
+    private utility: Utility;
 
     constructor(cy: any) {
         this.cy = cy;
+        this.utility = new Utility();
         this.loadEdgeOnclickMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
@@ -28,9 +32,7 @@ export class Interaction {
             var makeTippy = function (node, text) {
                 return tippy(node.popperRef(), {
                     content: function () {
-                        var div = document.createElement('div');
-                        div.innerHTML = text;
-                        return div;
+                        return new EdgeDetails(node,this.utility);
                     },
                     trigger: 'manual',
                     arrow: true,
