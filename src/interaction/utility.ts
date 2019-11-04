@@ -4,25 +4,25 @@ export class Utility {
     public createDetailsDivFor(detailDivId:string):HTMLDivElement {
         var legendDiv = <HTMLDivElement>document.createElement('div');
         legendDiv.setAttribute('id', detailDivId);
-        legendDiv.setAttribute('style', Style.DETAILS_DIV);
+       // legendDiv.setAttribute('style', Style.DETAILS_DIV);
         return legendDiv;
     }
 
     public createDivElementFor(detailLabel:string,detailValue:string):HTMLDivElement {
         let divListElement = <HTMLDivElement>document.createElement('div');
 
-        divListElement.setAttribute('style', Style.DETAIL_SUB_DIV);
+     //   divListElement.setAttribute('style', Style.DETAIL_SUB_DIV);
 
 
-        let detailLabel = <HTMLParagraphElement>document.createElement('p');
-        detailLabel.setAttribute('style',Style.LABEL);
-        detailLabel.innerHTML=detailLabel+":";
-        divListElement.appendChild(nodeShapeLegendImageLabel);
+        let detailLabelElement = <HTMLParagraphElement>document.createElement('p');
+      //  detailLabelElement.setAttribute('style',Style.LABEL);
+        detailLabelElement.innerHTML=detailLabel+":";
+        divListElement.appendChild(detailLabelElement);
 
-        let detailValue = <HTMLParagraphElement>document.createElement('p');
-        detailLabel.setAttribute('style',Style.VALUE);
-        detailLabel.innerHTML=detailValue;
-        divListElement.appendChild(detailLabel);
+        let detailValueElement = <HTMLParagraphElement>document.createElement('p');
+      //  detailValueElement.setAttribute('style',Style.VALUE);
+        detailValueElement.innerHTML=detailValue;
+        divListElement.appendChild(detailValueElement);
 
         return divListElement;
     }

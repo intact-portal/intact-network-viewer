@@ -4,6 +4,7 @@ import tippy from 'tippy.js';
 import PopperJs from 'popper.js';
 import {EdgeDetails} from "./edge_details";
 import {Utility} from "./utility";
+import 'tippy.js/index.css';
 
 cytoscape.use(popper);
 
@@ -20,19 +21,19 @@ export class Interaction {
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod();
         this.loadOnTapUnselectMethod();
-        this.loadEdgeOnHoverInAndOutMethod();
+        this.loadEdgeOnHoverInAndOutMethod(this.utility);
     }
 
-    private loadEdgeOnHoverInAndOutMethod(): void {
+    private loadEdgeOnHoverInAndOutMethod(utility:Utility): void {
 
         var tippyToolTip : any;
         this.cy.edges().on('mouseover', function(e) {
             var hoveredNode = e.target;
 
-            var makeTippy = function (node, text) {
+            var makeTippy = function (node, text,utility) {
                 return tippy(node.popperRef(), {
                     content: function () {
-                        return new EdgeDetails(node,this.utility);
+                        return new EdgeDetails(node,utility).createDetails().innerHTML;
                     },
                     trigger: 'manual',
                     arrow: true,
@@ -42,14 +43,14 @@ export class Interaction {
                     sticky: true
                 });
             };
-            tippyToolTip = makeTippy(hoveredNode, 'foo');
+            tippyToolTip = makeTippy(hoveredNode, 'foo',utility);
             tippyToolTip.show();
         });
 
-        this.cy.edges().on('mouseout', function(e) {
+        /*this.cy.edges().on('mouseout', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
-        });
+        });*/
     }
 
     private loadEdgeOnclickMethod(): void {
