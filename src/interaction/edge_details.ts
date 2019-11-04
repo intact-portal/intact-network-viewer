@@ -14,9 +14,11 @@ export class EdgeDetails {
     public createDetails():HTMLDivElement {
         let detailDiv = this.utility.createDetailsDivFor(Constants.EDGE_DETAILS_DIV_ID);
 
-        let miScoreDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL,this.edge.data('interaction_detection_method'));
+        let detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL,this.edge.data('interaction_detection_method'));
+        let miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL,this.edge.data('mi_score'));
 
         detailDiv.appendChild(miScoreDivElement);
+        detailDiv.appendChild(detectionMethodDivElement);
 
         return detailDiv;
 

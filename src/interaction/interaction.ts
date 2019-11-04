@@ -33,7 +33,7 @@ export class Interaction {
             var makeTippy = function (node, text,utility) {
                 return tippy(node.popperRef(), {
                     content: function () {
-                        return new EdgeDetails(node,utility).createDetails().innerHTML;
+                        return new EdgeDetails(node,utility).createDetails();
                     },
                     trigger: 'manual',
                     arrow: true,
@@ -47,10 +47,10 @@ export class Interaction {
             tippyToolTip.show();
         });
 
-        /*this.cy.edges().on('mouseout', function(e) {
+        this.cy.edges().on('mouseout', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
-        });*/
+        });
     }
 
     private loadEdgeOnclickMethod(): void {
