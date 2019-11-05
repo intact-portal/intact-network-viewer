@@ -2,6 +2,7 @@ import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
 import {Edge} from "../constants/edge";
+import {Node} from "../constants/node";
 
 export class Utility {
   public edgeWidth(edge: any): string {
@@ -29,7 +30,7 @@ export class Utility {
   }
 
   public nodeWidth(node: any): string {
-    if (node.data('shape') === Shape.ROUNDED_RECTANGLE) {
+    if (node.data(Node.SHAPE) === Shape.ROUNDED_RECTANGLE) {
       return Width.RECTANGULAR_NODE_WIDTH;
     }
     return node.height();
