@@ -14,8 +14,16 @@ export class EdgeDetails {
 
     public createDetails():HTMLDivElement {
         let detailDiv = this.utility.createDetailsDivFor(Constants.EDGE_DETAILS_DIV_ID);
-
-        let detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL,this.edge.data(Edge.INTERACTION_DETECTION_METHOD));
+        let detectionMethodDivElement;
+        if(this.edge.hasClass('expand')) {
+            detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL, this.edge.data(Edge.INTERACTION_DETECTION_METHOD));
+        }else{
+            let detectionMethodsSet=new Set<string>();
+            this.edge.parallelEdges().forEach(edge => {
+               detectionMethodsSet.add(edge.data(Edge.INTERACTION_DETECTION_METHOD));
+            });
+            detectionMethodDivElement = this.utility.createDivElementFor(Constants.NO_DETECTION_METHODS_LABEL, detectionMethodsSet.size);
+        }
         let miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL,this.edge.data(Edge.MI_SCORE));
 
         detailDiv.appendChild(miScoreDivElement);

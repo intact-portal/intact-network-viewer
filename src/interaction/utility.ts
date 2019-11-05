@@ -8,7 +8,7 @@ export class Utility {
         return legendDiv;
     }
 
-    public createDivElementFor(detailLabel:string,detailValue:string):HTMLDivElement {
+    public createDivElementFor(detailLabel:string,detailValue:any):HTMLDivElement {
         let divListElement = <HTMLDivElement>document.createElement('div');
 
         let detailElement = <HTMLParagraphElement>document.createElement('p');
