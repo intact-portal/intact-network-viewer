@@ -5,6 +5,7 @@ import PopperJs from 'popper.js';
 import {EdgeDetails} from "./edge_details";
 import {Utility} from "./utility";
 import 'tippy.js/index.css';
+import {NodeDetails} from "./node_details";
 
 cytoscape.use(popper);
 
@@ -21,21 +22,27 @@ export class Interaction {
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod();
         this.loadOnTapUnselectMethod();
-        this.loadEdgeOnHoverInAndOutMethod(this.utility);
+        this.loadNodeAndEdgeDetailMethods(this.utility);
+
+    }
+
+    private loadNodeAndEdgeDetailMethods(utility:Utility): void {
+        utility.insertCSSClassesInDOMForToolTip();
+
+        this.loadEdgeOnHoverInAndOutMethod(utility);
+        this.loadNodeOnHoverInAndOutMethod(utility);
     }
 
     private loadEdgeOnHoverInAndOutMethod(utility:Utility): void {
 
-        utility.insertCSSClassesInDOMForToolTip();
-
         var tippyToolTip : any;
         this.cy.edges().on('mouseover', function(e) {
-            var hoveredNode = e.target;
+            var hoveredEdge = e.target;
 
-            var makeTippy = function (node, text,utility) {
-                return tippy(node.popperRef(), {
+            var makeTippy = function (edge, text,utility) {
+                return tippy(edge.popperRef(), {
                     content: function () {
-                        return new EdgeDetails(node,utility).createDetails();
+                        return new EdgeDetails(edge,utility).createDetails();
                     },
                     trigger: 'manual',
                     arrow: true,
@@ -47,13 +54,45 @@ export class Interaction {
                     maxWidth:'none'
                 });
             };
-            tippyToolTip = makeTippy(hoveredNode, 'foo',utility);
+            tippyToolTip = makeTippy(hoveredEdge, 'foo',utility);
             tippyToolTip.show();
         });
 
         this.cy.edges().on('mouseout', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
+        });
+    }
+
+    private loadNodeOnHoverInAndOutMethod(utility:Utility): void {
+
+        var tippyToolTip : any;
+        this.cy.nodes().on('mouseover', function(e) {
+
+            var hoveredNode = e.target;
+
+            var makeTippy = function (node, text, utility) {
+                return tippy(node.popperRef(), {
+                    content: function () {
+                        return new NodeDetails(node, utility).createDetails();
+                    },
+                    trigger: 'manual',
+                    arrow: true,
+                    placement: 'bottom',
+                    hideOnClick: false,
+                    multiple: true,
+                    sticky: true,
+                    theme: 'intact',
+                    maxWidth: 'none'
+                });
+            };
+            tippyToolTip = makeTippy(hoveredNode, 'foo', utility);
+            tippyToolTip.show();
+        });
+
+        this.cy.nodes().on('mouseout', function(e) {
+                tippyToolTip.hide();
+                tippyToolTip.destroy();
         });
     }
 
