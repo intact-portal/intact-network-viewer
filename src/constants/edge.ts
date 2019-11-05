@@ -6,4 +6,5 @@ export class Edge {
     public static SHAPE:string = 'shape';
     public static COLOR:string = 'color';
     public static ID:string = 'id';
+    public static INTERACTION_AC:string = 'interaction_ac';
 }
