@@ -26,6 +26,8 @@ export class Interaction {
 
     private loadEdgeOnHoverInAndOutMethod(utility:Utility): void {
 
+        utility.insertCSSClassesInDOMForToolTip();
+
         var tippyToolTip : any;
         this.cy.edges().on('mouseover', function(e) {
             var hoveredNode = e.target;
@@ -40,7 +42,9 @@ export class Interaction {
                     placement: 'bottom',
                     hideOnClick: false,
                     multiple: true,
-                    sticky: true
+                    sticky: true,
+                    theme: 'intact',
+                    maxWidth:'none'
                 });
             };
             tippyToolTip = makeTippy(hoveredNode, 'foo',utility);

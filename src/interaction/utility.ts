@@ -14,17 +14,26 @@ export class Utility {
      //   divListElement.setAttribute('style', Style.DETAIL_SUB_DIV);
 
 
-        let detailLabelElement = <HTMLParagraphElement>document.createElement('p');
-      //  detailLabelElement.setAttribute('style',Style.LABEL);
-        detailLabelElement.innerHTML=detailLabel+":";
-        divListElement.appendChild(detailLabelElement);
+        let detailElement = <HTMLParagraphElement>document.createElement('p');
+        let detailLabelElement = <HTMLElement>document.createElement('strong');
+        detailLabelElement.innerHTML=detailLabel+": ";
+        detailElement.appendChild(detailLabelElement)
+        detailElement.append(detailValue);
+        divListElement.appendChild(detailElement);
 
-        let detailValueElement = <HTMLParagraphElement>document.createElement('p');
+/*        let detailValueElement = <HTMLParagraphElement>document.createElement('p');
       //  detailValueElement.setAttribute('style',Style.VALUE);
         detailValueElement.innerHTML=detailValue;
-        divListElement.appendChild(detailValueElement);
+        divListElement.appendChild(detailValueElement);*/
 
         return divListElement;
+    }
+
+    public insertCSSClassesInDOMForToolTip():void{
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = Style.TOOL_TIP_CSS_CLASS;
+        document.getElementsByTagName('head')[0].appendChild(style);
     }
 
 }
