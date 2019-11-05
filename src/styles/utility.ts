@@ -1,6 +1,7 @@
 import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
+import {Edge} from "../constants/edge";
 
 export class Utility {
   public edgeWidth(edge: any): string {
@@ -11,7 +12,7 @@ export class Utility {
   }
 
   public edgeColor(edge: any): string {
-    return edge.data('collapsed_color');
+    return edge.data(Edge.COLLAPSED_COLOR);
   }
 
   public edgeDisplay(edge: any): string {

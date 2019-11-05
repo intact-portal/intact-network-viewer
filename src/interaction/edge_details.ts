@@ -1,6 +1,7 @@
 import {Utility} from "./utility";
 import {Constants} from "./constants";
 import {Style} from "./style";
+import {Edge} from "../constants/edge";
 export class EdgeDetails {
 
     private edge:any;
@@ -14,29 +15,13 @@ export class EdgeDetails {
     public createDetails():HTMLDivElement {
         let detailDiv = this.utility.createDetailsDivFor(Constants.EDGE_DETAILS_DIV_ID);
 
-        let detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL,this.edge.data('interaction_detection_method'));
-        let miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL,this.edge.data('mi_score'));
+        let detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL,this.edge.data(Edge.INTERACTION_DETECTION_METHOD));
+        let miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL,this.edge.data(Edge.MI_SCORE));
 
         detailDiv.appendChild(miScoreDivElement);
         detailDiv.appendChild(detectionMethodDivElement);
 
         return detailDiv;
 
-/*        let detailLabel=Constants.INTERACTION_DETECTION_METHOD_LABEL;
-        let detailValue=this.edge.data('interaction_detection_method')
-
-        let detailLabelElement = <HTMLParagraphElement>document.createElement('p');
-        //detailLabelElement.setAttribute('style',Style.LABEL);
-        detailLabelElement.innerHTML=detailLabel+":";
-        detailDiv.appendChild(detailLabelElement);
-
-        let detailValueElement = <HTMLParagraphElement>document.createElement('p');
-        //detailValueElement.setAttribute('style',Style.VALUE);
-        detailValueElement.innerHTML=detailValue;
-        detailDiv.appendChild(detailValueElement);
-
-        detailDiv.style.display = 'block';*/
-
-        //return detailDiv;
     }
 }

@@ -3,6 +3,8 @@ import { Shape } from './constants/shape';
 import { Utility } from './utility';
 import { Width } from './constants/width';
 import {Size} from "./constants/size";
+import {Edge} from "../constants/edge";
+import {Node} from "../constants/node";
 
 export class Style {
   private styleUtility: Utility;
@@ -37,11 +39,15 @@ export class Style {
         // 'shape':'circle',//Protein
         // shape: 'vee',// DNA
         // shape:'ellipse',
-        shape: 'data(shape)',
+        shape: node => {
+          return node.data(Node.SHAPE);
+        },
         width: node => {
           return this.styleUtility.nodeWidth(node);
         },
-        'background-color': 'data(color)',
+        'background-color': node => {
+          return node.data(Node.COLOR);
+        },
         /*label: 'data(preferred_id)',*/
       },
     },
@@ -99,10 +105,10 @@ export class Style {
         'control-point-step-size': 40,
         'curve-style': 'bezier',
         'line-style': edge => {
-          return edge.data('shape');
+          return edge.data(Edge.SHAPE);
         },
         'line-color': edge => {
-          return edge.data('color');
+          return edge.data(Edge.COLOR);
         },
         width: Width.DEFAULT_EDGE,
         display: 'element',
@@ -112,7 +118,7 @@ export class Style {
       selector: 'edge.disrupted',
       style: {
         'line-color': edge => {
-          if (edge.data('disrupted_by_mutation')) {
+          if (edge.data(Edge.DISRUPTED_BY_MUTATION)) {
             return Color.HIGHLIGHT_MUTATION;
           }
           return Color.LOWLIGHT;
@@ -123,13 +129,13 @@ export class Style {
       selector: 'node.mutation',
       style: {
         'border-color': node => {
-          if (node.data('mutation')) {
+          if (node.data(Node.MUTATION)) {
             return Color.HIGHLIGHT_MUTATION;
           }
           return Color.DEFAULT_NODE_BORDER;
         },
         'border-width': node => {
-          if (node.data('mutation')) {
+          if (node.data(Node.MUTATION)) {
             return Width.MUTATED_NODE_BORDER;
           }
           return Width.DEFAULT_NODE_BORDER;

@@ -11,20 +11,12 @@ export class Utility {
     public createDivElementFor(detailLabel:string,detailValue:string):HTMLDivElement {
         let divListElement = <HTMLDivElement>document.createElement('div');
 
-     //   divListElement.setAttribute('style', Style.DETAIL_SUB_DIV);
-
-
         let detailElement = <HTMLParagraphElement>document.createElement('p');
         let detailLabelElement = <HTMLElement>document.createElement('strong');
         detailLabelElement.innerHTML=detailLabel+": ";
         detailElement.appendChild(detailLabelElement)
         detailElement.append(detailValue);
         divListElement.appendChild(detailElement);
-
-/*        let detailValueElement = <HTMLParagraphElement>document.createElement('p');
-      //  detailValueElement.setAttribute('style',Style.VALUE);
-        detailValueElement.innerHTML=detailValue;
-        divListElement.appendChild(detailValueElement);*/
 
         return divListElement;
     }
