@@ -19,10 +19,10 @@ export class Utility {
   public edgeDisplay(edge: any): string {
     if (edge.parallelEdges().size() > 1) {
       var sortedEdges = edge.parallelEdges().sort(function(a, b) {
-        return a.data('id') - b.data('id');
+        return a.data(Edge.ID) - b.data(Edge.ID);
       });
       var firstEdge = sortedEdges.first();
-      if (firstEdge.data('id') != edge.data('id')) {
+      if (firstEdge.data(Edge.ID) != edge.data(Edge.ID)) {
         return 'none';
       }
     }
