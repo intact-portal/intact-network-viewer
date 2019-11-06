@@ -66,8 +66,17 @@ export class Interaction {
 
     private loadNodeOnHoverInAndOutMethod(utility:Utility): void {
 
-        var tippyToolTip : any;
-        this.cy.nodes().on('mouseover', function(e) {
+        let tippyToolTip : any;
+
+        let nodes:any;
+
+        if(this.cy.nodes().children().size()==0){
+            nodes = this.cy.nodes(); // non compound graph
+        }else{
+            nodes = this.cy.nodes().children(); // compound graph
+        }
+
+        nodes.on('mouseover', function(e) {
 
             var hoveredNode = e.target;
 
@@ -90,7 +99,7 @@ export class Interaction {
             tippyToolTip.show();
         });
 
-        this.cy.nodes().on('mouseout', function(e) {
+        nodes.on('mouseout', function(e) {
                 tippyToolTip.hide();
                 tippyToolTip.destroy();
         });
