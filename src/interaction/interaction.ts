@@ -27,7 +27,7 @@ export class Interaction {
     }
 
     private loadNodeAndEdgeDetailMethods(utility:Utility): void {
-        utility.insertCSSClassesInDOMForToolTip();
+        //utility.insertCSSClassesInDOMForToolTip();
 
         this.loadEdgeOnHoverInAndOutMethod(utility);
         this.loadNodeOnHoverInAndOutMethod(utility);

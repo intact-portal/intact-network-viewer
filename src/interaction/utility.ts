@@ -12,6 +12,7 @@ export class Utility {
         let divListElement = <HTMLDivElement>document.createElement('div');
 
         let detailElement = <HTMLParagraphElement>document.createElement('p');
+        detailElement.setAttribute('style',Style.TOOL_TIP_TEXT);
         let detailLabelElement = <HTMLElement>document.createElement('strong');
         detailLabelElement.innerHTML=detailLabel+": ";
         detailElement.appendChild(detailLabelElement)
