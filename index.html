@@ -23,11 +23,19 @@
         }
 
         #graph-controllers-div{
-            width: 65%;
+            width: 5%;
             height: 5%;
             position: absolute;
             top: 0%;
             left: 0%;
+        }
+
+        #suggestions_div{
+            width: 60%;
+            height: 10%;
+            position: absolute;
+            top: 0%;
+            left: 5%;
         }
 
         #left-side-panel{
@@ -104,7 +112,6 @@
     </style>
     <meta charset="utf-8">
     <title>Interaction Viewer Demo</title>
-    <!--<link rel="stylesheet" href="node_modules/spin.js/spin.css">-->
     <!-- example data info -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.13/system.js">
@@ -145,7 +152,7 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend', data, expand,disrupted_mutation,layoutName);
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend', data, expand,disrupted_mutation,layoutName,'nodeL');
 
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
@@ -247,6 +254,11 @@
 <div id="parent-graph-div">
     <div id="graph-controllers-div">
         <img id='reset' style="width: 20px;height: 20px" src="images/reset.png" alt="Reset"/>
+    </div>
+
+    <div id='suggestions_div'>
+        <input type='text' id='nodeL' class='autocomplete'>
+        <label for='nodeL'>Interactor Name</label>
     </div>
 
 <div id="for-canvas-graph">

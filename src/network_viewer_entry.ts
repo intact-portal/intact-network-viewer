@@ -20,6 +20,9 @@ import 'spin.js/spin.css';
 
 
 import $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-ui/ui/widgets/autocomplete';
+import 'jquery-ui/themes/base/autocomplete.css'
 import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
@@ -42,8 +45,11 @@ export class InitializeGraph {
   private data: JSON;
   private interaction!: Interaction;
   private legend!: ParentLegend;
+  private nodeLabels!: Array<string>;
+  private nodeMap!: Map<string,any>;
   private spinner: Spinner;
   private spinTarget: any;
+  private suggestionBoxId:string;
   private style: Style;
   private edgesSize!: number;
   private timeout!: number;
@@ -52,13 +58,14 @@ export class InitializeGraph {
   private layoutName!: string;
 
   // constructor
-  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string) {
+  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string,suggestionBoxId:string) {
     this.graphContainerDivId = graphContainerDivId;
     this.legendDivId = legendDivId;
     this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style = new Style();
+    this.suggestionBoxId = suggestionBoxId;
     this.updateGraphState(isExpand,isMutationDisrupted,layoutName);
     this.initializeCytoscape();
   }
@@ -191,6 +198,7 @@ export class InitializeGraph {
       this.changeEdgeState();
       this.updateLegends();
       this.interaction = new Interaction(this.cy);
+      this.loadAutoSuggestion();
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -272,4 +280,23 @@ export class InitializeGraph {
     this.setUserMaxZoomLevel();
     this.setUserMinZoomLevel();
   }
+
+  private loadAutoSuggestion():void {
+    this.nodeLabels = new Array<string>();
+    this.nodeMap = new Map();
+
+    this.cy.nodes().forEach((node)=> {
+      if(node.data('label')!=null) {
+        this.nodeLabels.push(node.data('label'));
+        this.nodeMap.set(node.data('label'), node);
+      }
+
+    });
+
+    $('#'+this.suggestionBoxId).autocomplete({
+      source: this.nodeLabels
+    });
+
+
+}
 }
