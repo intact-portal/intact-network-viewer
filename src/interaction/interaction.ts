@@ -17,17 +17,17 @@ export class Interaction {
     constructor(cy: any) {
         this.cy = cy;
         this.utility = new Utility();
-        this.loadEdgeOnclickMethod();
+        this.loadOnEdgeClickMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod();
         this.loadOnTapUnselectMethod();
-        this.loadNodeAndEdgeDetailMethods(this.utility);
+        this.loadOnNodeAndEdgeHoverMethods(this.utility);
 
     }
 
-    private loadNodeAndEdgeDetailMethods(utility:Utility): void {
-        //utility.insertCSSClassesInDOMForToolTip();
+    private loadOnNodeAndEdgeHoverMethods(utility:Utility): void {
+        //utility.insertCSSClassesInDOMForToolTip(); // Enable it, if needed in future
 
         this.loadEdgeOnHoverInAndOutMethod(utility);
         this.loadNodeOnHoverInAndOutMethod(utility);
@@ -59,6 +59,11 @@ export class Interaction {
         });
 
         this.cy.edges().on('mouseout', function(e) {
+            tippyToolTip.hide();
+            tippyToolTip.destroy();
+        });
+
+        this.cy.edges().on('click', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
         });
@@ -105,12 +110,14 @@ export class Interaction {
         });
     }
 
-    private loadEdgeOnclickMethod(): void {
+    private loadOnEdgeClickMethod(): void {
         this.cy.edges().on('click', function(e) {
-            var clickedNode = e.target.data('interaction_ac');
-            /*e.target.parallelEdges().forEach( function(ele, i, eles){
-             alert (ele.data('interaction_type'));
-             } );*/
+            var clickedEdge = e.target;
+            if(clickedEdge.hasClass('expand')){
+                clickedEdge.parallelEdges().removeClass('expand');
+            }else{
+                clickedEdge.parallelEdges().addClass('expand');
+            }
         });
     }
 
