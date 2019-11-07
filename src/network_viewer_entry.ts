@@ -104,6 +104,21 @@ export class InitializeGraph {
     this.initializeCytoscape();
   }
 
+  public search(interactorName:string): void {
+    let searchedNode=this.nodeMap.get(interactorName);
+    this.cy.maxZoom(1);
+    this.cy.animate({
+      fit: {
+        eles: searchedNode,
+        padding: 20,
+      }
+    }, {
+      duration: 1000
+    });
+    searchedNode.addClass('highlight');
+    this.setUserMaxZoomLevel();
+  }
+
   private updateLegends(): void {
     if (this.isMutationDisrupted){
       this.legend = new ParentLegend(this.cy);

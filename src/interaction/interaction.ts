@@ -23,7 +23,17 @@ export class Interaction {
         this.loadOnNodeTapMethod();
         this.loadOnTapUnselectMethod();
         this.loadOnNodeAndEdgeHoverMethods(this.utility);
+        this.loadOnEmptySpaceClick();
 
+    }
+
+    private loadOnEmptySpaceClick():void{
+        this.cy.on('tap', (event)=>{
+            var evtTarget = event.target;
+            if( evtTarget === this.cy ){
+               this.cy.nodes().removeClass('highlight');// when you want to unselect after searching a node
+            }
+        });
     }
 
     private loadOnNodeAndEdgeHoverMethods(utility:Utility): void {
