@@ -22,7 +22,6 @@ import 'spin.js/spin.css';
 import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
-import 'jquery-ui/themes/base/autocomplete.css'
 import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
