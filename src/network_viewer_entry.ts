@@ -25,6 +25,7 @@ import 'jquery-ui/ui/widgets/autocomplete';
 import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
+import {Node} from "./constants/node";
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -106,17 +107,19 @@ export class InitializeGraph {
 
   public search(interactorName:string): void {
     let searchedNode=this.nodeMap.get(interactorName);
-    this.cy.maxZoom(1);
-    this.cy.animate({
-      fit: {
-        eles: searchedNode,
-        padding: 20,
-      }
-    }, {
-      duration: 1000
-    });
-    searchedNode.addClass('highlight');
-    this.setUserMaxZoomLevel();
+    if(searchedNode!=null) {
+      this.cy.maxZoom(1);
+      this.cy.animate({
+        fit: {
+          eles: searchedNode,
+          padding: 20,
+        }
+      }, {
+        duration: 1000
+      });
+      searchedNode.addClass('highlight');
+      this.setUserMaxZoomLevel();
+    }
   }
 
   private updateLegends(): void {
@@ -301,14 +304,25 @@ export class InitializeGraph {
 
     this.cy.nodes().forEach((node)=> {
       if(node.data('label')!=null) {
-        this.nodeLabels.push(node.data('label'));
-        this.nodeMap.set(node.data('label'), node);
+        let nodeName=node.data(Node.INTERACTOR_NAME)+" ("+node.data(Node.INTERACTOR_ID)+")";
+        this.nodeLabels.push(nodeName);
+        this.nodeMap.set(nodeName, node);
       }
 
     });
 
     $('#'+this.suggestionBoxId).autocomplete({
-      source: this.nodeLabels
+      source: this.nodeLabels,
+      select: function (event, ui) {
+        $(this).val(ui.item ? ui.item : " ");},
+
+      change: function (event, ui) {
+        if (!ui.item) {
+          this.value = '';}
+        else{
+          // return your label here
+        }
+      }
     });
 
 
