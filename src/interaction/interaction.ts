@@ -139,6 +139,7 @@ export class Interaction {
             var tappedEdge = e.target;
             if(tappedEdge.hasClass('expand')){
                // tappedEdge.connectedNodes().addClass('neighbour-highlight');
+                tappedEdge.parallelEdges().removeClass('neighbour-highlight');
                 tappedEdge.addClass('neighbour-highlight');
             }else{
                 tappedEdge.parallelEdges().addClass('neighbour-highlight');
@@ -152,6 +153,7 @@ export class Interaction {
 
     private loadOnTapUnselectEdgeMethod(): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
+        let utility = this.utility;
         this.cy.edges().on('tapunselect', function(e) {
             var tappedEdge = e.target;
             if(tappedEdge.hasClass('expand')){
@@ -161,7 +163,7 @@ export class Interaction {
                 tappedEdge.parallelEdges().removeClass('neighbour-highlight');
             //    tappedEdge.parallelEdges().connectedNodes().removeClass('neighbour-highlight');
             }
-
+            utility.createEdgeUnTappedEvent(tappedEdge);
         });
     }
 
@@ -196,6 +198,7 @@ export class Interaction {
 
     private loadOnTapUnselectMethod(): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
+        let utility = this.utility;
         this.cy.nodes().on('tapunselect', function(e) {
             var tappedNode = e.target;
             var directlyConnectedEdges = tappedNode.closedNeighbourhood();
@@ -203,6 +206,7 @@ export class Interaction {
             directlyConnectedEdges.removeClass('neighbour-highlight');
             directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
             localCy.fit();
+            utility.createNodeUnTappedEvent(tappedNode);
         });
     }
 
