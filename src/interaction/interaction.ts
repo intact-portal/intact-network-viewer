@@ -17,7 +17,8 @@ export class Interaction {
     constructor(cy: any) {
         this.cy = cy;
         this.utility = new Utility();
-        this.loadOnEdgeClickMethod();
+        this.loadOnEdgeTapMethod();
+        this.loadOnTapUnselectEdgeMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod(this.utility);
@@ -131,16 +132,38 @@ export class Interaction {
         });
     }*/
 
-    private loadOnEdgeClickMethod(): void {
-    this.cy.edges().on('click', function(e) {
-        var clickedEdge = e.target;
-        if(clickedEdge.hasClass('expand')){
-            clickedEdge.parallelEdges().removeClass('expand');
-        }else{
-            clickedEdge.parallelEdges().addClass('expand');
-        }
-    });
-}
+    private loadOnEdgeTapMethod(): void {
+        var localCy = this.cy;
+        var utility = this.utility;
+        this.cy.edges().on('tap', function(e) {
+            var tappedEdge = e.target;
+            if(tappedEdge.hasClass('expand')){
+               // tappedEdge.connectedNodes().addClass('neighbour-highlight');
+                tappedEdge.addClass('neighbour-highlight');
+            }else{
+                tappedEdge.parallelEdges().addClass('neighbour-highlight');
+               // tappedEdge.parallelEdges().connectedNodes().addClass('neighbour-highlight');
+            }
+            localCy.fit(tappedEdge.connectedNodes());
+
+            utility.createEdgeTappedEvent(tappedEdge);
+        });
+    }
+
+    private loadOnTapUnselectEdgeMethod(): void {
+        var localCy = this.cy; // need to do this as you cannot have this inside function
+        this.cy.edges().on('tapunselect', function(e) {
+            var tappedEdge = e.target;
+            if(tappedEdge.hasClass('expand')){
+                tappedEdge.removeClass('neighbour-highlight');
+            //    tappedEdge.connectedNodes().removeClass('neighbour-highlight');
+            }else{
+                tappedEdge.parallelEdges().removeClass('neighbour-highlight');
+            //    tappedEdge.parallelEdges().connectedNodes().removeClass('neighbour-highlight');
+            }
+
+        });
+    }
 
     private loadOnSelectBoxMethod(): void {
         this.cy.nodes().on('boxselect', function(e) {

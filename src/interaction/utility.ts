@@ -1,5 +1,6 @@
 import {Style} from "./style";
 import {Node} from "../constants/node";
+import {Edge} from "../constants/edge";
 export class Utility {
 
     public createDetailsDivFor(detailDivId:string):HTMLDivElement {
@@ -38,6 +39,30 @@ export class Utility {
 
         document.dispatchEvent(interactorSelectedEvent);
         console.log("'"+interactorSelectedEvent.type+"'"+ " Event Fired");
+    }
+
+    public createEdgeTappedEvent(edge:any):void{
+
+        document.addEventListener("graph-interaction-selected", function(e) {
+            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
+        });
+
+        let selectedInteractionIds=new Array<number>();
+
+        if(edge.hasClass('expand')){
+            selectedInteractionIds.push(edge.data(Edge.ID));
+        }else{
+            edge.parallelEdges().forEach(edge => {
+                selectedInteractionIds.push(edge.data(Edge.ID));
+            });
+        }
+        let interactionSelectedEvent = new CustomEvent('graph-interaction-selected', {
+            bubbles: true,
+            detail: { interactionIds: () => selectedInteractionIds }
+        });
+
+        document.dispatchEvent(interactionSelectedEvent);
+        console.log("'"+interactionSelectedEvent.type+"'"+ " Event Fired");
     }
 
 }
