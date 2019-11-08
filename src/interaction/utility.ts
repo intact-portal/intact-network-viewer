@@ -41,20 +41,6 @@ export class Utility {
         console.log("'"+interactorSelectedEvent.type+"'"+ " Event Fired");
     }
 
-    public createNodeUnTappedEvent(node:any):void{
-        document.addEventListener("graph-interactor-unselected", function(e) {
-            console.log((e as any).detail.interactorId()); // Prints "Example of an event"
-        });
-
-        let interactorUnSelectedEvent = new CustomEvent('graph-interactor-unselected', {
-            bubbles: true,
-            detail: { interactorId: () => node.data(Node.INTERACTOR_AC) }
-        });
-
-        document.dispatchEvent(interactorUnSelectedEvent);
-        console.log("'"+interactorUnSelectedEvent.type+"'"+ " Event Fired");
-    }
-
     public createEdgeTappedEvent(edge:any):void{
 
         document.addEventListener("graph-interaction-selected", function(e) {
@@ -79,24 +65,14 @@ export class Utility {
         console.log("'"+interactionSelectedEvent.type+"'"+ " Event Fired");
     }
 
-    public createEdgeUnTappedEvent(edge:any):void{
+    public createUnTappedEvent():void{
 
-        document.addEventListener("graph-interaction-unselected", function(e) {
-            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
+        document.addEventListener("graph-unselected", function(e) {
+            console.log((e as any).type); // Prints "Example of an event"
         });
 
-        let selectedInteractionIds=new Array<number>();
-
-        if(edge.hasClass('expand')){
-            selectedInteractionIds.push(edge.data(Edge.ID));
-        }else{
-            edge.parallelEdges().forEach(edge => {
-                selectedInteractionIds.push(edge.data(Edge.ID));
-            });
-        }
-        let interactionSelectedEvent = new CustomEvent('graph-interaction-unselected', {
-            bubbles: true,
-            detail: { interactionIds: () => selectedInteractionIds }
+        let interactionSelectedEvent = new CustomEvent('graph-unselected', {
+            bubbles: true
         });
 
         document.dispatchEvent(interactionSelectedEvent);

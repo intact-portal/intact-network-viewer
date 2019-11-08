@@ -29,10 +29,20 @@ export class Interaction {
     }
 
     private loadOnEmptySpaceClick():void{
+        let utility = this.utility;
+        let clickedOnEmptySpace:boolean = false;
         this.cy.on('tap', (event)=>{
             var evtTarget = event.target;
             if( evtTarget === this.cy ){
                this.cy.nodes().removeClass('highlight');// when you want to unselect after searching a node
+                clickedOnEmptySpace=true;
+            }else{
+                clickedOnEmptySpace=false;
+            }
+        });
+        this.cy.on('tapunselect', (untapEvent)=>{
+            if(clickedOnEmptySpace) {
+                utility.createUnTappedEvent();
             }
         });
     }
@@ -163,7 +173,6 @@ export class Interaction {
                 tappedEdge.parallelEdges().removeClass('neighbour-highlight');
             //    tappedEdge.parallelEdges().connectedNodes().removeClass('neighbour-highlight');
             }
-            utility.createEdgeUnTappedEvent(tappedEdge);
         });
     }
 
@@ -206,7 +215,6 @@ export class Interaction {
             directlyConnectedEdges.removeClass('neighbour-highlight');
             directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
             localCy.fit();
-            utility.createNodeUnTappedEvent(tappedNode);
         });
     }
 
