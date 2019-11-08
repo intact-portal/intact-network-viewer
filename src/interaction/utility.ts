@@ -1,4 +1,5 @@
 import {Style} from "./style";
+import {Node} from "../constants/node";
 export class Utility {
 
     public createDetailsDivFor(detailDivId:string):HTMLDivElement {
@@ -27,6 +28,16 @@ export class Utility {
         style.type = 'text/css';
         style.innerHTML = Style.TOOL_TIP_CSS_CLASS;
         document.getElementsByTagName('head')[0].appendChild(style);
+    }
+
+    public createNodeTappedEvent(node:any):void{
+        let interactorSelectedEvent = new CustomEvent('graph-interactor-selected', {
+            bubbles: true,
+            detail: { interactorId: () => node.data(Node.INTERACTOR_AC) }
+        });
+
+        document.dispatchEvent(interactorSelectedEvent);
+        console.log("'"+interactorSelectedEvent.type+"'"+ " Event Fired");
     }
 
 }

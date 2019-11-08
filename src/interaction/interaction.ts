@@ -20,7 +20,7 @@ export class Interaction {
         this.loadOnEdgeClickMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
-        this.loadOnNodeTapMethod();
+        this.loadOnNodeTapMethod(this.utility);
         this.loadOnTapUnselectMethod();
         this.loadOnNodeAndEdgeHoverMethods(this.utility);
         this.loadOnEmptySpaceClick();
@@ -120,7 +120,7 @@ export class Interaction {
         });
     }
 
-    private loadOnEdgeClickMethod(): void {
+    /*private loadOnEdgeClickMethod(): void {
         this.cy.edges().on('click', function(e) {
             var clickedEdge = e.target;
             if(clickedEdge.hasClass('expand')){
@@ -129,7 +129,18 @@ export class Interaction {
                 clickedEdge.parallelEdges().addClass('expand');
             }
         });
-    }
+    }*/
+
+    private loadOnEdgeClickMethod(): void {
+    this.cy.edges().on('click', function(e) {
+        var clickedEdge = e.target;
+        if(clickedEdge.hasClass('expand')){
+            clickedEdge.parallelEdges().removeClass('expand');
+        }else{
+            clickedEdge.parallelEdges().addClass('expand');
+        }
+    });
+}
 
     private loadOnSelectBoxMethod(): void {
         this.cy.nodes().on('boxselect', function(e) {
@@ -145,7 +156,7 @@ export class Interaction {
         });
     }
 
-    private loadOnNodeTapMethod(): void {
+    private loadOnNodeTapMethod(utility:Utility): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
         this.cy.nodes().on('tap', function(e) {
             var tappedNode = e.target;
@@ -155,6 +166,7 @@ export class Interaction {
                 directlyConnectedEdges.addClass('neighbour-highlight');
                 directlyConnectedEdges.nodes().addClass('neighbour-highlight');
                 localCy.fit(directlyConnectedEdges);
+                utility.createNodeTappedEvent(tappedNode);
             }
         });
     }
@@ -170,4 +182,6 @@ export class Interaction {
             localCy.fit();
         });
     }
+
+
 }
