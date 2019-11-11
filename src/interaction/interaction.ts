@@ -19,7 +19,6 @@ export class Interaction {
         this.utility = new Utility();
         this.loadOnEdgeTapMethod();
         this.loadOnTapUnselectEdgeMethod();
-        this.loadUnSelectEdgeMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod(this.utility);
@@ -195,16 +194,18 @@ export class Interaction {
         });
     }
 
-    private loadUnSelectEdgeMethod(): void {
-        let utility=this.utility;
-        this.cy.edges().on('unselect', function(e) {
-            var edge = e.target;
-            if(edge.hasClass('neighbour-highlight')){
-                edge.parallelEdges().removeClass('neighbour-highlight');
-                utility.createUnTappedEvent();
+    public removedAppliedEdgeClasses(): void {
+        let areClassesApplied:boolean=false;
+        this.cy.edges().forEach((edge)=> {
+            if (edge.hasClass('neighbour-highlight')) {
+                edge.removeClass('neighbour-highlight');
+                areClassesApplied=true;
             }
-
         });
+        if(areClassesApplied){
+            this.utility.createUnTappedEvent();
+        }
+         areClassesApplied = false;// reset the variable
     }
 
     private loadOnNodeTapMethod(utility:Utility): void {

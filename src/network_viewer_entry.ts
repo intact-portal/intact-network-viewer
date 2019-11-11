@@ -71,7 +71,7 @@ export class InitializeGraph {
   }
 
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
-    this.cy.edges().unselect();// this is needed to undo any selection
+    this.interaction.removedAppliedEdgeClasses();// this is needed to undo any selection
     this.updateGraphState(isExpand,isMutationDisrupted,null);
     this.changeEdgeState();
     this.updateLegends();
