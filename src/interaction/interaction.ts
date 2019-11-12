@@ -18,11 +18,11 @@ export class Interaction {
         this.cy = cy;
         this.utility = new Utility();
         this.loadOnEdgeTapMethod();
-        this.loadOnTapUnselectEdgeMethod();
+        //this.loadOnTapUnselectEdgeMethod();
         this.loadOnSelectBoxMethod();
         this.loadUnSelectNodeMethod();
         this.loadOnNodeTapMethod(this.utility);
-        this.loadOnTapUnselectMethod();
+        //this.loadOnTapUnselectMethod();
         this.loadOnNodeAndEdgeHoverMethods(this.utility);
         this.loadOnEmptySpaceClick();
 
@@ -40,12 +40,14 @@ export class Interaction {
                 clickedOnEmptySpace=false;
             }
         });
+
+        // when node or edge is unselected by tapping white space
         this.cy.on('tapunselect', (untapEvent)=>{
             var evtTarget = untapEvent.target;
             if(clickedOnEmptySpace) {
-                if(evtTarget.isEdge()){
-                    evtTarget.parallelEdges().removeClass('neighbour-highlight');
-                }
+                // remove any previous classes on previous tap
+                this.removePreAppliedClasses();
+
                 utility.createUnTappedEvent();
             }
         });
@@ -149,7 +151,11 @@ export class Interaction {
     private loadOnEdgeTapMethod(): void {
         var localCy = this.cy;
         var utility = this.utility;
-        this.cy.edges().on('tap', function(e) {
+        this.cy.edges().on('tap', (e)=> {
+
+            // remove any previous classes on previous tap
+            this.removePreAppliedClasses();
+
             var tappedEdge = e.target;
             if(tappedEdge.hasClass('expand')){
                // tappedEdge.connectedNodes().addClass('neighbour-highlight');
@@ -165,7 +171,8 @@ export class Interaction {
         });
     }
 
-    private loadOnTapUnselectEdgeMethod(): void {
+    //if you need in future
+   /* private loadOnTapUnselectEdgeMethod(): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
         let utility = this.utility;
         this.cy.edges().on('tapunselect', function(e) {
@@ -178,7 +185,7 @@ export class Interaction {
             //    tappedEdge.parallelEdges().connectedNodes().removeClass('neighbour-highlight');
             }
         });
-    }
+    }*/
 
     private loadOnSelectBoxMethod(): void {
         this.cy.nodes().on('boxselect', function(e) {
@@ -194,14 +201,19 @@ export class Interaction {
         });
     }
 
-    public removedAppliedEdgeClasses(): void {
+    public resetAppliedClasses(): void {
         let areClassesApplied:boolean=false;
         this.cy.edges().forEach((edge)=> {
             if (edge.hasClass('neighbour-highlight')) {
-                edge.removeClass('neighbour-highlight');
+               areClassesApplied=true;
+            }
+        });
+        this.cy.nodes().forEach((node)=> {
+            if (node.hasClass('neighbour-highlight')) {
                 areClassesApplied=true;
             }
         });
+        this.removePreAppliedClasses();
         if(areClassesApplied){
             this.utility.createUnTappedEvent();
         }
@@ -210,7 +222,12 @@ export class Interaction {
 
     private loadOnNodeTapMethod(utility:Utility): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
-        this.cy.nodes().on('tap', function(e) {
+        this.cy.nodes().on('tap', (e)=> {
+
+            // remove any previous classes on previous tap
+            this.removePreAppliedClasses();
+
+            //logic for node tapped now
             var tappedNode = e.target;
             var directlyConnectedEdges = tappedNode.closedNeighbourhood();
             tappedNode.addClass('highlight');
@@ -223,7 +240,8 @@ export class Interaction {
         });
     }
 
-    private loadOnTapUnselectMethod(): void {
+    //if you need in future
+    /*private loadOnTapUnselectMethod(): void {
         var localCy = this.cy; // need to do this as you cannot have this inside function
         let utility = this.utility;
         this.cy.nodes().on('tapunselect', function(e) {
@@ -234,6 +252,12 @@ export class Interaction {
             directlyConnectedEdges.nodes().removeClass('neighbour-highlight');
             localCy.fit();
         });
+    }*/
+
+    private removePreAppliedClasses(): void{
+        this.cy.nodes().removeClass('highlight');
+        this.cy.edges().removeClass('neighbour-highlight');
+        this.cy.nodes().removeClass('neighbour-highlight');
     }
 
 
