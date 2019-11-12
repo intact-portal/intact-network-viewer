@@ -43,11 +43,8 @@ export class Utility {
 
     public createEdgeTappedEvent(edge:any):void{
 
-        document.addEventListener("graph-interaction-selected", function(e) {
-            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
-        });
-
         let selectedInteractionIds=new Array<number>();
+        let selectedInteractorIds=new Array<string>();
 
         if(edge.hasClass('expand')){
             selectedInteractionIds.push(edge.data(Edge.ID));
@@ -56,9 +53,17 @@ export class Utility {
                 selectedInteractionIds.push(edge.data(Edge.ID));
             });
         }
+
+        edge.connectedNodes().forEach(node => {
+            selectedInteractorIds.push(node.data(Node.INTERACTOR_AC));
+        });
+
         let interactionSelectedEvent = new CustomEvent('graph-interaction-selected', {
             bubbles: true,
-            detail: { interactionIds: () => selectedInteractionIds }
+            detail: {
+                interactionIds: () => selectedInteractionIds,
+                interactorIds: () =>  selectedInteractorIds
+            }
         });
 
         document.dispatchEvent(interactionSelectedEvent);
