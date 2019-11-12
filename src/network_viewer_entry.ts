@@ -26,7 +26,7 @@ import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
 import {Node} from "./constants/node";
-import {Utility} from "./utility";
+import {Utility} from "./layouts/utility";
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -111,7 +111,7 @@ export class InitializeGraph {
   public search(interactorName:string): void {
     let searchedNode=this.nodeMap.get(interactorName);
     if(searchedNode!=null) {
-      this.cy.maxZoom(1);
+      this.utility.setHighlightAndFocusMaxZoomLevel();
       this.cy.animate({
         fit: {
           eles: searchedNode,

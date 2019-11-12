@@ -1,4 +1,4 @@
-import { Constants } from './layouts/constants';
+import { Constants } from './constants';
 
 export class Utility {
 
@@ -26,5 +26,9 @@ export class Utility {
 
     public setInitialMinZoomLevel(): void{
         this.cy.minZoom(Constants.INITIAL_MIN_ZOOM);
+    }
+
+    public setHighlightAndFocusMaxZoomLevel(): void{
+        this.cy.maxZoom(Constants.HIGHLIGHT_AND_FOCUS_MAX_ZOOM);
     }
 }

@@ -4,6 +4,7 @@ import tippy from 'tippy.js';
 import PopperJs from 'popper.js';
 import {EdgeDetails} from "./edge_details";
 import {Utility} from "./utility";
+import {Utility as LayoutsUtility} from "../layouts/utility";
 import 'tippy.js/index.css';
 import {NodeDetails} from "./node_details";
 
@@ -13,10 +14,12 @@ export class Interaction {
 
     private cy: any;
     private utility: Utility;
+    private layoutsUtility:LayoutsUtility;
 
     constructor(cy: any) {
         this.cy = cy;
         this.utility = new Utility();
+        this.layoutsUtility= new LayoutsUtility(this.cy);
         this.loadOnEdgeTapMethod();
         //this.loadOnTapUnselectEdgeMethod();
         this.loadOnSelectBoxMethod();
@@ -165,7 +168,9 @@ export class Interaction {
                 tappedEdge.parallelEdges().addClass('neighbour-highlight');
                // tappedEdge.parallelEdges().connectedNodes().addClass('neighbour-highlight');
             }
+            this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
             localCy.fit(tappedEdge.connectedNodes());
+            this.layoutsUtility.setUserMaxZoomLevel();
 
             utility.createEdgeTappedEvent(tappedEdge);
         });
@@ -234,7 +239,9 @@ export class Interaction {
             if(!e.originalEvent.shiftKey){
                 directlyConnectedEdges.addClass('neighbour-highlight');
                 directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+                this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
                 localCy.fit(directlyConnectedEdges);
+                this.layoutsUtility.setUserMaxZoomLevel();
                 utility.createNodeTappedEvent(tappedNode);
             }
         });
