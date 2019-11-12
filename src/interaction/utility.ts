@@ -32,9 +32,21 @@ export class Utility {
     }
 
     public createNodeTappedEvent(node:any):void{
+
+        let selectedInteractionIds=new Array<number>();
+
+        let directlyConnectedEdges=node.closedNeighbourhood();
+
+        directlyConnectedEdges.edges().forEach(edge => {
+            selectedInteractionIds.push(edge.data(Edge.ID));
+        });
+
         let interactorSelectedEvent = new CustomEvent('graph-interactor-selected', {
             bubbles: true,
-            detail: { interactorId: () => node.data(Node.INTERACTOR_AC) }
+            detail: {
+                interactorId: () => node.data(Node.INTERACTOR_AC),
+                interactionIds: () => selectedInteractionIds,
+            }
         });
 
         document.dispatchEvent(interactorSelectedEvent);

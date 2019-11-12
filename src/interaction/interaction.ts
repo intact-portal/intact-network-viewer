@@ -232,6 +232,13 @@ export class Interaction {
     }
 
     private loadOnNodeTapMethod(utility:Utility): void {
+
+        //TODO... remove following after testing is done
+        document.addEventListener("graph-interactor-selected", function(e) {
+            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
+            console.log((e as any).detail.interactorId().toString()); // Prints "Example of an event"
+        });
+
         var localCy = this.cy; // need to do this as you cannot have this inside function
         this.cy.nodes().on('tap', (e)=> {
 
