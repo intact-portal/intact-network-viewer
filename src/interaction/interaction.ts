@@ -44,6 +44,11 @@ export class Interaction {
             }
         });
 
+        //TODO... remove when testing done
+        document.addEventListener("graph-unselected", function(e) {
+            console.log((e as any).type); // Prints "Example of an event"
+        });
+
         // when node or edge is unselected by tapping white space
         this.cy.on('tapunselect', (untapEvent)=>{
             var evtTarget = untapEvent.target;
@@ -242,14 +247,14 @@ export class Interaction {
         var localCy = this.cy; // need to do this as you cannot have this inside function
         this.cy.nodes().on('tap', (e)=> {
 
-            // remove any previous classes on previous tap
-            this.removePreAppliedClasses();
-
             //logic for node tapped now
             var tappedNode = e.target;
             var directlyConnectedEdges = tappedNode.closedNeighbourhood();
             tappedNode.addClass('highlight');
             if(!e.originalEvent.shiftKey){
+                // remove any previous classes on previous tap
+                this.removePreAppliedClasses();
+
                 directlyConnectedEdges.addClass('neighbour-highlight');
                 directlyConnectedEdges.nodes().addClass('neighbour-highlight');
                 this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();

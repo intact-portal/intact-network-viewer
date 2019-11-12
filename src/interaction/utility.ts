@@ -84,10 +84,6 @@ export class Utility {
 
     public createUnTappedEvent():void{
 
-        document.addEventListener("graph-unselected", function(e) {
-            console.log((e as any).type); // Prints "Example of an event"
-        });
-
         let interactionSelectedEvent = new CustomEvent('graph-unselected', {
             bubbles: true
         });
