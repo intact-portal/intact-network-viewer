@@ -260,5 +260,4 @@ export class Interaction {
         this.cy.nodes().removeClass('neighbour-highlight');
     }
 
-
 }

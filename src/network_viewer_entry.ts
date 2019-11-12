@@ -26,6 +26,7 @@ import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
 import {Node} from "./constants/node";
+import {Utility} from "./utility";
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -56,6 +57,7 @@ export class InitializeGraph {
   private isExpand!: boolean;
   private isMutationDisrupted!: boolean;
   private layoutName!: string;
+  private utility!:Utility;
 
   // constructor
   constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string,suggestionBoxId:string) {
@@ -119,7 +121,7 @@ export class InitializeGraph {
         duration: 1000
       });
       searchedNode.addClass('highlight');
-      this.setUserMaxZoomLevel();
+      this.utility.setUserMaxZoomLevel();
     }
   }
 
@@ -150,8 +152,8 @@ export class InitializeGraph {
 
   public applyLayout(layoutName: string): void {
     this.updateGraphState(null,null,layoutName);
-    this.setInitialMaxZoomLevel();
-    this.setInitialMinZoomLevel();
+    this.utility.setInitialMaxZoomLevel();
+    this.utility.setInitialMinZoomLevel();
     this.startLoadingImage();
     setTimeout(() => {
     switch (layoutName) {
@@ -182,8 +184,8 @@ export class InitializeGraph {
       }
     }
       this.cy.on('layoutstop', (e)=> {
-        this.setUserMaxZoomLevel();
-        this.setUserMinZoomLevel();
+        this.utility.setUserMaxZoomLevel();
+        this.utility.setUserMinZoomLevel();
      });
       this.stopLoadingImage();
     }, this.timeout);
@@ -216,6 +218,7 @@ export class InitializeGraph {
       this.changeEdgeState();
       this.updateLegends();
       this.interaction = new Interaction(this.cy);
+      this.utility=new Utility(this.cy);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
     }, this.timeout);
@@ -251,26 +254,6 @@ export class InitializeGraph {
     this.spinner.stop();
   }
 
-  private setInitialMaxZoomLevel(): void{
-    this.cy.maxZoom(Constants.INITIAL_MAX_ZOOM);
-  }
-
-  private setUserMaxZoomLevel(): void{
-    this.cy.maxZoom(Constants.USER_MAX_ZOOM);
-  }
-
-  private setUserMinZoomLevel(): void{
-    if(this.cy.zoom()<0.2){
-      this.cy.minZoom(this.cy.zoom());
-    }else {
-      this.cy.minZoom(Constants.USER_MIN_ZOOM);
-    }
-  }
-
-  private setInitialMinZoomLevel(): void{
-    this.cy.minZoom(Constants.INITIAL_MIN_ZOOM);
-  }
-
   private updateGraphState(isExpand: any, isMutationDisrupted: any,layoutName: any){
     if(isExpand!=null){
       this.isExpand = isExpand;
@@ -284,19 +267,19 @@ export class InitializeGraph {
   }
 
   private fit(): void{
-    this.setInitialMaxZoomLevel();
-    this.setInitialMinZoomLevel();
+    this.utility.setInitialMaxZoomLevel();
+    this.utility.setInitialMinZoomLevel();
     this.cy.fit();
-    this.setUserMaxZoomLevel();
-    this.setUserMinZoomLevel();
+    this.utility.setUserMaxZoomLevel();
+    this.utility.setUserMinZoomLevel();
   }
 
   private fitWithCurrentZoom(): void{
     this.cy.maxZoom(this.cy.zoom());
-    this.setInitialMinZoomLevel();
+    this.utility.setInitialMinZoomLevel();
     this.cy.fit();
-    this.setUserMaxZoomLevel();
-    this.setUserMinZoomLevel();
+    this.utility.setUserMaxZoomLevel();
+    this.utility.setUserMinZoomLevel();
   }
 
   private loadAutoSuggestion():void {
