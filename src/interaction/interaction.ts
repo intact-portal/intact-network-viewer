@@ -160,13 +160,12 @@ export class Interaction {
             this.removePreAppliedClasses();
 
             var tappedEdge = e.target;
+
+            tappedEdge.connectedNodes().addClass('neighbour-highlight');
             if(tappedEdge.hasClass('expand')){
-               // tappedEdge.connectedNodes().addClass('neighbour-highlight');
-                tappedEdge.parallelEdges().removeClass('neighbour-highlight');
                 tappedEdge.addClass('neighbour-highlight');
             }else{
                 tappedEdge.parallelEdges().addClass('neighbour-highlight');
-               // tappedEdge.parallelEdges().connectedNodes().addClass('neighbour-highlight');
             }
             this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
             localCy.fit(tappedEdge.connectedNodes());
