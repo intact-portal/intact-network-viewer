@@ -52,11 +52,13 @@ export class Interaction {
         // when node or edge is unselected by tapping white space
         this.cy.on('tapunselect', (untapEvent)=>{
             var evtTarget = untapEvent.target;
-            if(clickedOnEmptySpace) {
-                // remove any previous classes on previous tap
-                this.removePreAppliedClasses();
+            if(evtTarget.isEdge()||!evtTarget.isParent()) {
+                if (clickedOnEmptySpace) {
+                    // remove any previous classes on previous tap
+                    this.removePreAppliedClasses();
 
-                utility.createUnTappedEvent();
+                    utility.createUnTappedEvent();
+                }
             }
         });
     }
@@ -245,22 +247,33 @@ export class Interaction {
         });
 
         var localCy = this.cy; // need to do this as you cannot have this inside function
-        this.cy.nodes().on('tap', (e)=> {
+
+        let nodes:any;
+
+        if(this.cy.nodes().children().size()==0){
+            nodes = this.cy.nodes(); // non compound graph
+        }else{
+            nodes = this.cy.nodes().children(); // compound graph
+        }
+
+        nodes.on('tap', (e)=> {
 
             //logic for node tapped now
             var tappedNode = e.target;
-            var directlyConnectedEdges = tappedNode.closedNeighbourhood();
-            tappedNode.addClass('highlight');
-            if(!e.originalEvent.shiftKey){
-                // remove any previous classes on previous tap
-                this.removePreAppliedClasses();
+            if(!tappedNode.isParent()) {
+                var directlyConnectedEdges = tappedNode.closedNeighbourhood();
+                tappedNode.addClass('highlight');
+                if (!e.originalEvent.shiftKey) {
+                    // remove any previous classes on previous tap
+                    this.removePreAppliedClasses();
 
-                directlyConnectedEdges.addClass('neighbour-highlight');
-                directlyConnectedEdges.nodes().addClass('neighbour-highlight');
-                this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-                localCy.fit(directlyConnectedEdges);
-                this.layoutsUtility.setUserMaxZoomLevel();
-                utility.createNodeTappedEvent(tappedNode);
+                    directlyConnectedEdges.addClass('neighbour-highlight');
+                    directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+                    this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
+                    localCy.fit(directlyConnectedEdges);
+                    this.layoutsUtility.setUserMaxZoomLevel();
+                    utility.createNodeTappedEvent(tappedNode);
+                }
             }
         });
     }
