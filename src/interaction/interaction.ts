@@ -38,7 +38,8 @@ export class Interaction {
         this.cy.on('tap', (event)=>{
             var evtTarget = event.target;
             if( evtTarget === this.cy ){
-               this.cy.nodes().removeClass('highlight');// when you want to unselect after searching a node
+                // remove any previous classes on previous tap
+                this.utility.removePreAppliedClasses();
                 clickedOnEmptySpace=true;
             }else{
                 clickedOnEmptySpace=false;
@@ -55,9 +56,6 @@ export class Interaction {
             var evtTarget = untapEvent.target;
             if(evtTarget.isEdge()||!evtTarget.isParent()) {
                 if (clickedOnEmptySpace) {
-                    // remove any previous classes on previous tap
-                    this.utility.removePreAppliedClasses();
-
                     utility.createUnTappedEvent();
                 }
             }
