@@ -161,12 +161,6 @@ export class Interaction {
 
     private loadOnEdgeTapMethod(): void {
 
-        //TODO... remove following after testing is done
-        document.addEventListener("graph-interaction-selected", function(e) {
-            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
-            console.log((e as any).detail.interactorIds().toString()); // Prints "Example of an event"
-        });
-
         var localCy = this.cy;
         var utility = this.utility;
         this.cy.edges().on('tap', (e)=> {
@@ -240,12 +234,6 @@ export class Interaction {
     }
 
     private loadOnNodeTapMethod(utility:Utility): void {
-
-        //TODO... remove following after testing is done
-        document.addEventListener("graph-interactor-selected", function(e) {
-            console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
-            console.log((e as any).detail.interactorId().toString()); // Prints "Example of an event"
-        });
 
         var localCy = this.cy; // need to do this as you cannot have this inside function
 

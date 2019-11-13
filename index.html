@@ -123,7 +123,7 @@
 
     <script>
         $(document).ready(function() {
-            var object;
+            var object = new IntactGraph.InitializeGraph('for-canvas-graph','legend','nodeL');
             var query=$('#graphQuery :selected').val();
 
             /*alert(IntactGraph.Greeter('Anjali'));*/
@@ -154,7 +154,7 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend','nodeL');
+
                         object.initializeWithData( data, expand,disrupted_mutation,layoutName);
 
                         //   EntryPoint.test123();

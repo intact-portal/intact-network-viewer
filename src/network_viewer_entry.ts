@@ -27,6 +27,8 @@ import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
 import {Node} from "./constants/node";
 import {Utility} from "./layouts/utility";
+import {Listener} from "./interaction/listener";
+import { Global } from "./global";
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -35,6 +37,8 @@ cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
 cytoscape.use(avsdf);
 cytoscape.use(cola);
+
+var globalCy: any;
 
 
 
@@ -67,6 +71,7 @@ export class InitializeGraph {
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style = new Style();
     this.suggestionBoxId = suggestionBoxId;
+    new Listener();
 
   }
 
@@ -212,6 +217,7 @@ export class InitializeGraph {
          boxSelectionEnabled: false,
         layout:this.getLayoutOption(),
       });
+      Global.graphcy=this.cy;
       this.cy.on('layoutstop', (e)=> {
         this.fit();
       });
