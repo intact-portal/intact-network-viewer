@@ -28,6 +28,7 @@ export class Interaction {
         //this.loadOnTapUnselectMethod();
         this.loadOnNodeAndEdgeHoverMethods(this.utility);
         this.loadOnEmptySpaceClick();
+        this.loadMultipleSelectionDisableMethod();
 
     }
 
@@ -262,18 +263,19 @@ export class Interaction {
             var tappedNode = e.target;
             if(!tappedNode.isParent()) {
                 var directlyConnectedEdges = tappedNode.closedNeighbourhood();
-                tappedNode.addClass('highlight');
-                if (!e.originalEvent.shiftKey) {
+
+               // if (!e.originalEvent.shiftKey) {
                     // remove any previous classes on previous tap
                     this.removePreAppliedClasses();
 
+                    tappedNode.addClass('highlight');
                     directlyConnectedEdges.addClass('neighbour-highlight');
                     directlyConnectedEdges.nodes().addClass('neighbour-highlight');
                     this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
                     localCy.fit(directlyConnectedEdges);
                     this.layoutsUtility.setUserMaxZoomLevel();
                     utility.createNodeTappedEvent(tappedNode);
-                }
+               // }
             }
         });
     }
@@ -296,6 +298,10 @@ export class Interaction {
         this.cy.nodes().removeClass('highlight');
         this.cy.edges().removeClass('neighbour-highlight');
         this.cy.nodes().removeClass('neighbour-highlight');
+    }
+
+    private loadMultipleSelectionDisableMethod():void{
+        this.cy.on('select', 'node, edge', e => this.cy.elements().not(e.target).unselect())
     }
 
 }

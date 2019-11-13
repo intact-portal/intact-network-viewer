@@ -209,7 +209,7 @@ export class InitializeGraph {
         'maxZoom':Constants.INITIAL_MAX_ZOOM,
         'minZoom':Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
-        // boxSelectionEnabled: false,
+         boxSelectionEnabled: false,
         layout:this.getLayoutOption(),
       });
       this.cy.on('layoutstop', (e)=> {
