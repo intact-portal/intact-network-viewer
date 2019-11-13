@@ -43,7 +43,7 @@ export class InitializeGraph {
   private graphContainerDivId: string;
   private legendDivId: string;
   private cy: any;
-  private data: JSON;
+  private data!: JSON;
   private interaction!: Interaction;
   private legend!: ParentLegend;
   private nodeLabels!: Array<string>;
@@ -60,16 +60,14 @@ export class InitializeGraph {
   private utility!:Utility;
 
   // constructor
-  constructor(graphContainerDivId: string, legendDivId: string, data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string,suggestionBoxId:string) {
+  constructor(graphContainerDivId: string, legendDivId: string, suggestionBoxId:string) {
     this.graphContainerDivId = graphContainerDivId;
     this.legendDivId = legendDivId;
-    this.data = data;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style = new Style();
     this.suggestionBoxId = suggestionBoxId;
-    this.updateGraphState(isExpand,isMutationDisrupted,layoutName);
-    this.initializeCytoscape();
+
   }
 
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
@@ -105,7 +103,7 @@ export class InitializeGraph {
   }
 
   public reset(): void {
-    this.initializeCytoscape();
+    this.initializeWithData(this.data,this.isExpand,this.isMutationDisrupted,this.layoutName);
   }
 
   public search(interactorName:string): void {
@@ -198,8 +196,10 @@ export class InitializeGraph {
   }
 
   // function
-  private initializeCytoscape(): void {
+  public initializeWithData(data, isExpand: boolean, isMutationDisrupted: boolean,layoutName: string): void {
     this.startLoadingImage();
+    this.data = data;
+    this.updateGraphState(isExpand,isMutationDisrupted,layoutName);
     this.executeGraphCalculations();
     setTimeout(() => {
       this.cy = cytoscape({

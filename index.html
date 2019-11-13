@@ -154,7 +154,8 @@
 
 
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
-                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend', data, expand,disrupted_mutation,layoutName,'nodeL');
+                        object = new IntactGraph.InitializeGraph('for-canvas-graph','legend','nodeL');
+                        object.initializeWithData( data, expand,disrupted_mutation,layoutName);
 
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
