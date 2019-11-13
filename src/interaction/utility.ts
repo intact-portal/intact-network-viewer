@@ -1,6 +1,8 @@
 import {Style} from "./style";
 import {Node} from "../constants/node";
 import {Edge} from "../constants/edge";
+import { Global } from "./../global";
+
 export class Utility {
 
     public createDetailsDivFor(detailDivId:string):HTMLDivElement {
@@ -90,6 +92,12 @@ export class Utility {
 
         document.dispatchEvent(interactionSelectedEvent);
         console.log("'"+interactionSelectedEvent.type+"'"+ " Event Fired");
+    }
+
+    public removePreAppliedClasses(): void{
+        Global.graphcy.nodes().removeClass('highlight');
+        Global.graphcy.edges().removeClass('neighbour-highlight');
+        Global.graphcy.nodes().removeClass('neighbour-highlight');
     }
 
 }

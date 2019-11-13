@@ -56,7 +56,7 @@ export class Interaction {
             if(evtTarget.isEdge()||!evtTarget.isParent()) {
                 if (clickedOnEmptySpace) {
                     // remove any previous classes on previous tap
-                    this.removePreAppliedClasses();
+                    this.utility.removePreAppliedClasses();
 
                     utility.createUnTappedEvent();
                 }
@@ -166,7 +166,7 @@ export class Interaction {
         this.cy.edges().on('tap', (e)=> {
 
             // remove any previous classes on previous tap
-            this.removePreAppliedClasses();
+            this.utility.removePreAppliedClasses();
 
             var tappedEdge = e.target;
 
@@ -226,7 +226,7 @@ export class Interaction {
                 areClassesApplied=true;
             }
         });
-        this.removePreAppliedClasses();
+        this.utility.removePreAppliedClasses();
         if(areClassesApplied){
             this.utility.createUnTappedEvent();
         }
@@ -254,7 +254,7 @@ export class Interaction {
 
                // if (!e.originalEvent.shiftKey) {
                     // remove any previous classes on previous tap
-                    this.removePreAppliedClasses();
+                    this.utility.removePreAppliedClasses();
 
                     tappedNode.addClass('highlight');
                     directlyConnectedEdges.addClass('neighbour-highlight');
@@ -281,12 +281,6 @@ export class Interaction {
             localCy.fit();
         });
     }*/
-
-    private removePreAppliedClasses(): void{
-        this.cy.nodes().removeClass('highlight');
-        this.cy.edges().removeClass('neighbour-highlight');
-        this.cy.nodes().removeClass('neighbour-highlight');
-    }
 
     private loadMultipleSelectionDisableMethod():void{
         this.cy.on('select', 'node, edge', e => this.cy.elements().not(e.target).unselect())
