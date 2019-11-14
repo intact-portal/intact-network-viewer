@@ -74,7 +74,7 @@ export class Constants {
     // - true : Animate while the layout is running
     // - false : Just show the end result
     // - 'end' : Animate directly to the end result
-    animate: false,
+    animate: 'end',
     // Animation duration used for animate:'end'
     animationDuration: undefined,
     // Easing for animate:'end'
