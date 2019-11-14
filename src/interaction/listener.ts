@@ -42,9 +42,10 @@ export class Listener {
             let nodeToBeSelected = Global.graphcy.getElementById( (e as any).detail.interactorId );
             let directlyConnectedEdges = nodeToBeSelected.closedNeighbourhood();
 
-            nodeToBeSelected.addClass('highlight');
             directlyConnectedEdges.addClass('neighbour-highlight');
             directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+            nodeToBeSelected.removeClass('neighbour-highlight');
+            nodeToBeSelected.addClass('highlight');
 
             this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
             Global.graphcy.fit(directlyConnectedEdges);

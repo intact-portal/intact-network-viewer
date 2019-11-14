@@ -249,9 +249,10 @@ export class Interaction {
                     // remove any previous classes on previous tap
                     this.utility.removePreAppliedClasses();
 
-                    tappedNode.addClass('highlight');
                     directlyConnectedEdges.addClass('neighbour-highlight');
                     directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+                    tappedNode.removeClass('neighbour-highlight');
+                    tappedNode.addClass('highlight');
                     this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
                     localCy.fit(directlyConnectedEdges);
                     this.layoutsUtility.setUserMaxZoomLevel();

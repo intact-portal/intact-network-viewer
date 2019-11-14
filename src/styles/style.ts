@@ -26,8 +26,9 @@ export class Style {
     {
       selector: 'node.neighbour-highlight',
       style: {
-        'border-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'border-width': Width.NEIGHBOUR_NODE_BORDER,
+        'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'overlay-padding': '8px',
+        'overlay-opacity': 0.333,
       },
     },
     {
