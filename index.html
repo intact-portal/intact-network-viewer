@@ -165,8 +165,6 @@
             }
 
             $('input:radio[name="layout"]').change(function(){
-                $('input[name=interactor]').attr('checked',false);
-                $('input[name=interaction]').attr('checked',false);
                 object.applyLayout($(this).val());
             });
 
