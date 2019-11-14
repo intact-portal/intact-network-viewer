@@ -1,11 +1,14 @@
 import { Global } from "./../global";
+import {Utility as LayoutsUtility} from "../layouts/utility";
 import {Utility} from "./utility";
 
 export class Listener {
     private utility: Utility;
+    private layoutsUtility:LayoutsUtility;
 
     constructor() {
         this.utility = new Utility();
+        this.layoutsUtility= new LayoutsUtility();
         this.loadDocumentListeners();
         this.loadTableInteractorSelectedListener();
         this.loadTableInteractionSelectedListener();
@@ -42,6 +45,10 @@ export class Listener {
             nodeToBeSelected.addClass('highlight');
             directlyConnectedEdges.addClass('neighbour-highlight');
             directlyConnectedEdges.nodes().addClass('neighbour-highlight');
+
+            this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
+            Global.graphcy.fit(directlyConnectedEdges);
+            this.layoutsUtility.setUserMaxZoomLevel();
         });
     }
 
@@ -60,6 +67,10 @@ export class Listener {
             }else{
                 edgeToBeSelected.parallelEdges().addClass('neighbour-highlight');
             }
+
+            this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
+            Global.graphcy.fit(edgeToBeSelected.connectedNodes());
+            this.layoutsUtility.setUserMaxZoomLevel();
         });
 
     }

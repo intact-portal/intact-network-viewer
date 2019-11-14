@@ -19,7 +19,7 @@ export class Interaction {
     constructor(cy: any) {
         this.cy = cy;
         this.utility = new Utility();
-        this.layoutsUtility= new LayoutsUtility(this.cy);
+        this.layoutsUtility= new LayoutsUtility();
         this.loadOnEdgeTapMethod();
         //this.loadOnTapUnselectEdgeMethod();
         this.loadOnSelectBoxMethod();

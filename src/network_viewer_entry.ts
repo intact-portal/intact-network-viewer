@@ -61,7 +61,7 @@ export class InitializeGraph {
   private isExpand!: boolean;
   private isMutationDisrupted!: boolean;
   private layoutName!: string;
-  private utility!:Utility;
+  private utility:Utility;
 
   // constructor
   constructor(graphContainerDivId: string, legendDivId: string, suggestionBoxId:string) {
@@ -71,6 +71,7 @@ export class InitializeGraph {
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.style = new Style();
     this.suggestionBoxId = suggestionBoxId;
+    this.utility=new Utility();
     new Listener();
 
   }
@@ -224,7 +225,6 @@ export class InitializeGraph {
       this.changeEdgeState();
       this.updateLegends();
       this.interaction = new Interaction(this.cy);
-      this.utility=new Utility(this.cy);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
     }, this.timeout);

@@ -1,34 +1,33 @@
 import { Constants } from './constants';
+import { Global } from "./../global";
 
 export class Utility {
 
-    private cy: any;
+    constructor() {
 
-    constructor(cy:any) {
-        this.cy = cy;
     }
 
     public setInitialMaxZoomLevel(): void{
-        this.cy.maxZoom(Constants.INITIAL_MAX_ZOOM);
+        Global.graphcy.maxZoom(Constants.INITIAL_MAX_ZOOM);
     }
 
     public setUserMaxZoomLevel(): void{
-        this.cy.maxZoom(Constants.USER_MAX_ZOOM);
+        Global.graphcy.maxZoom(Constants.USER_MAX_ZOOM);
     }
 
     public setUserMinZoomLevel(): void{
-        if(this.cy.zoom()<0.2){
-            this.cy.minZoom(this.cy.zoom());
+        if(Global.graphcy.zoom()<0.2){
+            Global.graphcy.minZoom(Global.graphcy.zoom());
         }else {
-            this.cy.minZoom(Constants.USER_MIN_ZOOM);
+            Global.graphcy.minZoom(Constants.USER_MIN_ZOOM);
         }
     }
 
     public setInitialMinZoomLevel(): void{
-        this.cy.minZoom(Constants.INITIAL_MIN_ZOOM);
+        Global.graphcy.minZoom(Constants.INITIAL_MIN_ZOOM);
     }
 
     public setHighlightAndFocusMaxZoomLevel(): void{
-        this.cy.maxZoom(Constants.HIGHLIGHT_AND_FOCUS_MAX_ZOOM);
+        Global.graphcy.maxZoom(Constants.HIGHLIGHT_AND_FOCUS_MAX_ZOOM);
     }
 }
