@@ -165,17 +165,23 @@
             }
 
             $('input:radio[name="layout"]').change(function(){
+                $('input[name=interactor]').attr('checked',false);
+                $('input[name=interaction]').attr('checked',false);
                 object.applyLayout($(this).val());
             });
 
             $('#graph').click(function() {
                // $('input[name=layout]').attr('checked',false);
+                $('input[name=interactor]').attr('checked',false);
+                $('input[name=interaction]').attr('checked',false);
                 loadjsonData();
             });
 
             $( "#graphQuery" ).change(function() {
-            $('#expand-edges').prop('checked', false); // Unchecks it
-            $('#show-mutation-disrupted').prop('checked', false);
+                $('#expand-edges').prop('checked', false); // Unchecks it
+                $('#show-mutation-disrupted').prop('checked', false);
+                $('input[name=interactor]').attr('checked',false);
+                $('input[name=interaction]').attr('checked',false);
             $('input:radio[name="layout"][value="fcose"]').prop('checked', true);
             query=$('#graphQuery :selected').val();
 
@@ -184,7 +190,10 @@
 
             $("#nested-checkboxes").find("input:checkbox").click(function()
             {
+                $('input[name=interactor]').attr('checked',false);
+                $('input[name=interaction]').attr('checked',false);
               if(!$('#expand-edges').is(':checked')) {
+
                    $(this).next().find('input[type=checkbox]').prop('checked', this.checked);
                }
                 if($('#show-mutation-disrupted').is(':checked')) {
@@ -207,6 +216,7 @@
             });
 
             $('input:radio[name="interaction"]').change(function(){
+                $('input[name=interactor]').attr('checked',false);
                 var interactionSelectedEvent = new CustomEvent('table-interaction-selected', {
                     bubbles: true,
                     detail: {
@@ -219,6 +229,7 @@
             });
 
             $('input:radio[name="interactor"]').change(function(){
+                $('input[name=interaction]').attr('checked',false);
                 var interactorSelectedEvent = new CustomEvent('table-interactor-selected', {
                     bubbles: true,
                     detail: {
