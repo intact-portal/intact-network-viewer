@@ -46,11 +46,6 @@ export class Interaction {
             }
         });
 
-        //TODO... remove when testing done
-        document.addEventListener("graph-unselected", function(e) {
-            console.log((e as any).type); // Prints "Example of an event"
-        });
-
         // when node or edge is unselected by tapping white space
         this.cy.on('tapunselect', (untapEvent)=>{
             var evtTarget = untapEvent.target;

@@ -20,9 +20,12 @@ export class Listener {
         });
 
         document.addEventListener("graph-interactor-selected", function(e) {
-            alert(Global.graphcy);
             console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
             console.log((e as any).detail.interactorId().toString()); // Prints "Example of an event"
+        });
+
+        document.addEventListener("graph-unselected", function(e) {
+            console.log((e as any).type); // Prints "Example of an event"
         });
     }
 
