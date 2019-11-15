@@ -222,9 +222,17 @@
                 object.search($("#nodeL").val());
             });
 
-            $("#download").click(function(){
-                object.export();
+            $("#graphml_download").click(function(){
+                object.exportAs('graphml');
             });
+
+            $("#png_download").click(function(){
+                object.exportAs('png');
+            });
+
+            /*$("#svg_download").click(function(){
+                object.exportAs('svg');
+            });*/
 
             $('input:radio[name="interaction"]').change(function(){
                 $('input[name=interactor]').attr('checked',false);
@@ -318,7 +326,11 @@
     <!--<input type="radio" name="layout" id="cola" value="cola" >cola</input>-->
 </div>
 <div id="download-panel">
-    <img id='download' style="width: 20px;height: 20px" src="images/graphml-icon.png" alt="Download"/>
+    <img id='graphml_download' style="width: 20px;height: 20px" src="images/graphml-icon.png" alt="Download as graphml"/>
+    <img id='png_download' style="width: 20px;height: 20px" src="images/png-icon.png" alt="Download as PNG"/>
+    <!--<img id='svg_download' style="width: 20px;height: 20px" src="images/svg-icon.png" alt="Download as SVG"/>-->
+
+
 </div>
 <div id="parent-graph-div">
     <div id="graph-controllers-div">

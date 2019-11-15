@@ -48,6 +48,7 @@ export class InitializeGraph {
   private legendDivId: string;
   private cy: any;
   private data!: JSON;
+  private export:Export;
   private interaction!: Interaction;
   private legend!: ParentLegend;
   private nodeLabels!: Array<string>;
@@ -66,6 +67,7 @@ export class InitializeGraph {
   // constructor
   constructor(graphContainerDivId: string, legendDivId: string, suggestionBoxId:string) {
     this.graphContainerDivId = graphContainerDivId;
+    this.export = new Export();
     this.legendDivId = legendDivId;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
@@ -103,9 +105,27 @@ export class InitializeGraph {
     }
   }
 
-  public export(exportTo: string): void {
-    const exportObj: Export = new Export(this.cy);
-    exportObj.exportAsGraphml();
+  public exportAs(filetype: string): void {
+
+    switch (filetype) {
+      case 'graphml': {
+        this.export.exportAsGraphml();
+        break;
+      }
+      case 'png': {
+        this.export.exportAsPng();
+        break;
+        break;
+      }
+      case 'svg': {
+        this.export.exportAsGraphml();
+        break;
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
   public reset(): void {
