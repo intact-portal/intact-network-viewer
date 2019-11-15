@@ -18,7 +18,12 @@ export class NodeDetails {
 
         let interactorAcDivElement= this.utility.createDivElementFor(Constants.INTERACTOR_AC_LABEL, this.node.data(Node.INTERACTOR_AC));
 
-        let interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, this.node.data(Node.INTERACTOR_NAME));
+        let interactorName=this.node.data(Node.INTERACTOR_NAME);
+        if(interactorName==null) {
+            interactorName='NA';
+        }
+
+        let interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
 
         let interactorTypeDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_TYPE_LABEL, this.node.data(Node.INTERACTOR_TYPE));
 

@@ -207,6 +207,8 @@
             });
 
             $("#reset").click(function(){
+                $('input[name=interactor]').attr('checked',false);
+                $('input[name=interaction]').attr('checked',false);
                 object.reset();
             });
             $("#search").click(function(){
@@ -284,12 +286,13 @@
         </tr>
         </table>
     <table style="width: 88%;">
-        <tr><td>Interactions:</td>
-            <td><input type="radio" name="interaction" id="1224"  value="1224" style="opacity: 9;left: inherit;position:inherit">1224</input></td>
-            <td><input type="radio" name="interaction" id="792"   value="792" style="opacity: 9;left: inherit;position:inherit">792</input></td>
+        <tr><td>Interactions:</td><td></td><td></td>
+        <tr>
+            <td><input type="radio" name="interaction" id="1224"  value="1224" style="opacity: 9;left: inherit;position:inherit">1224(EBI-10050193)</input></td>
+            <td><input type="radio" name="interaction" id="792"   value="792" style="opacity: 9;left: inherit;position:inherit">792(EBI-10045016)</input></td>
         </tr>
-
-        <tr><td>Interactors:</td>
+        <tr><td>Interactors:</td><td></td><td></td>
+        <tr>
             <td><input type="radio" name="interactor" id="EBI-2654963" value="EBI-2654963"  style="opacity: 9;left: inherit;position:inherit">EBI-2654963</input></td>
             <td><input type="radio" name="interactor" id="EBI-301834"  value="EBI-301834" style="opacity: 9;left: inherit;position:inherit">EBI-301834</input></td>
         </tr>

@@ -113,6 +113,7 @@ export class InitializeGraph {
   }
 
   public search(interactorName:string): void {
+    this.interaction.resetAppliedClasses();// this is needed to undo any selection
     let searchedNode=this.nodeMap.get(interactorName);
     if(searchedNode!=null) {
       this.utility.setHighlightAndFocusMaxZoomLevel();
@@ -294,7 +295,7 @@ export class InitializeGraph {
 
     this.cy.nodes().forEach((node)=> {
       if(node.data('label')!=null) {
-        let nodeName=node.data(Node.INTERACTOR_NAME)+" ("+node.data(Node.INTERACTOR_ID)+")";
+        let nodeName=node.data('label');
         this.nodeLabels.push(nodeName);
         this.nodeMap.set(nodeName, node);
       }
