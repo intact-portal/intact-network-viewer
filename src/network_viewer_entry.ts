@@ -294,8 +294,8 @@ export class InitializeGraph {
     this.nodeMap = new Map();
 
     this.cy.nodes().forEach((node)=> {
-      if(node.data('label')!=null) {
-        let nodeName=node.data('label');
+      let nodeName=node.data('label');
+      if(nodeName!=null) {
         this.nodeLabels.push(nodeName);
         this.nodeMap.set(nodeName, node);
       }
