@@ -11,6 +11,13 @@
             left: 35%;
             color: green;
         }
+        #download-panel{
+            width: 35%;
+            height: 5%;
+            position: absolute;
+            top: 15%;
+            left: 90%;
+        }
         #parent-graph-div {
             width: 79%;
             height: 79%;
@@ -215,6 +222,10 @@
                 object.search($("#nodeL").val());
             });
 
+            $("#download").click(function(){
+                object.export();
+            });
+
             $('input:radio[name="interaction"]').change(function(){
                 $('input[name=interactor]').attr('checked',false);
                 var interactionSelectedEvent = new CustomEvent('table-interaction-selected', {
@@ -305,6 +316,9 @@
     <input type="radio" name="layout" id="fcose" value="fcose" checked >fcose (default layout)</input>
     <input type="radio" name="layout" id="avsdf" value="avsdf" >avsdf (circular layout)</input>
     <!--<input type="radio" name="layout" id="cola" value="cola" >cola</input>-->
+</div>
+<div id="download-panel">
+    <img id='download' style="width: 20px;height: 20px" src="images/graphml-icon.png" alt="Download"/>
 </div>
 <div id="parent-graph-div">
     <div id="graph-controllers-div">
