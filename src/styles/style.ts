@@ -62,7 +62,9 @@ export class Style {
         'text-max-width': node => {
           return node.width();
         },
-        label : 'data(species)',
+        label : node => {
+          return node.data(Node.SPECIES);
+        },
       },
     },
 
