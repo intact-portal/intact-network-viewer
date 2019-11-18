@@ -6,5 +6,5 @@ export class Node {
     public static INTERACTOR_NAME:string='interactor_name';
     public static INTERACTOR_TYPE:string='interactor_type';
     public static INTERACTOR_AC:string='id';
-    public static INTERACTOR_ID:string='preferred_id';
+    public static INTERACTOR_ID:string='preferred_id_db';
 }

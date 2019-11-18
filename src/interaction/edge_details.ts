@@ -20,7 +20,6 @@ export class EdgeDetails {
 
         if(this.edge.hasClass('expand')) {
             interactionAcDivElement= this.utility.createDivElementFor(Constants.INTERACTION_AC_LABEL, this.edge.data(Edge.INTERACTION_AC));
-            detailDiv.appendChild(interactionAcDivElement);
             detectionMethodDivElement = this.utility.createDivElementFor(Constants.INTERACTION_DETECTION_METHOD_LABEL, this.edge.data(Edge.INTERACTION_DETECTION_METHOD));
         }else{
             let detectionMethodsSet=new Set<string>();
@@ -34,6 +33,9 @@ export class EdgeDetails {
 
         detailDiv.appendChild(miScoreDivElement);
         detailDiv.appendChild(detectionMethodDivElement);
+        if(interactionAcDivElement!=null){
+            detailDiv.appendChild(interactionAcDivElement);
+        }
 
         return detailDiv;
 
