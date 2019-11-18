@@ -118,7 +118,7 @@ export class InitializeGraph {
         break;
       }
       case 'svg': {
-        this.export.exportAsGraphml();
+        this.export.exportAsSvg();
         break;
         break;
       }
