@@ -149,7 +149,7 @@ export class Style {
       selector: 'edge.neighbour-highlight',
       style: {
         'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-padding': '8px',
+        'overlay-padding': '6px',
         'overlay-opacity': 0.333,
       },
     },
