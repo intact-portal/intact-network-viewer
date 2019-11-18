@@ -148,7 +148,9 @@ export class Style {
     {
       selector: 'edge.neighbour-highlight',
       style: {
-        'line-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'overlay-padding': '8px',
+        'overlay-opacity': 0.333,
       },
     },
   ];
