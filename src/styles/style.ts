@@ -19,7 +19,7 @@ export class Style {
       selector: 'node.highlight',
       style: {
         'overlay-color': '#000000',
-        'overlay-padding': '8px',
+        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
       },
     },
@@ -27,7 +27,7 @@ export class Style {
       selector: 'node.neighbour-highlight',
       style: {
         'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-padding': '8px',
+        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
       },
     },
@@ -149,7 +149,7 @@ export class Style {
       selector: 'edge.neighbour-highlight',
       style: {
         'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-padding': '6px',
+        'overlay-padding': Width.OVERLAY_EDGE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
       },
     },
