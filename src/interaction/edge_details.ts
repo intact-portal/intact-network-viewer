@@ -1,7 +1,8 @@
-import { Utility } from './utility';
 import { Constants } from './constants';
-import { Style } from './style';
 import { Edge } from '../constants/edge';
+import { Style } from './style';
+import { Utility } from './utility';
+
 export class EdgeDetails {
   private edge: any;
   private utility: Utility;
@@ -12,7 +13,7 @@ export class EdgeDetails {
   }
 
   public createDetails(): HTMLDivElement {
-    let detailDiv = this.utility.createDetailsDivFor(Constants.EDGE_DETAILS_DIV_ID);
+    const detailDiv = this.utility.createDetailsDivFor(Constants.EDGE_DETAILS_DIV_ID);
     let detectionMethodDivElement;
 
     let interactionAcDivElement;
@@ -27,7 +28,7 @@ export class EdgeDetails {
         this.edge.data(Edge.INTERACTION_DETECTION_METHOD),
       );
     } else {
-      let detectionMethodsSet = new Set<string>();
+      const detectionMethodsSet = new Set<string>();
       this.edge.parallelEdges().forEach(edge => {
         detectionMethodsSet.add(edge.data(Edge.INTERACTION_DETECTION_METHOD));
       });
@@ -36,7 +37,7 @@ export class EdgeDetails {
         detectionMethodsSet.size,
       );
     }
-    let miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL, this.edge.data(Edge.MI_SCORE));
+    const miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL, this.edge.data(Edge.MI_SCORE));
 
     detailDiv.appendChild(miScoreDivElement);
     detailDiv.appendChild(detectionMethodDivElement);
