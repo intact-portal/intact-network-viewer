@@ -47,7 +47,7 @@ export class Constants {
   public static META_NODE_COLOR_LABEL = 'Grouped by species';
   public static MI_SCORE_LABEL = 'MI Score';
 
-  //compound node coor
+  // compound node coor
 
   public static COMPOUND_NODE_COLOR_LEGEND_DIV_ID: string = 'compound-node-color-legend';
   public static COMPOUND_NODE_COLOR_LEGEND_TITLE: string = 'Meta Node Color Legend';
