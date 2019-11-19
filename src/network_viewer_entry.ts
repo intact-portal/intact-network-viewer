@@ -22,13 +22,14 @@ import 'spin.js/spin.css';
 import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
+import { Global } from "./global";
 import { ParentLegend } from './legends/parent_legend';
 import {NetworkViewerStates} from "./network_viewer_states";
 import {Interaction} from "./interaction/interaction";
 import {Node} from "./constants/node";
 import {Utility} from "./layouts/utility";
 import {Listener} from "./interaction/listener";
-import { Global } from "./global";
+
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -46,7 +47,6 @@ export class InitializeGraph {
   // field
   private graphContainerDivId: string;
   private legendDivId: string;
-  private cy: any;
   private data!: JSON;
   private export:Export;
   private interaction!: Interaction;
@@ -89,19 +89,19 @@ export class InitializeGraph {
   private changeEdgeState(): void {
 
     if (this.isExpand) {
-      this.cy.edges().addClass('expand');
-      this.cy.$(':loop').addClass('expand');
+      Global.graphcy.edges().addClass('expand');
+      Global.graphcy.$(':loop').addClass('expand');
     } else {
-      this.cy.edges().removeClass('expand');
-      this.cy.$(':loop').removeClass('expand');
+      Global.graphcy.edges().removeClass('expand');
+      Global.graphcy.$(':loop').removeClass('expand');
     }
 
     if (this.isMutationDisrupted) {
-      this.cy.edges().addClass('disrupted');
-      this.cy.nodes().addClass('mutation');
+      Global.graphcy.edges().addClass('disrupted');
+      Global.graphcy.nodes().addClass('mutation');
     } else {
-      this.cy.edges().removeClass('disrupted');
-      this.cy.nodes().removeClass('mutation');
+      Global.graphcy.edges().removeClass('disrupted');
+      Global.graphcy.nodes().removeClass('mutation');
     }
   }
 
@@ -137,7 +137,7 @@ export class InitializeGraph {
     let searchedNode=this.nodeMap.get(interactorName);
     if(searchedNode!=null) {
       this.utility.setHighlightAndFocusMaxZoomLevel();
-      this.cy.animate({
+      Global.graphcy.animate({
         fit: {
           eles: searchedNode,
           padding: 20,
@@ -206,7 +206,7 @@ export class InitializeGraph {
         break;
       }
     }
-      this.cy.on('layoutstop', (e)=> {
+      Global.graphcy.on('layoutstop', (e)=> {
         this.utility.setUserMaxZoomLevel();
         this.utility.setUserMinZoomLevel();
      });
@@ -227,7 +227,7 @@ export class InitializeGraph {
     this.updateGraphState(isExpand,isMutationDisrupted,layoutName);
     this.executeGraphCalculations();
     setTimeout(() => {
-      this.cy = cytoscape({
+      Global.graphcy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
         elements: this.data,
 
@@ -237,8 +237,7 @@ export class InitializeGraph {
          boxSelectionEnabled: false,
         layout:this.getLayoutOption(),
       });
-      Global.graphcy=this.cy;
-      this.cy.on('layoutstop', (e)=> {
+      Global.graphcy.on('layoutstop', (e)=> {
         this.fit();
       });
       this.changeEdgeState();
@@ -294,15 +293,15 @@ export class InitializeGraph {
   private fit(): void{
     this.utility.setInitialMaxZoomLevel();
     this.utility.setInitialMinZoomLevel();
-    this.cy.fit();
+    Global.graphcy.fit();
     this.utility.setUserMaxZoomLevel();
     this.utility.setUserMinZoomLevel();
   }
 
   private fitWithCurrentZoom(): void{
-    this.cy.maxZoom(this.cy.zoom());
+    Global.graphcy.maxZoom(Global.graphcy.zoom());
     this.utility.setInitialMinZoomLevel();
-    this.cy.fit();
+    Global.graphcy.fit();
     this.utility.setUserMaxZoomLevel();
     this.utility.setUserMinZoomLevel();
   }
@@ -311,7 +310,7 @@ export class InitializeGraph {
     this.nodeLabels = new Array<string>();
     this.nodeMap = new Map();
 
-    this.cy.nodes().forEach((node)=> {
+    Global.graphcy.nodes().forEach((node)=> {
       let nodeName=node.data('label');
       if(nodeName!=null) {
         this.nodeLabels.push(nodeName);
