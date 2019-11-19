@@ -1,5 +1,5 @@
-import { Constants } from './constants';
 import { Edge } from '../constants/edge';
+import { Constants } from './constants';
 import { Style } from './style';
 import { Utility } from './utility';
 
