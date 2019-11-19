@@ -1,5 +1,5 @@
-import { Global } from './../global';
 import { Utility as LayoutsUtility } from '../layouts/utility';
+import { Global } from './../global';
 import { Utility } from './utility';
 
 export class Listener {
@@ -14,32 +14,32 @@ export class Listener {
     this.loadTableInteractionSelectedListener();
   }
 
-  //TODO... remove following method after testing is done
+  // TODO... remove following method after testing is done
   private loadDocumentListeners(): void {
-    document.addEventListener('graph-interaction-selected', function(e) {
-      console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
-      console.log((e as any).detail.interactorIds().toString()); // Prints "Example of an event"
+    document.addEventListener('graph-interaction-selected', (e)=> {
+      console.log((e as any).detail.interactionIds().toString());
+      console.log((e as any).detail.interactorIds().toString());
     });
 
-    document.addEventListener('graph-interactor-selected', function(e) {
-      console.log((e as any).detail.interactionIds().toString()); // Prints "Example of an event"
-      console.log((e as any).detail.interactorId().toString()); // Prints "Example of an event"
+    document.addEventListener('graph-interactor-selected', (e)=> {
+      console.log((e as any).detail.interactionIds().toString());
+      console.log((e as any).detail.interactorId().toString());
     });
 
-    document.addEventListener('graph-unselected', function(e) {
-      console.log((e as any).type); // Prints "Example of an event"
+    document.addEventListener('graph-unselected', (e)=> {
+      console.log((e as any).type);
     });
   }
 
   private loadTableInteractorSelectedListener(): void {
     document.addEventListener('table-interactor-selected', e => {
-      console.log((e as any).detail.interactorId); // Prints "Example of an event"
+      console.log((e as any).detail.interactorId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
-      let nodeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactorId);
-      let directlyConnectedEdges = nodeToBeSelected.closedNeighbourhood();
+      const nodeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactorId);
+      const directlyConnectedEdges = nodeToBeSelected.closedNeighbourhood();
 
       directlyConnectedEdges.addClass('neighbour-highlight');
       directlyConnectedEdges.nodes().addClass('neighbour-highlight');
@@ -54,12 +54,12 @@ export class Listener {
 
   private loadTableInteractionSelectedListener(): void {
     document.addEventListener('table-interaction-selected', e => {
-      console.log((e as any).detail.interactionId); // Prints "Example of an event"
+      console.log((e as any).detail.interactionId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
-      let edgeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactionId);
+      const edgeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactionId);
 
       edgeToBeSelected.connectedNodes().addClass('neighbour-highlight');
       if (edgeToBeSelected.hasClass('expand')) {
