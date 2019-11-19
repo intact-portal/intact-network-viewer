@@ -1,32 +1,33 @@
+import cytoscape from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
 import cise from 'cytoscape-cise';
 import cola from 'cytoscape-cola';
-import cyforcelayout from 'cytoscape-ngraph.forcelayout';
-import cytoscape from 'cytoscape';
 import fcose from 'cytoscape-fcose';
+import cyforcelayout from 'cytoscape-ngraph.forcelayout';
+import { Spinner } from 'spin.js';
+import 'spin.js/spin.css';
 
+import { Export } from './export';
 import { AvsdfLayout } from './layouts/avsdf_layout';
 import { CiseLayout } from './layouts/cise_layout';
 import { ColaLayout } from './layouts/cola_layout';
 import { Constants } from './layouts/constants';
-import { Export } from './export';
 import { FcoseLayout } from './layouts/fcose_layout';
 import { NgraphLayout } from './layouts/ngraph_layout';
-import { Spinner } from 'spin.js';
 import { Style } from './styles/style';
-import 'spin.js/spin.css';
 /*import 'tippy.js/dist/tippy.css';*/
 
 import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
+import { Node } from './constants/node';
 import { Global } from './global';
+import { Interaction } from './interaction/interaction';
+import { Listener } from './interaction/listener';
+import { Utility } from './layouts/utility';
 import { ParentLegend } from './legends/parent_legend';
 import { NetworkViewerStates } from './network_viewer_states';
-import { Interaction } from './interaction/interaction';
-import { Node } from './constants/node';
-import { Utility } from './layouts/utility';
-import { Listener } from './interaction/listener';
+
 
 var graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
