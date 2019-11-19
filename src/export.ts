@@ -4,12 +4,9 @@ export class Export {
   public static PNG_FILENAME: string = 'network.png';
   public static PNG_BACKGROUND_COLOR: string = 'rgb(255,255,255)';
 
-  constructor() {}
-
   public exportAsGraphml(): void {
-    console.log(Global.graphcy.graphml());
-    let element = document.createElement('a');
-    let filename = Export.GRAPHML_FILENAME;
+    const element = document.createElement('a');
+    const filename = Export.GRAPHML_FILENAME;
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(Global.graphcy.graphml()));
     element.setAttribute('download', filename);
 
@@ -22,11 +19,11 @@ export class Export {
   }
 
   public exportAsPng(): void {
-    var text = Global.graphcy.png({ output: 'blob', bg: Export.PNG_BACKGROUND_COLOR });
-    var filename = Export.PNG_FILENAME;
-    var type = 'image/png';
-    let element = document.createElement('a');
-    var file = new Blob([text], { type: type });
+    const text = Global.graphcy.png({ output: 'blob', bg: Export.PNG_BACKGROUND_COLOR });
+    const filename = Export.PNG_FILENAME;
+    const imageType = 'image/png';
+    const element = document.createElement('a');
+    const file = new Blob([text], { type: imageType });
     element.setAttribute('href', URL.createObjectURL(file));
     element.setAttribute('download', filename);
 
@@ -39,6 +36,6 @@ export class Export {
   }
 
   public exportAsSvg(): void {
-    //TODO... When cytoscape releases support for SVG.
+    // TODO... When cytoscape releases support for SVG.
   }
 }
