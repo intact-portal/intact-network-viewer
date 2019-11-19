@@ -1,18 +1,16 @@
-
+import { Global } from "./../global";
 import {NodeLegend} from "./nodes/node_legend";
 import {NetworkViewerStates} from "../network_viewer_states";
 import {Utility} from "./utility";
 import {EdgeLegend} from "./edges/edge_legend";
 export class ParentLegend {
-  private cy: any;
   private nodeLegend: NodeLegend;
   private edgeLegend: EdgeLegend;
 
-  constructor(cy: any) {
-    this.cy = cy;
+  constructor() {
     let utility = new Utility();
-    this.nodeLegend = new NodeLegend(cy.nodes(),utility);
-    this.edgeLegend = new EdgeLegend(cy.edges(), utility);
+    this.nodeLegend = new NodeLegend(Global.graphcy.nodes(),utility);
+    this.edgeLegend = new EdgeLegend(Global.graphcy.edges(), utility);
 
   }
 
@@ -22,7 +20,7 @@ export class ParentLegend {
 
     parentDiv.appendChild(this.nodeLegend.createColorLegend());
 
-    if(this.cy.nodes().parent().length>0){
+    if(Global.graphcy.nodes().parent().length>0){
       parentDiv.appendChild(this.nodeLegend.createCompoundNodeColorLegend());
     }
 

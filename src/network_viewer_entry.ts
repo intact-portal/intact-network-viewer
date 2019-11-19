@@ -151,14 +151,12 @@ export class InitializeGraph {
   }
 
   private updateLegends(): void {
+    this.legend = new ParentLegend();
     if (this.isMutationDisrupted){
-      this.legend = new ParentLegend(this.cy);
       this.legend.createLegend(this.legendDivId,NetworkViewerStates.MUTATION_EFFECTED);
     } else if (this.isExpand){
-      this.legend = new ParentLegend(this.cy);
       this.legend.createLegend(this.legendDivId,NetworkViewerStates.EXPANDED);
     } else {
-      this.legend = new ParentLegend(this.cy);
       this.legend.createLegend(this.legendDivId,NetworkViewerStates.COLLAPSED);
     }
   }
