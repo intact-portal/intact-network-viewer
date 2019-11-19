@@ -1,12 +1,13 @@
 import { Style } from './style';
+
 export class Utility {
   public createDivElementFor(
     elementImage: string,
     elementText: string,
     isSingleDiv: boolean,
-    isEdge: boolean,
+    isEdge: boolean
   ): HTMLDivElement {
-    let nodeShapeLegendDivListElement = <HTMLDivElement>document.createElement('div');
+    const nodeShapeLegendDivListElement = document.createElement('div') as HTMLDivElement;
     let divStyle;
     let textstyle;
 
@@ -19,7 +20,7 @@ export class Utility {
     }
     nodeShapeLegendDivListElement.setAttribute('style', divStyle);
 
-    let nodeShapeLegendImage = <HTMLImageElement>document.createElement('img');
+    const nodeShapeLegendImage = document.createElement('img') as HTMLImageElement;
     nodeShapeLegendImage.setAttribute('src', elementImage);
 
     let imgStyle;
@@ -31,7 +32,7 @@ export class Utility {
     nodeShapeLegendImage.setAttribute('style', imgStyle);
     nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
 
-    let nodeShapeLegendImageLabel = <HTMLParagraphElement>document.createElement('p');
+    const nodeShapeLegendImageLabel = document.createElement('p') as HTMLParagraphElement;
     nodeShapeLegendImageLabel.setAttribute('style', textstyle);
     nodeShapeLegendImageLabel.innerHTML = elementText;
     nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
@@ -40,11 +41,11 @@ export class Utility {
   }
 
   public createLegendDivFor(legendDivId: string, legendTitle: string): HTMLDivElement {
-    var legendDiv = <HTMLDivElement>document.createElement('div');
+    const legendDiv = document.createElement('div') as HTMLDivElement;
     legendDiv.setAttribute('id', legendDivId);
     legendDiv.setAttribute('style', Style.LEGEND_DIV);
 
-    var legendHeader = <HTMLElement>document.createElement('h3');
+    const legendHeader = document.createElement('h3') as HTMLElement;
     legendHeader.setAttribute('style', Style.LEGEND_HEADER);
     legendHeader.innerHTML = legendTitle;
     legendDiv.appendChild(legendHeader);
