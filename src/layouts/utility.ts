@@ -1,8 +1,7 @@
-import { Constants } from './constants';
 import { Global } from './../global';
+import { Constants } from './constants';
 
 export class Utility {
-  constructor() {}
 
   public setInitialMaxZoomLevel(): void {
     Global.graphcy.maxZoom(Constants.INITIAL_MAX_ZOOM);
