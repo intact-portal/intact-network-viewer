@@ -181,27 +181,27 @@ export class InitializeGraph {
     setTimeout(() => {
     switch (layoutName) {
       case 'ngraph': {
-          const ngraphLayout: NgraphLayout = new NgraphLayout(this.cy);
+          const ngraphLayout: NgraphLayout = new NgraphLayout();
           ngraphLayout.execute();
         break;
       }
       case 'cise': {
-          const ciseLayout: CiseLayout = new CiseLayout(this.cy);
+          const ciseLayout: CiseLayout = new CiseLayout();
           ciseLayout.execute();
         break;
       }
       case 'avsdf': {
-          const avsdfLayout: AvsdfLayout = new AvsdfLayout(this.cy);
+          const avsdfLayout: AvsdfLayout = new AvsdfLayout();
           avsdfLayout.execute();
         break;
       }
       case 'cola': {
-          const colaLayout: ColaLayout = new ColaLayout(this.cy);
+          const colaLayout: ColaLayout = new ColaLayout();
           colaLayout.execute();
         break;
       }
       default: {
-          const fcoseLayout: FcoseLayout = new FcoseLayout(this.cy);
+          const fcoseLayout: FcoseLayout = new FcoseLayout();
           fcoseLayout.execute();
         break;
       }
