@@ -1,17 +1,16 @@
-import { Global } from "./../global";
-import {NodeLegend} from "./nodes/node_legend";
-import {NetworkViewerStates} from "../network_viewer_states";
-import {Utility} from "./utility";
-import {EdgeLegend} from "./edges/edge_legend";
+import { Global } from './../global';
+import { NodeLegend } from './nodes/node_legend';
+import { NetworkViewerStates } from '../network_viewer_states';
+import { Utility } from './utility';
+import { EdgeLegend } from './edges/edge_legend';
 export class ParentLegend {
   private nodeLegend: NodeLegend;
   private edgeLegend: EdgeLegend;
 
   constructor() {
     let utility = new Utility();
-    this.nodeLegend = new NodeLegend(Global.graphcy.nodes(),utility);
+    this.nodeLegend = new NodeLegend(Global.graphcy.nodes(), utility);
     this.edgeLegend = new EdgeLegend(Global.graphcy.edges(), utility);
-
   }
 
   public createLegend(parentLegendId: string, graphState: string): void {
@@ -20,11 +19,11 @@ export class ParentLegend {
 
     parentDiv.appendChild(this.nodeLegend.createColorLegend());
 
-    if(Global.graphcy.nodes().parent().length>0){
+    if (Global.graphcy.nodes().parent().length > 0) {
       parentDiv.appendChild(this.nodeLegend.createCompoundNodeColorLegend());
     }
 
-    if(graphState==NetworkViewerStates.MUTATION_EFFECTED){
+    if (graphState == NetworkViewerStates.MUTATION_EFFECTED) {
       parentDiv.appendChild(this.nodeLegend.createBorderLegend());
     }
 
@@ -32,11 +31,11 @@ export class ParentLegend {
 
     parentDiv.appendChild(this.edgeLegend.createColorLegend(graphState));
 
-    if(graphState==NetworkViewerStates.COLLAPSED){
+    if (graphState == NetworkViewerStates.COLLAPSED) {
       parentDiv.appendChild(this.edgeLegend.createThicknessLegend());
     }
 
-    if(graphState==NetworkViewerStates.EXPANDED || graphState==NetworkViewerStates.MUTATION_EFFECTED){
+    if (graphState == NetworkViewerStates.EXPANDED || graphState == NetworkViewerStates.MUTATION_EFFECTED) {
       parentDiv.appendChild(this.edgeLegend.createShapesLegend());
     }
   }

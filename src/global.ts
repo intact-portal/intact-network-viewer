@@ -1,3 +1,3 @@
 export namespace Global {
-    export var graphcy: any;
+  export var graphcy: any;
 }

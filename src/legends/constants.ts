@@ -35,7 +35,6 @@ export class Constants {
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE = 'rgb(107,13,10)';
   public static META_NODE_COLOR = 'rgb(220,220,220)';
 
-
   public static NODE_COLOR_HOMO_SAPIENS_LABEL = 'Homo sapiens';
   public static NODE_COLOR_ARABIDOPSIS_THALIANA_LABEL = 'Arabidopsis thaliana (Mouse-ear cress)';
   public static NODE_COLOR_CAENORHABDITIS_ELEGANS_LABEL = 'Caenorhabditis elegans';
@@ -45,7 +44,7 @@ export class Constants {
   public static NODE_COLOR_MOUSE_LABEL = 'Mus musculus';
   public static NODE_COLOR_OTHERS_LABEL = 'Others';
   public static NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL = 'Saccharomyces cerevisiae';
-  public static META_NODE_COLOR_LABEL='Grouped by species';
+  public static META_NODE_COLOR_LABEL = 'Grouped by species';
   public static MI_SCORE_LABEL = 'MI Score';
 
   //compound node coor
@@ -87,8 +86,7 @@ export class Constants {
   public static EDGE_SHAPES_LEGEND_DIV_ID: string = 'edge-shapes-legend';
   public static EDGE_SHAPES_LEGEND_TITLE: string = 'Edge Shapes Legend';
 
-  public static EDGE_SHAPE_SPOKE_EXPANDED='dashed';
+  public static EDGE_SHAPE_SPOKE_EXPANDED = 'dashed';
 
   public static EDGE_SHAPE_SPOKE_EXPANDED_LABEL: string = 'Spoke expanded';
-
 }

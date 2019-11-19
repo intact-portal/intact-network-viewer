@@ -2,9 +2,9 @@ import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Utility } from './utility';
 import { Width } from './constants/width';
-import {Size} from "./constants/size";
-import {Edge} from "../constants/edge";
-import {Node} from "../constants/node";
+import { Size } from './constants/size';
+import { Edge } from '../constants/edge';
+import { Node } from '../constants/node';
 
 export class Style {
   private styleUtility: Utility;
@@ -62,7 +62,7 @@ export class Style {
         'text-max-width': node => {
           return node.width();
         },
-        label : node => {
+        label: node => {
           return node.data(Node.SPECIES);
         },
       },

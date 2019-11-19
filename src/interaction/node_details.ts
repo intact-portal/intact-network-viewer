@@ -1,43 +1,49 @@
-import {Utility} from "./utility";
-import {Constants} from "./constants";
-import {Style} from "./style";
-import {Node} from "../constants/node";
+import { Utility } from './utility';
+import { Constants } from './constants';
+import { Style } from './style';
+import { Node } from '../constants/node';
 export class NodeDetails {
+  private node: any;
+  private utility: Utility;
 
-    private node:any;
-    private utility: Utility;
+  constructor(node: any, utility: Utility) {
+    this.node = node;
+    this.utility = utility;
+  }
 
-    constructor(node:any,utility:Utility) {
-        this.node = node;
-        this.utility = utility;
+  public createDetails(): HTMLDivElement {
+    let detailDiv = this.utility.createDetailsDivFor(Constants.NODE_DETAILS_DIV_ID);
+
+    let interactorName = this.node.data(Node.INTERACTOR_NAME);
+    if (interactorName == null) {
+      interactorName = 'NA';
     }
 
-    public createDetails():HTMLDivElement {
-        let detailDiv = this.utility.createDetailsDivFor(Constants.NODE_DETAILS_DIV_ID);
+    let interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
 
+    let interactorIdDivElement = this.utility.createDivElementFor(
+      Constants.INTERACTOR_ID_LABEL,
+      this.node.data(Node.INTERACTOR_ID),
+    );
 
-        let interactorName=this.node.data(Node.INTERACTOR_NAME);
-        if(interactorName==null) {
-            interactorName='NA';
-        }
+    let interactorTypeDivElement = this.utility.createDivElementFor(
+      Constants.INTERACTOR_TYPE_LABEL,
+      this.node.data(Node.INTERACTOR_TYPE),
+    );
 
-        let interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
+    let speciesDivElement = this.utility.createDivElementFor(Constants.SPECIES_LABEL, this.node.data(Node.SPECIES));
 
-        let interactorIdDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_ID_LABEL, this.node.data(Node.INTERACTOR_ID));
+    let interactorAcDivElement = this.utility.createDivElementFor(
+      Constants.INTERACTOR_AC_LABEL,
+      this.node.data(Node.INTERACTOR_AC),
+    );
 
-        let interactorTypeDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_TYPE_LABEL, this.node.data(Node.INTERACTOR_TYPE));
+    detailDiv.appendChild(interactorNameDivElement);
+    detailDiv.appendChild(interactorIdDivElement);
+    detailDiv.appendChild(interactorTypeDivElement);
+    detailDiv.appendChild(speciesDivElement);
+    detailDiv.appendChild(interactorAcDivElement);
 
-        let speciesDivElement = this.utility.createDivElementFor(Constants.SPECIES_LABEL,this.node.data(Node.SPECIES));
-
-        let interactorAcDivElement= this.utility.createDivElementFor(Constants.INTERACTOR_AC_LABEL, this.node.data(Node.INTERACTOR_AC));
-
-        detailDiv.appendChild(interactorNameDivElement);
-        detailDiv.appendChild(interactorIdDivElement);
-        detailDiv.appendChild(interactorTypeDivElement);
-        detailDiv.appendChild(speciesDivElement);
-        detailDiv.appendChild(interactorAcDivElement);
-
-        return detailDiv;
-
-    }
+    return detailDiv;
+  }
 }

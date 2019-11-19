@@ -1,8 +1,8 @@
 import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
-import {Edge} from "../constants/edge";
-import {Node} from "../constants/node";
+import { Edge } from '../constants/edge';
+import { Node } from '../constants/node';
 
 export class Utility {
   public edgeWidth(edge: any): string {
@@ -36,8 +36,8 @@ export class Utility {
     return node.height();
   }
 
-  public parentNodeLabelSize(node: any) : number{
-    if(node.style('font-size')>20){
+  public parentNodeLabelSize(node: any): number {
+    if (node.style('font-size') > 20) {
       return 20;
     } else {
       return node.style('font-size');
