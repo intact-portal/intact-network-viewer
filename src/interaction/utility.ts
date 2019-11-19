@@ -1,22 +1,22 @@
-import { Style } from './style';
-import { Node } from '../constants/node';
 import { Edge } from '../constants/edge';
+import { Node } from '../constants/node';
 import { Global } from './../global';
+import { Style } from './style';
 
 export class Utility {
   public createDetailsDivFor(detailDivId: string): HTMLDivElement {
-    var legendDiv = <HTMLDivElement>document.createElement('div');
+    const legendDiv = document.createElement('div') as HTMLDivElement;
     legendDiv.setAttribute('id', detailDivId);
     // legendDiv.setAttribute('style', Style.DETAILS_DIV);
     return legendDiv;
   }
 
   public createDivElementFor(detailLabel: string, detailValue: any): HTMLDivElement {
-    let divListElement = <HTMLDivElement>document.createElement('div');
+    const divListElement = document.createElement('div') as HTMLDivElement;
 
-    let detailElement = <HTMLParagraphElement>document.createElement('p');
+    const detailElement = document.createElement('p') as HTMLParagraphElement;
     detailElement.setAttribute('style', Style.TOOL_TIP_TEXT);
-    let detailLabelElement = <HTMLElement>document.createElement('strong');
+    const detailLabelElement = document.createElement('strong') as HTMLElement;
     detailLabelElement.innerHTML = detailLabel + ': ';
     detailElement.appendChild(detailLabelElement);
     detailElement.append(detailValue);
@@ -26,42 +26,43 @@ export class Utility {
   }
 
   public insertCSSClassesInDOMForToolTip(): void {
-    var style = document.createElement('style');
+    const style = document.createElement('style');
     style.type = 'text/css';
     style.innerHTML = Style.TOOL_TIP_CSS_CLASS;
     document.getElementsByTagName('head')[0].appendChild(style);
   }
 
   public createNodeTappedEvent(node: any): void {
-    let selectedInteractionIds = new Array<number>();
+    const selectedInteractionIds = new Array<number>();
 
-    let directlyConnectedEdges = node.closedNeighbourhood();
+    const directlyConnectedEdges = node.closedNeighbourhood();
 
     directlyConnectedEdges.edges().forEach(edge => {
       selectedInteractionIds.push(edge.data(Edge.ID));
     });
 
-    let interactorSelectedEvent = new CustomEvent('graph-interactor-selected', {
+    const interactorSelectedEvent = new CustomEvent('graph-interactor-selected', {
       bubbles: true,
       detail: {
-        interactorId: () => node.data(Node.INTERACTOR_AC),
         interactionIds: () => selectedInteractionIds,
+        interactorId: () => node.data(Node.INTERACTOR_AC)
+
       },
     });
 
     document.dispatchEvent(interactorSelectedEvent);
-    console.log("'" + interactorSelectedEvent.type + "'" + ' Event Fired');
+    console.log("'" + interactorSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
   }
 
   public createEdgeTappedEvent(edge: any): void {
-    let selectedInteractionIds = new Array<number>();
-    let selectedInteractorIds = new Array<string>();
+    const selectedInteractionIds = new Array<number>();
+    const selectedInteractorIds = new Array<string>();
 
     if (edge.hasClass('expand')) {
       selectedInteractionIds.push(edge.data(Edge.ID));
     } else {
-      edge.parallelEdges().forEach(edge => {
-        selectedInteractionIds.push(edge.data(Edge.ID));
+      edge.parallelEdges().forEach(iteratedEdge => {
+        selectedInteractionIds.push(iteratedEdge.data(Edge.ID));
       });
     }
 
@@ -69,7 +70,7 @@ export class Utility {
       selectedInteractorIds.push(node.data(Node.INTERACTOR_AC));
     });
 
-    let interactionSelectedEvent = new CustomEvent('graph-interaction-selected', {
+    const interactionSelectedEvent = new CustomEvent('graph-interaction-selected', {
       bubbles: true,
       detail: {
         interactionIds: () => selectedInteractionIds,
@@ -78,16 +79,16 @@ export class Utility {
     });
 
     document.dispatchEvent(interactionSelectedEvent);
-    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');
+    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
   }
 
   public createUnTappedEvent(): void {
-    let interactionSelectedEvent = new CustomEvent('graph-unselected', {
+    const interactionSelectedEvent = new CustomEvent('graph-unselected', {
       bubbles: true,
     });
 
     document.dispatchEvent(interactionSelectedEvent);
-    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');
+    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
   }
 
   public removePreAppliedClasses(): void {
