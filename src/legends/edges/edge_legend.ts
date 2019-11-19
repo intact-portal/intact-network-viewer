@@ -1,12 +1,12 @@
 import { Utility } from './../utility';
 import { EdgeColorLegend } from './edge_color_legend';
-import { EdgeThicknessLegend } from './edge_thickness_legend';
 import { EdgeShapesLegend } from './edge_shape_legend';
+import { EdgeThicknessLegend } from './edge_thickness_legend';
 
 export class EdgeLegend {
-  private shapes!: Array<string>;
-  private colors!: Array<string>;
-  private thickness!: Array<string>;
+  private shapes!: string[];
+  private colors!: string[];
+  private thickness!: string[];
   private edgeColorLegend: EdgeColorLegend;
   private edgeThicknessLegend: EdgeThicknessLegend;
   private edgeShapesLegend: EdgeShapesLegend;
@@ -19,10 +19,22 @@ export class EdgeLegend {
     this.edgeShapesLegend = new EdgeShapesLegend(this.shapes, utility);
   }
 
+  public createColorLegend(graphState: string): HTMLDivElement {
+    return this.edgeColorLegend.createLegend(graphState);
+  }
+
+  public createThicknessLegend(): HTMLDivElement {
+    return this.edgeThicknessLegend.createLegend();
+  }
+
+  public createShapesLegend(): HTMLDivElement {
+    return this.edgeShapesLegend.createLegend();
+  }
+
   private initializeEdgeShapesColorsAndThickness(edges: any): void {
-    let shapesSet = new Set<string>();
-    let colorsSet = new Set<string>();
-    let thicknessSet = new Set<string>();
+    const shapesSet = new Set<string>();
+    const colorsSet = new Set<string>();
+    const thicknessSet = new Set<string>();
 
     edges.forEach(node => {
       shapesSet.add(node.style('line-style'));
@@ -31,11 +43,11 @@ export class EdgeLegend {
     });
 
     this.shapes = Array.from(shapesSet.values());
-    this.shapes.sort(function(a, b) {
-      if (a == 'tag') {
+    this.shapes.sort((a, b)=> {
+      if (a === 'tag') {
         return 1;
       }
-      if (b == 'tag') {
+      if (b === 'tag') {
         return -1;
       }
       if (a > b) {
@@ -48,14 +60,14 @@ export class EdgeLegend {
     });
 
     this.colors = Array.from(colorsSet.values());
-    this.colors.sort(function(a, b) {
-      let colorA = a.replace(/\s/g, '');
-      let colorB = b.replace(/\s/g, '');
-      if (colorA == 'rgb(153,153,153)') {
+    this.colors.sort((a, b)=> {
+      const colorA = a.replace(/\s/g, '');
+      const colorB = b.replace(/\s/g, '');
+      if (colorA === 'rgb(153,153,153)') {
         return 1;
       }
 
-      if (colorB == 'rgb(153,153,153)') {
+      if (colorB === 'rgb(153,153,153)') {
         return -1;
       }
       if (a > b) {
@@ -68,7 +80,7 @@ export class EdgeLegend {
     });
 
     this.thickness = Array.from(thicknessSet.values());
-    this.thickness.sort(function(a, b) {
+    this.thickness.sort((a, b)=> {
       if (a > b) {
         return 1;
       }
@@ -77,17 +89,5 @@ export class EdgeLegend {
       }
       return 0;
     });
-  }
-
-  public createColorLegend(graphState: string): HTMLDivElement {
-    return this.edgeColorLegend.createLegend(graphState);
-  }
-
-  public createThicknessLegend(): HTMLDivElement {
-    return this.edgeThicknessLegend.createLegend();
-  }
-
-  public createShapesLegend(): HTMLDivElement {
-    return this.edgeShapesLegend.createLegend();
   }
 }
