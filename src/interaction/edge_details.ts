@@ -34,7 +34,7 @@ export class EdgeDetails {
       });
       detectionMethodDivElement = this.utility.createDivElementFor(
         Constants.NO_DETECTION_METHODS_LABEL,
-        detectionMethodsSet.size,
+        detectionMethodsSet.size
       );
     }
     const miScoreDivElement = this.utility.createDivElementFor(Constants.MISCORE_LABEL, this.edge.data(Edge.MI_SCORE));
