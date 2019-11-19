@@ -1,7 +1,9 @@
-import { Utility } from './utility';
+import { Node } from '../constants/node';
 import { Constants } from './constants';
 import { Style } from './style';
-import { Node } from '../constants/node';
+import { Utility } from './utility';
+
+
 export class NodeDetails {
   private node: any;
   private utility: Utility;
@@ -12,30 +14,30 @@ export class NodeDetails {
   }
 
   public createDetails(): HTMLDivElement {
-    let detailDiv = this.utility.createDetailsDivFor(Constants.NODE_DETAILS_DIV_ID);
+    const detailDiv = this.utility.createDetailsDivFor(Constants.NODE_DETAILS_DIV_ID);
 
     let interactorName = this.node.data(Node.INTERACTOR_NAME);
     if (interactorName == null) {
       interactorName = 'NA';
     }
 
-    let interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
+    const interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
 
-    let interactorIdDivElement = this.utility.createDivElementFor(
+    const interactorIdDivElement = this.utility.createDivElementFor(
       Constants.INTERACTOR_ID_LABEL,
-      this.node.data(Node.INTERACTOR_ID),
+      this.node.data(Node.INTERACTOR_ID)
     );
 
-    let interactorTypeDivElement = this.utility.createDivElementFor(
+    const interactorTypeDivElement = this.utility.createDivElementFor(
       Constants.INTERACTOR_TYPE_LABEL,
-      this.node.data(Node.INTERACTOR_TYPE),
+      this.node.data(Node.INTERACTOR_TYPE)
     );
 
-    let speciesDivElement = this.utility.createDivElementFor(Constants.SPECIES_LABEL, this.node.data(Node.SPECIES));
+    const speciesDivElement = this.utility.createDivElementFor(Constants.SPECIES_LABEL, this.node.data(Node.SPECIES));
 
-    let interactorAcDivElement = this.utility.createDivElementFor(
+    const interactorAcDivElement = this.utility.createDivElementFor(
       Constants.INTERACTOR_AC_LABEL,
-      this.node.data(Node.INTERACTOR_AC),
+      this.node.data(Node.INTERACTOR_AC)
     );
 
     detailDiv.appendChild(interactorNameDivElement);
