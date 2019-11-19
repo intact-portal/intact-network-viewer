@@ -243,7 +243,7 @@ export class InitializeGraph {
       });
       this.changeEdgeState();
       this.updateLegends();
-      this.interaction = new Interaction(this.cy);
+      this.interaction = new Interaction();
       this.loadAutoSuggestion();
       this.stopLoadingImage();
     }, this.timeout);

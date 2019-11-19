@@ -3,6 +3,7 @@ import popper from 'cytoscape-popper';
 import tippy from 'tippy.js';
 import PopperJs from 'popper.js';
 import {EdgeDetails} from "./edge_details";
+import {Global} from "./../global";
 import {Utility} from "./utility";
 import {Utility as LayoutsUtility} from "../layouts/utility";
 import 'tippy.js/index.css';
@@ -12,12 +13,10 @@ cytoscape.use(popper);
 
 export class Interaction {
 
-    private cy: any;
     private utility: Utility;
     private layoutsUtility:LayoutsUtility;
 
-    constructor(cy: any) {
-        this.cy = cy;
+    constructor() {
         this.utility = new Utility();
         this.layoutsUtility= new LayoutsUtility();
         this.loadOnEdgeTapMethod();
@@ -35,9 +34,9 @@ export class Interaction {
     private loadOnEmptySpaceClick():void{
         let utility = this.utility;
         let clickedOnEmptySpace:boolean = false;
-        this.cy.on('tap', (event)=>{
+        Global.graphcy.on('tap', (event)=>{
             var evtTarget = event.target;
-            if( evtTarget === this.cy ){
+            if( evtTarget === Global.graphcy ){
                 // remove any previous classes on previous tap
                 this.utility.removePreAppliedClasses();
                 clickedOnEmptySpace=true;
@@ -47,7 +46,7 @@ export class Interaction {
         });
 
         // when node or edge is unselected by tapping white space
-        this.cy.on('tapunselect', (untapEvent)=>{
+        Global.graphcy.on('tapunselect', (untapEvent)=>{
             var evtTarget = untapEvent.target;
             if(evtTarget.isEdge()||!evtTarget.isParent()) {
                 if (clickedOnEmptySpace) {
@@ -67,7 +66,7 @@ export class Interaction {
     private loadEdgeOnHoverInAndOutMethod(utility:Utility): void {
 
         var tippyToolTip : any;
-        this.cy.edges().on('mouseover', function(e) {
+        Global.graphcy.edges().on('mouseover', function(e) {
             var hoveredEdge = e.target;
 
             var makeTippy = function (edge, text,utility) {
@@ -89,12 +88,12 @@ export class Interaction {
             tippyToolTip.show();
         });
 
-        this.cy.edges().on('mouseout', function(e) {
+        Global.graphcy.edges().on('mouseout', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
         });
 
-        this.cy.edges().on('click', function(e) {
+        Global.graphcy.edges().on('click', function(e) {
             tippyToolTip.hide();
             tippyToolTip.destroy();
         });
@@ -106,10 +105,10 @@ export class Interaction {
 
         let nodes:any;
 
-        if(this.cy.nodes().children().size()==0){
-            nodes = this.cy.nodes(); // non compound graph
+        if(Global.graphcy.nodes().children().size()==0){
+            nodes = Global.graphcy.nodes(); // non compound graph
         }else{
-            nodes = this.cy.nodes().children(); // compound graph
+            nodes = Global.graphcy.nodes().children(); // compound graph
         }
 
         nodes.on('mouseover', function(e) {
@@ -142,7 +141,7 @@ export class Interaction {
     }
 
     /*private loadOnEdgeClickMethod(): void {
-        this.cy.edges().on('click', function(e) {
+        Global.graphcy.edges().on('click', function(e) {
             var clickedEdge = e.target;
             if(clickedEdge.hasClass('expand')){
                 clickedEdge.parallelEdges().removeClass('expand');
@@ -154,9 +153,8 @@ export class Interaction {
 
     private loadOnEdgeTapMethod(): void {
 
-        var localCy = this.cy;
         var utility = this.utility;
-        this.cy.edges().on('tap', (e)=> {
+        Global.graphcy.edges().on('tap', (e)=> {
 
             // remove any previous classes on previous tap
             this.utility.removePreAppliedClasses();
@@ -170,7 +168,7 @@ export class Interaction {
                 tappedEdge.parallelEdges().addClass('neighbour-highlight');
             }
             this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-            localCy.fit(tappedEdge.connectedNodes());
+            Global.graphcy.fit(tappedEdge.connectedNodes());
             this.layoutsUtility.setUserMaxZoomLevel();
 
             utility.createEdgeTappedEvent(tappedEdge);
@@ -194,14 +192,14 @@ export class Interaction {
     }*/
 
     private loadOnSelectBoxMethod(): void {
-        this.cy.nodes().on('boxselect', function(e) {
+        Global.graphcy.nodes().on('boxselect', function(e) {
             var boxNode = e.target;
             boxNode.addClass('highlight');
         });
     }
 
     private loadUnSelectNodeMethod(): void {
-        this.cy.nodes().on('unselect', function(e) {
+        Global.graphcy.nodes().on('unselect', function(e) {
             var boxNode = e.target;
             boxNode.removeClass('highlight');
         });
@@ -209,12 +207,12 @@ export class Interaction {
 
     public resetAppliedClasses(): void {
         let areClassesApplied:boolean=false;
-        this.cy.edges().forEach((edge)=> {
+        Global.graphcy.edges().forEach((edge)=> {
             if (edge.hasClass('neighbour-highlight')) {
                areClassesApplied=true;
             }
         });
-        this.cy.nodes().forEach((node)=> {
+        Global.graphcy.nodes().forEach((node)=> {
             if (node.hasClass('neighbour-highlight')) {
                 areClassesApplied=true;
             }
@@ -228,14 +226,12 @@ export class Interaction {
 
     private loadOnNodeTapMethod(utility:Utility): void {
 
-        var localCy = this.cy; // need to do this as you cannot have this inside function
-
         let nodes:any;
 
-        if(this.cy.nodes().children().size()==0){
-            nodes = this.cy.nodes(); // non compound graph
+        if(Global.graphcy.nodes().children().size()==0){
+            nodes = Global.graphcy.nodes(); // non compound graph
         }else{
-            nodes = this.cy.nodes().children(); // compound graph
+            nodes = Global.graphcy.nodes().children(); // compound graph
         }
 
         nodes.on('tap', (e)=> {
@@ -254,7 +250,7 @@ export class Interaction {
                     tappedNode.removeClass('neighbour-highlight');
                     tappedNode.addClass('highlight');
                     this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-                    localCy.fit(directlyConnectedEdges);
+                    Global.graphcy.fit(directlyConnectedEdges);
                     this.layoutsUtility.setUserMaxZoomLevel();
                     utility.createNodeTappedEvent(tappedNode);
                // }
@@ -277,7 +273,7 @@ export class Interaction {
     }*/
 
     private loadMultipleSelectionDisableMethod():void{
-        this.cy.on('select', 'node, edge', e => this.cy.elements().not(e.target).unselect())
+        Global.graphcy.on('select', 'node, edge', e => Global.graphcy.elements().not(e.target).unselect())
     }
 
 }
