@@ -1,8 +1,8 @@
+import { Edge } from '../constants/edge';
+import { Node } from '../constants/node';
 import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
-import { Edge } from '../constants/edge';
-import { Node } from '../constants/node';
 
 export class Utility {
   public edgeWidth(edge: any): string {
@@ -18,11 +18,11 @@ export class Utility {
 
   public edgeDisplay(edge: any): string {
     if (edge.parallelEdges().size() > 1) {
-      var sortedEdges = edge.parallelEdges().sort(function(a, b) {
+      const sortedEdges = edge.parallelEdges().sort((a, b)=> {
         return a.data(Edge.ID) - b.data(Edge.ID);
       });
-      var firstEdge = sortedEdges.first();
-      if (firstEdge.data(Edge.ID) != edge.data(Edge.ID)) {
+      const firstEdge = sortedEdges.first();
+      if (firstEdge.data(Edge.ID) !== edge.data(Edge.ID)) {
         return 'none';
       }
     }
