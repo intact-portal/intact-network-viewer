@@ -29,7 +29,7 @@ import { ParentLegend } from './legends/parent_legend';
 import { NetworkViewerStates } from './network_viewer_states';
 
 
-var graphml = require('cytoscape-graphml');
+const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
 cytoscape.use(cise);
@@ -47,7 +47,7 @@ export class InitializeGraph {
   private export: Export;
   private interaction!: Interaction;
   private legend!: ParentLegend;
-  private nodeLabels!: Array<string>;
+  private nodeLabels!: string[];
   private nodeMap!: Map<string, any>;
   private spinner: Spinner;
   private spinTarget: any;
@@ -73,29 +73,39 @@ export class InitializeGraph {
     new Listener();
   }
 
+  // function
+  public initializeWithData(data, isExpand: boolean, isMutationDisrupted: boolean, layoutName: string): void {
+    this.startLoadingImage();
+    this.data = data;
+    this.updateGraphState(isExpand, isMutationDisrupted, layoutName);
+    this.executeGraphCalculations();
+    setTimeout(() => {
+      Global.graphcy = cytoscape({
+        container: $('#' + this.graphContainerDivId), // container to render in
+        elements: this.data,
+
+        maxZoom: Constants.INITIAL_MAX_ZOOM,
+        minZoom: Constants.INITIAL_MIN_ZOOM,
+        style: this.style.applicationCSS,
+        boxSelectionEnabled: false,
+        layout: this.getLayoutOption(),
+      });
+      Global.graphcy.on('layoutstop', e => {
+        this.fit();
+      });
+      this.changeEdgeState();
+      this.updateLegends();
+      this.interaction = new Interaction();
+      this.loadAutoSuggestion();
+      this.stopLoadingImage();
+    }, this.timeout);
+  }
+
   public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
     this.interaction.resetAppliedClasses(); // this is needed to undo any selection
     this.updateGraphState(isExpand, isMutationDisrupted, null);
     this.changeEdgeState();
     this.updateLegends();
-  }
-
-  private changeEdgeState(): void {
-    if (this.isExpand) {
-      Global.graphcy.edges().addClass('expand');
-      Global.graphcy.$(':loop').addClass('expand');
-    } else {
-      Global.graphcy.edges().removeClass('expand');
-      Global.graphcy.$(':loop').removeClass('expand');
-    }
-
-    if (this.isMutationDisrupted) {
-      Global.graphcy.edges().addClass('disrupted');
-      Global.graphcy.nodes().addClass('mutation');
-    } else {
-      Global.graphcy.edges().removeClass('disrupted');
-      Global.graphcy.nodes().removeClass('mutation');
-    }
   }
 
   public exportAs(filetype: string): void {
@@ -126,45 +136,22 @@ export class InitializeGraph {
 
   public search(interactorName: string): void {
     this.interaction.resetAppliedClasses(); // this is needed to undo any selection
-    let searchedNode = this.nodeMap.get(interactorName);
+    const searchedNode = this.nodeMap.get(interactorName);
     if (searchedNode != null) {
       this.utility.setHighlightAndFocusMaxZoomLevel();
       Global.graphcy.animate(
-        {
-          fit: {
-            eles: searchedNode,
-            padding: 20,
+          {
+            fit: {
+              eles: searchedNode,
+              padding: 20,
+            },
           },
-        },
-        {
-          duration: 1000,
-        },
+          {
+            duration: 1000,
+          }
       );
       searchedNode.addClass('highlight');
       this.utility.setUserMaxZoomLevel();
-    }
-  }
-
-  private updateLegends(): void {
-    this.legend = new ParentLegend();
-    if (this.isMutationDisrupted) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.MUTATION_EFFECTED);
-    } else if (this.isExpand) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.EXPANDED);
-    } else {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.COLLAPSED);
-    }
-  }
-
-  private executeGraphCalculations(): void {
-    var edges = JSON.parse(JSON.stringify(this.data)).filter(function(entry) {
-      return entry.group === 'edges';
-    });
-    this.edgesSize = edges.length;
-    if (this.edgesSize > 300) {
-      this.timeout = 1000;
-    } else {
-      this.timeout = 1;
     }
   }
 
@@ -209,37 +196,50 @@ export class InitializeGraph {
     }, this.timeout);
   }
 
-  // function
-  private disp(): void {
-    // console.log('Engine is  :   ' + this.graphContainerDivId);
+  private changeEdgeState(): void {
+    if (this.isExpand) {
+      Global.graphcy.edges().addClass('expand');
+      Global.graphcy.$(':loop').addClass('expand');
+    } else {
+      Global.graphcy.edges().removeClass('expand');
+      Global.graphcy.$(':loop').removeClass('expand');
+    }
+
+    if (this.isMutationDisrupted) {
+      Global.graphcy.edges().addClass('disrupted');
+      Global.graphcy.nodes().addClass('mutation');
+    } else {
+      Global.graphcy.edges().removeClass('disrupted');
+      Global.graphcy.nodes().removeClass('mutation');
+    }
+  }
+
+  private updateLegends(): void {
+    this.legend = new ParentLegend();
+    if (this.isMutationDisrupted) {
+      this.legend.createLegend(this.legendDivId, NetworkViewerStates.MUTATION_EFFECTED);
+    } else if (this.isExpand) {
+      this.legend.createLegend(this.legendDivId, NetworkViewerStates.EXPANDED);
+    } else {
+      this.legend.createLegend(this.legendDivId, NetworkViewerStates.COLLAPSED);
+    }
+  }
+
+  private executeGraphCalculations(): void {
+    const edges = JSON.parse(JSON.stringify(this.data)).filter((entry)=> {
+      return entry.group === 'edges';
+    });
+    this.edgesSize = edges.length;
+    if (this.edgesSize > 300) {
+      this.timeout = 1000;
+    } else {
+      this.timeout = 1;
+    }
   }
 
   // function
-  public initializeWithData(data, isExpand: boolean, isMutationDisrupted: boolean, layoutName: string): void {
-    this.startLoadingImage();
-    this.data = data;
-    this.updateGraphState(isExpand, isMutationDisrupted, layoutName);
-    this.executeGraphCalculations();
-    setTimeout(() => {
-      Global.graphcy = cytoscape({
-        container: $('#' + this.graphContainerDivId), // container to render in
-        elements: this.data,
-
-        maxZoom: Constants.INITIAL_MAX_ZOOM,
-        minZoom: Constants.INITIAL_MIN_ZOOM,
-        style: this.style.applicationCSS,
-        boxSelectionEnabled: false,
-        layout: this.getLayoutOption(),
-      });
-      Global.graphcy.on('layoutstop', e => {
-        this.fit();
-      });
-      this.changeEdgeState();
-      this.updateLegends();
-      this.interaction = new Interaction();
-      this.loadAutoSuggestion();
-      this.stopLoadingImage();
-    }, this.timeout);
+  private disp(): void {
+    // console.log('Engine is  :   ' + this.graphContainerDivId);
   }
 
   private getLayoutOption(): any {
@@ -304,7 +304,7 @@ export class InitializeGraph {
     this.nodeMap = new Map();
 
     Global.graphcy.nodes().forEach(node => {
-      let nodeName = node.data('label');
+      const nodeName = node.data('label');
       if (nodeName != null) {
         this.nodeLabels.push(nodeName);
         this.nodeMap.set(nodeName, node);
