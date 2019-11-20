@@ -1,10 +1,10 @@
-import { Color } from './constants/color';
-import { Shape } from './constants/shape';
-import { Utility } from './utility';
-import { Width } from './constants/width';
-import { Size } from './constants/size';
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
+import { Color } from './constants/color';
+import { Shape } from './constants/shape';
+import { Size } from './constants/size';
+import { Width } from './constants/width';
+import { Utility } from './utility';
 
 export class Style {
   private styleUtility: Utility;
@@ -19,36 +19,31 @@ export class Style {
       selector: 'node.highlight',
       style: {
         'overlay-color': '#000000',
-        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
+        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
       },
     },
     {
       selector: 'node.neighbour-highlight',
       style: {
         'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
+        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
       },
     },
     {
       selector: 'node',
       style: {
-        //'shape': 'triangle',// Bioactive Entity
-        //'shape': 'diamond', // RNA
-        //'shape':'round-rectangle',// Gene
-        // 'shape':'circle',//Protein
-        // shape: 'vee',// DNA
-        // shape:'ellipse',
+        'background-color': node => {
+          return node.data(Node.COLOR);
+        },
         shape: node => {
           return node.data(Node.SHAPE);
         },
         width: node => {
           return this.styleUtility.nodeWidth(node);
         },
-        'background-color': node => {
-          return node.data(Node.COLOR);
-        },
+
         /*label: 'data(preferred_id)',*/
       },
     },
@@ -71,8 +66,8 @@ export class Style {
     {
       selector: 'edge',
       style: {
-        /*'target-arrow-color': '#000000',
-         'target-arrow-shape': 'triangle',*/
+        'control-point-step-size': 0,
+        'curve-style': 'haystack',
         'line-color': edge => {
           return this.styleUtility.edgeColor(edge);
         },
@@ -80,23 +75,20 @@ export class Style {
         width: edge => {
           return this.styleUtility.edgeWidth(edge);
         },
-        'curve-style': 'haystack',
-        'control-point-step-size': 0,
       },
     },
     {
       selector: 'edge:loop',
       style: {
+        'control-point-step-size': 40,
+        'curve-style': 'bezier',
+        'line-style': Shape.COLLAPSED_EDGE,
         'line-color': edge => {
           return this.styleUtility.edgeColor(edge);
         },
-        'line-style': Shape.COLLAPSED_EDGE,
         width: edge => {
           return this.styleUtility.edgeWidth(edge);
         },
-
-        'curve-style': 'bezier',
-        'control-point-step-size': 40,
         display: edge => {
           return this.styleUtility.edgeDisplay(edge);
         },
@@ -149,8 +141,8 @@ export class Style {
       selector: 'edge.neighbour-highlight',
       style: {
         'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-padding': Width.OVERLAY_EDGE_BORDER_WIDTH,
         'overlay-opacity': 0.333,
+        'overlay-padding': Width.OVERLAY_EDGE_BORDER_WIDTH,
       },
     },
   ];
