@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'development',
     entry: './src/network_viewer_entry.ts',
     devtool: 'inline-source-map',
     module: {
@@ -50,6 +49,11 @@ module.exports = {
         filename: 'intact_network.js',
         library: 'IntactGraph',
         libraryTarget: 'commonjs2',
+        path: path.resolve(__dirname, 'build')
+    },
+    output: {
+        filename: 'intact_network_for_html.js',
+        library: 'IntactGraph',
         path: path.resolve(__dirname, 'build')
     },
     optimization: {

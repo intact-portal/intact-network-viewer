@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "es6",
-    "outDir": "./lib",
+    "outDir": "./build",
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "node",
