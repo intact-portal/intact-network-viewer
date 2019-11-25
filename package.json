@@ -2,7 +2,7 @@
   "name": "intact-network",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/intact_network.js",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "webpack",
