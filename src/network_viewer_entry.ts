@@ -39,7 +39,7 @@ cytoscape.use(cola);
 
 var globalCy: any;
 
-export class InitializeGraph {
+export class GraphPort {
   // field
   private graphContainerDivId: string;
   private legendDivId: string;
