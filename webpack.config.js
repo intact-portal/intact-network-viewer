@@ -45,17 +45,17 @@ module.exports = {
     resolve: {
         extensions: [ '.tsx', '.ts', '.js','.css','.svg','jpg' ]
     },
-    /*output: {
+    output: {
         filename: 'intact_network.js',
         library: 'IntactGraph',
         libraryTarget: 'commonjs2',
         path: path.resolve(__dirname, 'build')
-    }*/
-    output: {
+    }
+    /*output: {
         filename: 'intact_network_for_html.js',
         library: 'IntactGraph',
         path: path.resolve(__dirname, 'build')
-    },
+    }*/,
     optimization: {
     minimize: false
 },
