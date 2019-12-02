@@ -26,4 +26,12 @@ export class Utility {
   public setHighlightAndFocusMaxZoomLevel(): void {
     Global.graphcy.maxZoom(Constants.HIGHLIGHT_AND_FOCUS_MAX_ZOOM);
   }
+
+  public fit(): void {
+    this.setInitialMaxZoomLevel();
+    this.setInitialMinZoomLevel();
+    Global.graphcy.fit();
+    this.setUserMaxZoomLevel();
+    this.setUserMinZoomLevel();
+  }
 }

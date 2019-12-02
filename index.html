@@ -259,6 +259,15 @@
                 document.dispatchEvent(interactorSelectedEvent);
             });
 
+            $("#table-unselect").click(function() {
+                if($('#table-unselect').is(':checked')) {
+                    var tableUnselectedEvent = new CustomEvent('table-unselected', {
+                        bubbles: true
+                    });
+                    document.dispatchEvent(tableUnselectedEvent);
+                }
+            });
+
         });
 
 
@@ -314,6 +323,11 @@
         <tr>
             <td><input type="radio" name="interactor" id="EBI-2654963" value="EBI-2654963"  style="opacity: 9;left: inherit;position:inherit">EBI-2654963</input></td>
             <td><input type="radio" name="interactor" id="EBI-301834"  value="EBI-301834" style="opacity: 9;left: inherit;position:inherit">EBI-301834</input></td>
+        </tr>
+        <tr><td>Table Unselect:</td><td></td><td></td>
+        <tr>
+            <td><input type="checkbox" id="table-unselect"/></td>
+
         </tr>
 
     </table>

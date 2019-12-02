@@ -91,7 +91,7 @@ export class GraphPort {
         layout: this.getLayoutOption(),
       });
       Global.graphcy.on('layoutstop', e => {
-        this.fit();
+        this.utility.fit();
       });
       this.changeEdgeState();
       this.updateLegends();
@@ -281,14 +281,6 @@ export class GraphPort {
     if (layoutName != null) {
       this.layoutName = layoutName;
     }
-  }
-
-  private fit(): void {
-    this.utility.setInitialMaxZoomLevel();
-    this.utility.setInitialMinZoomLevel();
-    Global.graphcy.fit();
-    this.utility.setUserMaxZoomLevel();
-    this.utility.setUserMinZoomLevel();
   }
 
   private fitWithCurrentZoom(): void {

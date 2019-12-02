@@ -12,6 +12,7 @@ export class Listener {
     this.loadDocumentListeners();
     this.loadTableInteractorSelectedListener();
     this.loadTableInteractionSelectedListener();
+    this.loadTableUnSelectedListener();
   }
 
   // TODO... remove following method after testing is done
@@ -71,6 +72,16 @@ export class Listener {
       this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
       Global.graphcy.fit(edgeToBeSelected.connectedNodes());
       this.layoutsUtility.setUserMaxZoomLevel();
+    });
+  }
+
+  private loadTableUnSelectedListener(): void {
+    document.addEventListener('table-unselected', e => {
+      // remove any pre applied classes in graph
+      this.utility.removePreAppliedClasses();
+
+      this.layoutsUtility.fit();
+
     });
   }
 }
