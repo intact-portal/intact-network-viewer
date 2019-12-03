@@ -108,7 +108,7 @@ export class Interaction {
       tippyToolTip.destroy();
     });
 
-    Global.graphcy.edges().on('click', (e)=> {
+    Global.graphcy.edges().on('mousedown', (e)=> {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
@@ -151,6 +151,11 @@ export class Interaction {
     });
 
     nodes.on('mouseout', (e)=> {
+      tippyToolTip.hide();
+      tippyToolTip.destroy();
+    });
+
+    nodes.on('mousedown', (e)=> {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
