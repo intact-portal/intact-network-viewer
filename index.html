@@ -236,7 +236,7 @@
 
             $('input:radio[name="interaction"]').change(function(){
                 $('input[name=interactor]').attr('checked',false);
-                var interactionSelectedEvent = new CustomEvent('table-interaction-selected', {
+                var interactionSelectedEvent = new CustomEvent('tableInteractionSelected', {
                     bubbles: true,
                     detail: {
                          interactionId: $(this).val()
@@ -261,7 +261,7 @@
 
             $("#table-unselect").click(function() {
                 if($('#table-unselect').is(':checked')) {
-                    var tableUnselectedEvent = new CustomEvent('table-unselected', {
+                    var tableUnselectedEvent = new CustomEvent('tableUnselected', {
                         bubbles: true
                     });
                     document.dispatchEvent(tableUnselectedEvent);

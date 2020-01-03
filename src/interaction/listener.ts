@@ -54,7 +54,7 @@ export class Listener {
   }
 
   private loadTableInteractionSelectedListener(): void {
-    document.addEventListener('table-interaction-selected', e => {
+    document.addEventListener('tableInteractionSelected', e => {
       console.log((e as any).detail.interactionId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph
@@ -76,7 +76,7 @@ export class Listener {
   }
 
   private loadTableUnSelectedListener(): void {
-    document.addEventListener('table-unselected', e => {
+    document.addEventListener('tableUnselected', e => {
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
