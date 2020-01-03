@@ -33,7 +33,7 @@ export class Listener {
   }
 
   private loadTableInteractorSelectedListener(): void {
-    document.addEventListener('table-interactor-selected', e => {
+    document.addEventListener('tableInteractorSelected', e => {
       console.log((e as any).detail.interactorId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph

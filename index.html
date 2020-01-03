@@ -249,7 +249,7 @@
 
             $('input:radio[name="interactor"]').change(function(){
                 $('input[name=interaction]').attr('checked',false);
-                var interactorSelectedEvent = new CustomEvent('table-interactor-selected', {
+                var interactorSelectedEvent = new CustomEvent('tableInteractorSelected', {
                     bubbles: true,
                     detail: {
                         interactorId:$(this).val()
