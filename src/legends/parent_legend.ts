@@ -37,7 +37,10 @@ export class ParentLegend {
     }
 
     if (graphState === NetworkViewerStates.EXPANDED || graphState === NetworkViewerStates.MUTATION_EFFECTED) {
-      parentDiv.appendChild(this.edgeLegend.createShapesLegend());
+      const shapeLegendDiv:HTMLDivElement =this.edgeLegend.createShapesLegend()
+      if(shapeLegendDiv!=null) {
+        parentDiv.appendChild(shapeLegendDiv);
+      }
     }
   }
 }

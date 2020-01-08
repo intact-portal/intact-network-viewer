@@ -28,7 +28,10 @@ export class EdgeLegend {
   }
 
   public createShapesLegend(): HTMLDivElement {
-    return this.edgeShapesLegend.createLegend();
+    if (this.shapes.length === 1) {
+      return <HTMLDivElement> <unknown> null;
+    }
+      return this.edgeShapesLegend.createLegend();
   }
 
   private initializeEdgeShapesColorsAndThickness(edges: any): void {

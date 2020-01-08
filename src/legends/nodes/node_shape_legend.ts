@@ -21,7 +21,7 @@ export class NodeShapeLegend {
   public createLegend(): HTMLDivElement {
     const legendDiv = this.utility.createLegendDivFor(
       Constants.NODE_SHAPE_LEGEND_DIV_ID,
-      Constants.NODE_SHAPE_LEGEND_TITLE,
+      Constants.NODE_SHAPE_LEGEND_TITLE
     );
 
     let isSingleElement: boolean = false;
