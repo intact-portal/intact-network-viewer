@@ -90,7 +90,7 @@ export class Interaction {
         return tippy(edge.popperRef(), {
           arrow: true,
           content: (new EdgeDetails(edge, utils).createDetails()),
-          hideOnClick: false,
+          hideOnClick: true,
           maxWidth: 'none',
           multiple: true,
           placement: 'bottom',
@@ -137,7 +137,7 @@ export class Interaction {
         return tippy(node.popperRef(), {
           arrow: true,
           content: (new NodeDetails(node, utils).createDetails()),
-          hideOnClick: false,
+          hideOnClick: true,
           maxWidth: 'none',
           multiple: true,
           placement: 'bottom',
