@@ -21,11 +21,11 @@ export class EdgeDetails {
     if (this.edge.hasClass('expand')) {
       interactionAcDivElement = this.utility.createDivElementFor(
         Constants.INTERACTION_AC_LABEL,
-        this.edge.data(Edge.INTERACTION_AC),
+        this.edge.data(Edge.INTERACTION_AC)
       );
       detectionMethodDivElement = this.utility.createDivElementFor(
         Constants.INTERACTION_DETECTION_METHOD_LABEL,
-        this.edge.data(Edge.INTERACTION_DETECTION_METHOD),
+        this.edge.data(Edge.INTERACTION_DETECTION_METHOD)
       );
     } else {
       const detectionMethodsSet = new Set<string>();
