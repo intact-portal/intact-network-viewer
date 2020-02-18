@@ -1,6 +1,5 @@
 import cytoscape from 'cytoscape';
 import popper from 'cytoscape-popper';
-import PopperJs from 'popper.js';
 import tippy from 'tippy.js';
 import 'tippy.js/index.css';
 import { Utility as LayoutsUtility } from '../layouts/utility';
