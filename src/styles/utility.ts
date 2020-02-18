@@ -1,10 +1,10 @@
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
-import { Color } from './constants/color';
 import { Shape } from './constants/shape';
 import { Width } from './constants/width';
 
 export class Utility {
+
   public edgeWidth(edge: any): string {
     if (edge.parallelEdges().size() > 1) {
       return Width.COLLAPSED_EDGE;
