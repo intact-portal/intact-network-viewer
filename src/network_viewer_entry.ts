@@ -56,7 +56,7 @@ export class GraphPort {
   private edgesSize!: number;
   private timeout!: number;
   private isExpand!: boolean;
-  private isMutationDisrupted!: boolean;
+  private isAffectingMutation!: boolean;
   private layoutName!: string;
   private utility: Utility;
 
@@ -74,10 +74,10 @@ export class GraphPort {
   }
 
   // function
-  public initializeWithData(data, isExpand: boolean, isMutationDisrupted: boolean, layoutName: string): void {
+  public initializeWithData(data, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
     this.data = data;
-    this.updateGraphState(isExpand, isMutationDisrupted, layoutName);
+    this.updateGraphState(isExpand, isAffectingMutation, layoutName);
     this.executeGraphCalculations();
     setTimeout(() => {
       Global.graphcy = cytoscape({
@@ -101,9 +101,9 @@ export class GraphPort {
     }, this.timeout);
   }
 
-  public expandEdges(isExpand: boolean, isMutationDisrupted: boolean): void {
+  public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
     this.interaction.resetAppliedClasses(); // this is needed to undo any selection
-    this.updateGraphState(isExpand, isMutationDisrupted, null);
+    this.updateGraphState(isExpand, isAffectingMutation, null);
     this.changeEdgeState();
     this.updateLegends();
   }
@@ -131,7 +131,7 @@ export class GraphPort {
   }
 
   public reset(): void {
-    this.initializeWithData(this.data, this.isExpand, this.isMutationDisrupted, this.layoutName);
+    this.initializeWithData(this.data, this.isExpand, this.isAffectingMutation, this.layoutName);
   }
 
   public search(interactorName: string): void {
@@ -205,18 +205,18 @@ export class GraphPort {
       Global.graphcy.$(':loop').removeClass('expand');
     }
 
-    if (this.isMutationDisrupted) {
-      Global.graphcy.edges().addClass('disrupted');
+    if (this.isAffectingMutation) {
+      Global.graphcy.edges().addClass('affected');
       Global.graphcy.nodes().addClass('mutation');
     } else {
-      Global.graphcy.edges().removeClass('disrupted');
+      Global.graphcy.edges().removeClass('affected');
       Global.graphcy.nodes().removeClass('mutation');
     }
   }
 
   private updateLegends(): void {
     this.legend = new ParentLegend();
-    if (this.isMutationDisrupted) {
+    if (this.isAffectingMutation) {
       this.legend.createLegend(this.legendDivId, NetworkViewerStates.MUTATION_EFFECTED);
     } else if (this.isExpand) {
       this.legend.createLegend(this.legendDivId, NetworkViewerStates.EXPANDED);
@@ -271,12 +271,12 @@ export class GraphPort {
     this.spinner.stop();
   }
 
-  private updateGraphState(isExpand: any, isMutationDisrupted: any, layoutName: any) {
+  private updateGraphState(isExpand: any, isAffectingMutation: any, layoutName: any) {
     if (isExpand != null) {
       this.isExpand = isExpand;
     }
-    if (isMutationDisrupted != null) {
-      this.isMutationDisrupted = isMutationDisrupted;
+    if (isAffectingMutation != null) {
+      this.isAffectingMutation = isAffectingMutation;
     }
     if (layoutName != null) {
       this.layoutName = layoutName;
