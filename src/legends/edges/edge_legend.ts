@@ -29,7 +29,7 @@ export class EdgeLegend {
 
   public createShapesLegend(): HTMLDivElement {
     if (this.shapes.length === 1) {
-      return <HTMLDivElement> <unknown> null;
+      return null as unknown as HTMLDivElement;
     }
       return this.edgeShapesLegend.createLegend();
   }

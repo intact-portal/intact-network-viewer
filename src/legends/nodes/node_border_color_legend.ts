@@ -1,6 +1,5 @@
 import { Color } from '../../styles/constants/color';
 import { Constants } from './../constants';
-import { Style } from './../style';
 import { Utility } from './../utility';
 
 export class NodeBorderColorLegend {
@@ -24,12 +23,7 @@ export class NodeBorderColorLegend {
       const trimmedBorder = border.replace(/\s/g, '');
       switch (trimmedBorder) {
         case Color.HIGHLIGHT_MUTATION: {
-          const divListElement = this.utility.createDivElementFor(
-            this.MUTATED_INTERACTOR_IMG_URL,
-            Constants.NODE_BORDER_MUTATED_LABEL,
-            true,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.MUTATED_INTERACTOR_IMG_URL, Constants.NODE_BORDER_MUTATED_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }

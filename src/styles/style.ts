@@ -7,18 +7,13 @@ import { Width } from './constants/width';
 import { Utility } from './utility';
 
 export class Style {
-  private styleUtility: Utility;
-
-  constructor() {
-    this.styleUtility = new Utility();
-  }
 
   public applicationCSS: any = [
     // the stylesheet for the graph
     {
       selector: 'node.highlight',
       style: {
-        'overlay-color': '#000000',
+        'overlay-color': Color.HIGHLIGHT_NODE,
         'overlay-opacity': 0.333,
         'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
       },
@@ -50,19 +45,20 @@ export class Style {
 
     {
       selector: 'node:parent',
+      // tslint:disable-next-line:object-literal-sort-keys
       css: {
         'background-opacity': 0.333,
         'font-size': Size.COMPOUND_NODE_LABEL_SIZE,
-        'text-wrap': 'wrap',
         'text-max-width': node => {
           return node.width();
         },
+        'text-wrap': 'wrap',
+        // tslint:disable-next-line:object-literal-sort-keys
         label: node => {
           return node.data(Node.SPECIES);
         },
       },
     },
-
     {
       selector: 'edge',
       style: {
@@ -82,15 +78,16 @@ export class Style {
       style: {
         'control-point-step-size': 40,
         'curve-style': 'bezier',
-        'line-style': Shape.COLLAPSED_EDGE,
         'line-color': edge => {
           return this.styleUtility.edgeColor(edge);
         },
-        width: edge => {
-          return this.styleUtility.edgeWidth(edge);
-        },
+        'line-style': Shape.COLLAPSED_EDGE,
+        // tslint:disable-next-line:object-literal-sort-keys
         display: edge => {
           return this.styleUtility.edgeDisplay(edge);
+        },
+        width: edge => {
+          return this.styleUtility.edgeWidth(edge);
         },
       },
     },
@@ -99,21 +96,22 @@ export class Style {
       style: {
         'control-point-step-size': 40,
         'curve-style': 'bezier',
-        'line-style': edge => {
-          return edge.data(Edge.SHAPE);
-        },
         'line-color': edge => {
           return edge.data(Edge.COLOR);
         },
-        width: Width.DEFAULT_EDGE,
+        'line-style': edge => {
+          return edge.data(Edge.SHAPE);
+        },
+        // tslint:disable-next-line:object-literal-sort-keys
         display: 'element',
+        width: Width.DEFAULT_EDGE,
       },
     },
     {
-      selector: 'edge.disrupted',
+      selector: 'edge.affected',
       style: {
         'line-color': edge => {
-          if (edge.data(Edge.DISRUPTED_BY_MUTATION)) {
+          if (edge.data(Edge.AFFECTED_BY_MUTATION)) {
             return Color.HIGHLIGHT_MUTATION;
           }
           return Color.LOWLIGHT;
@@ -140,10 +138,16 @@ export class Style {
     {
       selector: 'edge.neighbour-highlight',
       style: {
-        'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'overlay-color': Color.HIGHLIGHT_NODE,
         'overlay-opacity': 0.333,
         'overlay-padding': Width.OVERLAY_EDGE_BORDER_WIDTH,
       },
     },
   ];
+
+  private styleUtility: Utility;
+
+  constructor() {
+    this.styleUtility = new Utility();
+  }
 }

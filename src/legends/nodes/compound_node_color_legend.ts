@@ -1,5 +1,4 @@
 import { Constants } from './../constants';
-import { Style } from './../style';
 import { Utility } from './../utility';
 
 export class CompoundNodeColorLegend {
@@ -20,21 +19,11 @@ export class CompoundNodeColorLegend {
       Constants.COMPOUND_NODE_COLOR_LEGEND_TITLE
     );
 
-    let isSingleElement: boolean = false;
-    if (this.colors.length === 1) {
-      isSingleElement = true;
-    }
-
     this.colors.forEach(color => {
       const trimmedColor = color.replace(/\s/g, '');
       switch (trimmedColor) {
         case Constants.META_NODE_COLOR: {
-          const divListElement = this.utility.createDivElementFor(
-            this.META_NODE_IMG_URL,
-            Constants.META_NODE_COLOR_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.META_NODE_IMG_URL, Constants.META_NODE_COLOR_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }

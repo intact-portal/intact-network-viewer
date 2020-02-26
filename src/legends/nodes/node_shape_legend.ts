@@ -32,62 +32,32 @@ export class NodeShapeLegend {
     this.shapes.forEach(shape => {
       switch (shape) {
         case Constants.NODE_SHAPE_ELLIPSE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.ELLIPSE_IMG_URL,
-            Constants.NODE_SHAPE_ELLIPSE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.ELLIPSE_IMG_URL, Constants.NODE_SHAPE_ELLIPSE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_SHAPE_TRIANGLE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.TRIANGLE_IMG_URL,
-            Constants.NODE_SHAPE_TRIANGLE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.TRIANGLE_IMG_URL, Constants.NODE_SHAPE_TRIANGLE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_SHAPE_DIAMOND: {
-          const divListElement = this.utility.createDivElementFor(
-            this.DIAMOND_IMG_URL,
-            Constants.NODE_SHAPE_DIAMOND_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.DIAMOND_IMG_URL, Constants.NODE_SHAPE_DIAMOND_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_SHAPE_ROUNDED_RECTANGLE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.ROUNDED_RECTANGLE_IMG_URL,
-            Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.ROUNDED_RECTANGLE_IMG_URL, Constants.NODE_SHAPE_ROUNDED_RECTANGLE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_SHAPE_CUT_TRIANGLE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.CUT_TRIANGLE_IMG_URL,
-            Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.CUT_TRIANGLE_IMG_URL, Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         default: {
-          const divListElement = this.utility.createDivElementFor(
-            this.TAG_IMG_URL,
-            Constants.NODE_SHAPE_TAG_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.TAG_IMG_URL, Constants.NODE_SHAPE_TAG_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }

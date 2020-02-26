@@ -1,8 +1,4 @@
-import { NetworkViewerStates } from '../../network_viewer_states';
-import { Shape } from '../../styles/constants/shape';
-import { Width } from '../../styles/constants/width';
 import { Constants } from './../constants';
-import { Style } from './../style';
 import { Utility } from './../utility';
 
 export class EdgeShapesLegend {
@@ -22,20 +18,10 @@ export class EdgeShapesLegend {
       Constants.EDGE_SHAPES_LEGEND_TITLE
     );
 
-    let isSingleElement: boolean = false;
-    if (this.shapes.length === 1) {
-      isSingleElement = true;
-    }
-
     this.shapes.forEach(shapes => {
       switch (shapes) {
         case Constants.EDGE_SHAPE_SPOKE_EXPANDED: {
-          const divListElement = this.utility.createDivElementFor(
-            this.SPOKE_EXPANDED_IMG_URL,
-            Constants.EDGE_SHAPE_SPOKE_EXPANDED_LABEL,
-            true,
-            true
-          );
+          const divListElement = this.utility.createDivElementFor(this.SPOKE_EXPANDED_IMG_URL, Constants.EDGE_SHAPE_SPOKE_EXPANDED_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }

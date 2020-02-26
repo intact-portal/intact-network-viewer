@@ -37,102 +37,52 @@ export class NodeColorLegend {
       const trimmedColor = color.replace(/\s/g, '');
       switch (trimmedColor) {
         case Constants.NODE_COLOR_HOMO_SAPIENS: {
-          const divListElement = this.utility.createDivElementFor(
-            this.HOMO_SAPIENS_IMG_URL,
-            Constants.NODE_COLOR_HOMO_SAPIENS_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.HOMO_SAPIENS_IMG_URL, Constants.NODE_COLOR_HOMO_SAPIENS_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_ARABIDOPSIS_THALIANA: {
-          const divListElement = this.utility.createDivElementFor(
-            this.ARABIDOPSIS_THALIANA_IMG_URL,
-            Constants.NODE_COLOR_ARABIDOPSIS_THALIANA_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.ARABIDOPSIS_THALIANA_IMG_URL, Constants.NODE_COLOR_ARABIDOPSIS_THALIANA_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS: {
-          const divListElement = this.utility.createDivElementFor(
-            this.CAENORHABDITIS_ELEGANS_IMG_URL,
-            Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.CAENORHABDITIS_ELEGANS_IMG_URL, Constants.NODE_COLOR_CAENORHABDITIS_ELEGANS_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_CHEMICAL_SYNTHESIS: {
-          const divListElement = this.utility.createDivElementFor(
-            this.CHEMICAL_SYNTHESIS_IMG_URL,
-            Constants.NODE_COLOR_CHEMICAL_SYNTHESIS_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.CHEMICAL_SYNTHESIS_IMG_URL, Constants.NODE_COLOR_CHEMICAL_SYNTHESIS_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER: {
-          const divListElement = this.utility.createDivElementFor(
-            this.DROSOPHILA_MELANOGASTER_IMG_URL,
-            Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.DROSOPHILA_MELANOGASTER_IMG_URL, Constants.NODE_COLOR_DROSOPHILA_MELANOGASTER_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_ESCHERICHIA_COLI: {
-          const divListElement = this.utility.createDivElementFor(
-            this.ESCHERICHIA_COLI_IMG_URL,
-            Constants.NODE_COLOR_ESCHERICHIA_COLI_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.ESCHERICHIA_COLI_IMG_URL, Constants.NODE_COLOR_ESCHERICHIA_COLI_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_MOUSE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.MOUSE_IMG_URL,
-            Constants.NODE_COLOR_MOUSE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.MOUSE_IMG_URL, Constants.NODE_COLOR_MOUSE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE: {
-          const divListElement = this.utility.createDivElementFor(
-            this.SACCHAROMYCES_CEREVISIAE_IMG_URL,
-            Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.SACCHAROMYCES_CEREVISIAE_IMG_URL, Constants.NODE_COLOR_SACCHAROMYCES_CEREVISIAE_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         case Constants.META_NODE_COLOR: {
-          const divListElement = this.utility.createDivElementFor(
-            this.META_NODE_IMG_URL,
-            Constants.META_NODE_COLOR_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.META_NODE_IMG_URL, Constants.META_NODE_COLOR_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
         default: {
-          const divListElement = this.utility.createDivElementFor(
-            this.OTHERS_IMG_URL,
-            Constants.NODE_COLOR_OTHERS_LABEL,
-            isSingleElement,
-            false
-          );
+          const divListElement = this.utility.createDivElementFor(this.OTHERS_IMG_URL, Constants.NODE_COLOR_OTHERS_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }
