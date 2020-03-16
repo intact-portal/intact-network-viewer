@@ -38,7 +38,9 @@ export class Style {
         width: node => {
           return this.styleUtility.nodeWidth(node);
         },
-
+        label: node => {
+          return node.data(Node.INTERACTOR_NAME);
+        },
         /*label: 'data(preferred_id)',*/
       },
     },
