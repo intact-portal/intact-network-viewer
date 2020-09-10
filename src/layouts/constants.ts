@@ -2,7 +2,7 @@ export class Constants {
   public static FCOSE_LAYOUT_OPTIONS: any = {
     name: 'fcose',
     // whether or not to animate the layout
-    animate: true,
+    animate: false,
     // duration of animation in ms, if enabled
     animationDuration: 1000,
     // easing of animation, if enabled
@@ -74,7 +74,7 @@ export class Constants {
     // - true : Animate while the layout is running
     // - false : Just show the end result
     // - 'end' : Animate directly to the end result
-    animate: 'end',
+    animate: false,
     // Animation duration used for animate:'end'
     animationDuration: undefined,
     // Easing for animate:'end'
@@ -185,7 +185,7 @@ export class Constants {
   public static AVSDF_LAYOUT_OPTIONS: any = {
     name: 'avsdf',
     // Type of layout animation. The option set is {'during', 'end', false}
-    animate: 'end',
+    animate: false,
     // Duration for animate:end
     animationDuration: 500,
     // Whether to fit the network view after when done
