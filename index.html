@@ -158,8 +158,6 @@
                     dataType: 'json',
 
                     success: function (data) {
-
-
                         //  loadJsonAndProcess('http://localhost:9090/mi-ws/staticJson/',false);
 
                         object.initializeWithData( data, expand,disrupted_mutation,layoutName);
@@ -167,7 +165,14 @@
                         //   EntryPoint.test123();
                         //      loadJsonAndProcess("miserables_small.json",false);
                         //   loadJsonAndProcess(data);
+                    },
+
+                    error: function($xhr,status,errorThrown) {
+                        var string= $xhr.responseJSON;
+                        object.initializeWithData( string, expand,disrupted_mutation,layoutName);
                     }
+
+
                 });
             }
 
@@ -291,6 +296,7 @@
                 <option value="dna" >Medium Graph-3 (408 interactions)</option>
                 <option value="and" >Large Graph-1 (864 interactions)</option>
                 <option value="Homo sapiens">Large Graph-2 (1284 interactions)</option>
+                <option value="sfsdfsdwerwedsfsd">No results Graph</option>
             </select>
         </div>
 
