@@ -185,7 +185,7 @@ export class Interaction {
         tappedEdge.parallelEdges().addClass('neighbour-highlight');
       }
       this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-      Global.graphcy.fit(tappedEdge.connectedNodes());
+      //Global.graphcy.fit(tappedEdge.connectedNodes());
       this.layoutsUtility.setUserMaxZoomLevel();
 
       this.utility.createEdgeTappedEvent(tappedEdge);
@@ -251,7 +251,7 @@ export class Interaction {
         tappedNode.removeClass('neighbour-highlight');
         tappedNode.addClass('highlight');
         this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-        Global.graphcy.fit(directlyConnectedEdges);
+       // Global.graphcy.fit(directlyConnectedEdges);
         this.layoutsUtility.setUserMaxZoomLevel();
         utility.createNodeTappedEvent(tappedNode);
         // }
