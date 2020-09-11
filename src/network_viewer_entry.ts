@@ -83,16 +83,14 @@ export class GraphPort {
       Global.graphcy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
         elements: this.data,
-
+        wheelSensitivity:0.2,
         maxZoom: Constants.INITIAL_MAX_ZOOM,
         minZoom: Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
         boxSelectionEnabled: false,
         layout: this.getLayoutOption(),
       });
-      Global.graphcy.on('layoutstop', e => {
-        this.utility.fit();
-      });
+      this.utility.fit();
       this.changeEdgeState();
       this.updateLegends();
       this.interaction = new Interaction();
@@ -188,10 +186,8 @@ export class GraphPort {
           break;
         }
       }
-      Global.graphcy.on('layoutstop', e => {
         this.utility.setUserMaxZoomLevel();
         this.utility.setUserMinZoomLevel();
-      });
       this.stopLoadingImage();
     }, this.timeout);
   }
