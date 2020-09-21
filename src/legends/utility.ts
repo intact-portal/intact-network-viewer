@@ -2,8 +2,8 @@ import { Style } from './style';
 
 export class Utility {
   public createDivElementFor(
-      elementImage: string,
-      elementText: string
+    elementImage: string,
+    elementText: string,
   ): HTMLDivElement {
 
     const nodeShapeLegendDivListElement = document.createElement('div') as HTMLDivElement;
@@ -28,5 +28,21 @@ export class Utility {
     legendDiv.appendChild(legendHeader);
 
     return legendDiv;
+  }
+
+  public shapeSorter(shapeA: string, shapeB: string): number {
+    if (shapeA === 'tag') {
+      return 1;
+    }
+    if (shapeB === 'tag') {
+      return -1;
+    }
+    if (shapeA > shapeB) {
+      return 1;
+    }
+    if (shapeB > shapeA) {
+      return -1;
+    }
+    return 0;
   }
 }

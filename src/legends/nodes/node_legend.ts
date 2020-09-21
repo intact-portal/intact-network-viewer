@@ -16,7 +16,7 @@ export class NodeLegend {
   private nodeBorderColorLegend: NodeBorderColorLegend;
   private compoundNodeColorLegend: CompoundNodeColorLegend;
 
-  constructor(nodes: any, utility: Utility) {
+  constructor(nodes: any, private utility: Utility) {
     this.initializeNodeShapesColorsAndBorders(nodes);
     this.nodeShapeLegend = new NodeShapeLegend(this.shapes, utility);
     this.nodeColorLegend = new NodeColorLegend(this.colors, utility);
@@ -57,24 +57,9 @@ export class NodeLegend {
     });
 
     this.shapes = Array.from(shapesSet.values());
-    this.shapes.sort((a, b)=> {
-      if (a === 'tag') {
-        return 1;
-      }
-      if (b === 'tag') {
-        return -1;
-      }
-      if (a > b) {
-        return 1;
-      }
-      if (b > a) {
-        return -1;
-      }
-      return 0;
-    });
-
+    this.shapes.sort(this.utility.shapeSorter);
     this.colors = Array.from(colorsSet.values());
-    this.colors.sort((a, b)=> {
+    this.colors.sort((a, b) => {
       const colorA = a.replace(/\s/g, '');
       const colorB = b.replace(/\s/g, '');
       if (colorA === 'rgb(173,188,148)') {
@@ -98,7 +83,7 @@ export class NodeLegend {
     });
 
     this.borderColors = Array.from(borderColorSet.values());
-    this.borderColors.sort((a, b)=> {
+    this.borderColors.sort((a, b) => {
       if (a > b) {
         return 1;
       }
@@ -109,7 +94,7 @@ export class NodeLegend {
     });
 
     this.compoundNodeColors = Array.from(compoundNodeColorSet.values());
-    this.compoundNodeColors.sort((a, b)=> {
+    this.compoundNodeColors.sort((a, b) => {
       if (a > b) {
         return 1;
       }

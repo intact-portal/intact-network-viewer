@@ -11,7 +11,7 @@ export class EdgeLegend {
   private edgeThicknessLegend: EdgeThicknessLegend;
   private edgeShapesLegend: EdgeShapesLegend;
 
-  constructor(edges: any, utility: Utility) {
+  constructor(edges: any, private utility: Utility) {
     this.initializeEdgeShapesColorsAndThickness(edges);
     /*this.nodeShapeLegend = new NodeShapeLegend(this.shapes,utility);*/
     this.edgeColorLegend = new EdgeColorLegend(this.colors, utility);
@@ -31,7 +31,7 @@ export class EdgeLegend {
     if (this.shapes.length === 1) {
       return null as unknown as HTMLDivElement;
     }
-      return this.edgeShapesLegend.createLegend();
+    return this.edgeShapesLegend.createLegend();
   }
 
   private initializeEdgeShapesColorsAndThickness(edges: any): void {
@@ -46,24 +46,9 @@ export class EdgeLegend {
     });
 
     this.shapes = Array.from(shapesSet.values());
-    this.shapes.sort((a, b)=> {
-      if (a === 'tag') {
-        return 1;
-      }
-      if (b === 'tag') {
-        return -1;
-      }
-      if (a > b) {
-        return 1;
-      }
-      if (b > a) {
-        return -1;
-      }
-      return 0;
-    });
-
+    this.shapes.sort(this.utility.shapeSorter);
     this.colors = Array.from(colorsSet.values());
-    this.colors.sort((a, b)=> {
+    this.colors.sort((a, b) => {
       const colorA = a.replace(/\s/g, '');
       const colorB = b.replace(/\s/g, '');
       if (colorA === 'rgb(153,153,153)') {
@@ -83,7 +68,7 @@ export class EdgeLegend {
     });
 
     this.thickness = Array.from(thicknessSet.values());
-    this.thickness.sort((a, b)=> {
+    this.thickness.sort((a, b) => {
       if (a > b) {
         return 1;
       }
