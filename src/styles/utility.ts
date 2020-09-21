@@ -18,7 +18,7 @@ export class Utility {
 
   public edgeDisplay(edge: any): string {
     if (edge.parallelEdges().size() > 1) {
-      const sortedEdges = edge.parallelEdges().sort((a, b)=> {
+      const sortedEdges = edge.parallelEdges().sort((a, b) => {
         return a.data(Edge.ID) - b.data(Edge.ID);
       });
       const firstEdge = sortedEdges.first();
@@ -30,10 +30,14 @@ export class Utility {
   }
 
   public nodeWidth(node: any): string {
-    if (node.data(Node.SHAPE) === Shape.ROUNDED_RECTANGLE) {
-      return Width.RECTANGULAR_NODE_WIDTH;
+    switch (node.data(Node.SHAPE)) {
+      case Shape.ROUNDED_RECTANGLE:
+        return Width.RECTANGULAR_NODE_WIDTH;
+      case Shape.HEXAGON:
+        return Width.HEXAGON_NODE_WIDTH;
+      default:
+        return node.height();
     }
-    return node.height();
   }
 
   public parentNodeLabelSize(node: any): number {

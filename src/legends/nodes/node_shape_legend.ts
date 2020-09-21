@@ -12,6 +12,7 @@ export class NodeShapeLegend {
   private DIAMOND_IMG_URL = require('./images/node-shapes/diamond.svg');
   private ROUNDED_RECTANGLE_IMG_URL = require('./images/node-shapes/rounded-rectangle.svg');
   private CUT_TRIANGLE_IMG_URL = require('./images/node-shapes/upsidedown-cut-triangle.svg');
+  private HEXAGON_IMG_URL = require('./images/node-shapes/hexagon.svg');
 
   constructor(shapes: any, utility: Utility) {
     this.utility = utility;
@@ -53,6 +54,11 @@ export class NodeShapeLegend {
         }
         case Constants.NODE_SHAPE_CUT_TRIANGLE: {
           const divListElement = this.utility.createDivElementFor(this.CUT_TRIANGLE_IMG_URL, Constants.NODE_SHAPE_CUT_TRIANGLE_LABEL);
+          legendDiv.appendChild(divListElement);
+          break;
+        }
+        case Constants.NODE_SHAPE_HEXAGON: {
+          const divListElement = this.utility.createDivElementFor(this.HEXAGON_IMG_URL, Constants.NODE_SHAPE_HEXAGON_LABEL);
           legendDiv.appendChild(divListElement);
           break;
         }

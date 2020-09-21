@@ -13,6 +13,7 @@ export class Constants {
   public static NODE_SHAPE_DIAMOND_LABEL: string = 'RNA';
   public static NODE_SHAPE_ROUNDED_RECTANGLE_LABEL: string = 'Gene';
   public static NODE_SHAPE_CUT_TRIANGLE_LABEL: string = 'DNA';
+  public static NODE_SHAPE_HEXAGON_LABEL: string = 'Complex';
   public static NODE_SHAPE_TAG_LABEL: string = 'Others';
 
   public static NODE_SHAPE_ELLIPSE: string = 'ellipse';
@@ -20,6 +21,7 @@ export class Constants {
   public static NODE_SHAPE_DIAMOND: string = 'diamond';
   public static NODE_SHAPE_ROUNDED_RECTANGLE: string = 'round-rectangle';
   public static NODE_SHAPE_CUT_TRIANGLE: string = 'vee';
+  public static NODE_SHAPE_HEXAGON: string = 'hexagon';
   public static NODE_SHAPE_TAG: string = 'tag';
 
   public static NODE_BORDER_MUTATED_LABEL: string = 'Mutated Interactor';
