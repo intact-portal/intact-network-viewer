@@ -1,5 +1,4 @@
-import { Constants } from './../constants';
-import { Utility } from './../utility';
+import { Utility } from '../utility';
 import { CompoundNodeColorLegend } from './compound_node_color_legend';
 import { NodeBorderColorLegend } from './node_border_color_legend';
 import { NodeColorLegend } from './node_color_legend';

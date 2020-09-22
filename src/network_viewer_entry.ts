@@ -1,6 +1,5 @@
 import cytoscape from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
-import cise from 'cytoscape-cise';
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import cyforcelayout from 'cytoscape-ngraph.forcelayout';
@@ -9,7 +8,6 @@ import 'spin.js/spin.css';
 
 import { Export } from './export';
 import { AvsdfLayout } from './layouts/avsdf_layout';
-import { CiseLayout } from './layouts/cise_layout';
 import { ColaLayout } from './layouts/cola_layout';
 import { Constants } from './layouts/constants';
 import { FcoseLayout } from './layouts/fcose_layout';
@@ -32,7 +30,6 @@ import { NetworkViewerStates } from './network_viewer_states';
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
-cytoscape.use(cise);
 cytoscape.use(cyforcelayout);
 cytoscape.use(avsdf);
 cytoscape.use(cola);
@@ -90,6 +87,8 @@ export class GraphPort {
         boxSelectionEnabled: false,
         layout: this.getLayoutOption(),
       });
+      Global.graphcy.userZoomingEnabled(false);
+      Global.graphcy.container().addEventListener('click', () => Global.graphcy.userZoomingEnabled(true));
       this.utility.fit();
       this.changeEdgeState();
       this.updateLegends();
@@ -165,11 +164,6 @@ export class GraphPort {
           ngraphLayout.execute();
           break;
         }
-        case 'cise': {
-          const ciseLayout: CiseLayout = new CiseLayout();
-          ciseLayout.execute();
-          break;
-        }
         case 'avsdf': {
           const avsdfLayout: AvsdfLayout = new AvsdfLayout();
           avsdfLayout.execute();
@@ -242,10 +236,6 @@ export class GraphPort {
     let layoutOption: any;
 
     switch (this.layoutName) {
-      case 'cise': {
-        layoutOption = Constants.CISE_LAYOUT_OPTIONS;
-        break;
-      }
       case 'avsdf': {
         layoutOption = Constants.AVSDF_LAYOUT_OPTIONS;
         break;
