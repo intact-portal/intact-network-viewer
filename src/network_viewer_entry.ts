@@ -80,7 +80,7 @@ export class GraphPort {
       Global.graphcy = cytoscape({
         container: $('#' + this.graphContainerDivId), // container to render in
         elements: this.data,
-        wheelSensitivity:0.2,
+        wheelSensitivity: 0.2,
         maxZoom: Constants.INITIAL_MAX_ZOOM,
         minZoom: Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
@@ -137,15 +137,15 @@ export class GraphPort {
     if (searchedNode != null) {
       this.utility.setHighlightAndFocusMaxZoomLevel();
       Global.graphcy.animate(
-          {
-            fit: {
-              eles: searchedNode,
-              padding: 20,
-            },
+        {
+          fit: {
+            eles: searchedNode,
+            padding: 20,
           },
-          {
-            duration: 1000,
-          }
+        },
+        {
+          duration: 1000,
+        },
       );
       searchedNode.addClass('highlight');
       this.utility.setUserMaxZoomLevel();
@@ -180,8 +180,8 @@ export class GraphPort {
           break;
         }
       }
-        this.utility.setUserMaxZoomLevel();
-        this.utility.setUserMinZoomLevel();
+      this.utility.setUserMaxZoomLevel();
+      this.utility.setUserMinZoomLevel();
       this.stopLoadingImage();
     }, this.timeout);
   }
@@ -216,7 +216,7 @@ export class GraphPort {
   }
 
   private executeGraphCalculations(): void {
-    const edges = JSON.parse(JSON.stringify(this.data)).filter((entry)=> {
+    const edges = JSON.parse(JSON.stringify(this.data)).filter((entry) => {
       return entry.group === 'edges';
     });
     this.edgesSize = edges.length;
