@@ -3,7 +3,6 @@ import { Constants } from './constants';
 import { Style } from './style';
 import { Utility } from './utility';
 
-
 export class NodeDetails {
   private node: any;
   private utility: Utility;
@@ -23,22 +22,13 @@ export class NodeDetails {
 
     const interactorNameDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_NAME_LABEL, interactorName);
 
-    const interactorIdDivElement = this.utility.createDivElementFor(
-      Constants.INTERACTOR_ID_LABEL,
-      this.node.data(Node.INTERACTOR_ID)
-    );
+    const interactorIdDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_ID_LABEL, this.node.data(Node.INTERACTOR_ID));
 
-    const interactorTypeDivElement = this.utility.createDivElementFor(
-      Constants.INTERACTOR_TYPE_LABEL,
-      this.node.data(Node.INTERACTOR_TYPE)
-    );
+    const interactorTypeDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_TYPE_LABEL, this.node.data(Node.INTERACTOR_TYPE));
 
     const speciesDivElement = this.utility.createDivElementFor(Constants.SPECIES_LABEL, this.node.data(Node.SPECIES));
 
-    const interactorAcDivElement = this.utility.createDivElementFor(
-      Constants.INTERACTOR_AC_LABEL,
-      this.node.data(Node.INTERACTOR_AC)
-    );
+    const interactorAcDivElement = this.utility.createDivElementFor(Constants.INTERACTOR_AC_LABEL, this.node.data(Node.INTERACTOR_AC));
 
     detailDiv.appendChild(interactorNameDivElement);
     detailDiv.appendChild(interactorIdDivElement);

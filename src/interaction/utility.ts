@@ -45,13 +45,12 @@ export class Utility {
       bubbles: true,
       detail: {
         interactionIds: () => selectedInteractionIds,
-        interactorId: () => node.data(Node.INTERACTOR_AC)
+        interactorId: () => node.data(Node.INTERACTOR_AC),
 
       },
     });
 
     document.dispatchEvent(interactorSelectedEvent);
-    console.log("'" + interactorSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
   }
 
   public createEdgeTappedEvent(edge: any): void {
@@ -79,7 +78,7 @@ export class Utility {
     });
 
     document.dispatchEvent(interactionSelectedEvent);
-    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
+    console.log('\'' + interactionSelectedEvent.type + '\'' + ' Event Fired'); // TODO... remove log after testing is done
   }
 
   public createUnTappedEvent(): void {
@@ -88,7 +87,7 @@ export class Utility {
     });
 
     document.dispatchEvent(interactionSelectedEvent);
-    console.log("'" + interactionSelectedEvent.type + "'" + ' Event Fired');// TODO... remove log after testing is done
+    console.log('\'' + interactionSelectedEvent.type + '\'' + ' Event Fired'); // TODO... remove log after testing is done
   }
 
   public removePreAppliedClasses(): void {

@@ -4,7 +4,6 @@ import { Shape } from './constants/shape';
 import { Width } from './constants/width';
 
 export class Utility {
-
   public edgeWidth(edge: any): string {
     if (edge.parallelEdges().size() > 1) {
       return Width.COLLAPSED_EDGE;

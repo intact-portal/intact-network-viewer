@@ -26,7 +26,6 @@ import { Utility } from './layouts/utility';
 import { ParentLegend } from './legends/parent_legend';
 import { NetworkViewerStates } from './network_viewer_states';
 
-
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
@@ -99,10 +98,12 @@ export class GraphPort {
   }
 
   public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
-    this.interaction.resetAppliedClasses(); // this is needed to undo any selection
-    this.updateGraphState(isExpand, isAffectingMutation, null);
-    this.changeEdgeState();
-    this.updateLegends();
+    if (this.interaction) {
+      this.interaction.resetAppliedClasses(); // this is needed to undo any selection
+      this.updateGraphState(isExpand, isAffectingMutation, null);
+      this.changeEdgeState();
+      this.updateLegends();
+    }
   }
 
   public exportAs(filetype: string): void {
@@ -216,7 +217,7 @@ export class GraphPort {
   }
 
   private executeGraphCalculations(): void {
-    const edges = JSON.parse(JSON.stringify(this.data)).filter((entry) => {
+    const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => {
       return entry.group === 'edges';
     });
     this.edgesSize = edges.length;

@@ -9,27 +9,9 @@ export class Listener {
   constructor() {
     this.utility = new Utility();
     this.layoutsUtility = new LayoutsUtility();
-    this.loadDocumentListeners();
     this.loadTableInteractorSelectedListener();
     this.loadTableInteractionSelectedListener();
     this.loadTableUnSelectedListener();
-  }
-
-  // TODO... remove following method after testing is done
-  private loadDocumentListeners(): void {
-    document.addEventListener('graph-interaction-selected', (e)=> {
-      console.log((e as any).detail.interactionIds().toString());
-      console.log((e as any).detail.interactorIds().toString());
-    });
-
-    document.addEventListener('graph-interactor-selected', (e)=> {
-      console.log((e as any).detail.interactionIds().toString());
-      console.log((e as any).detail.interactorId().toString());
-    });
-
-    document.addEventListener('graph-unselected', (e)=> {
-      console.log((e as any).type);
-    });
   }
 
   private loadTableInteractorSelectedListener(): void {
@@ -81,7 +63,6 @@ export class Listener {
       this.utility.removePreAppliedClasses();
 
       this.layoutsUtility.fit();
-
     });
   }
 }

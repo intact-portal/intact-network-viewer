@@ -7,7 +7,6 @@ import { Width } from './constants/width';
 import { Utility } from './utility';
 
 export class Style {
-
   public applicationCSS: any = [
     // the stylesheet for the graph
     {

@@ -3,11 +3,10 @@ import popper from 'cytoscape-popper';
 import tippy from 'tippy.js';
 import 'tippy.js/index.css';
 import { Utility as LayoutsUtility } from '../layouts/utility';
-import { Global } from './../global';
+import { Global } from '../global';
 import { EdgeDetails } from './edge_details';
 import { NodeDetails } from './node_details';
 import { Utility } from './utility';
-
 
 cytoscape.use(popper);
 
@@ -82,32 +81,32 @@ export class Interaction {
 
   private loadEdgeOnHoverInAndOutMethod(utility: Utility): void {
     let tippyToolTip: any;
-    Global.graphcy.edges().on('mouseover', (e)=> {
+    Global.graphcy.edges().on('mouseover', e => {
       const hoveredEdge = e.target;
 
-      const makeTippy = (edge, text, utils)=> {
+      const makeTippy = (edge, text, utils) => {
         return tippy(edge.popperRef(), {
           arrow: true,
-          content: (new EdgeDetails(edge, utils).createDetails()),
+          content: new EdgeDetails(edge, utils).createDetails(),
           hideOnClick: true,
           maxWidth: 'none',
           multiple: true,
           placement: 'bottom',
           sticky: true,
           theme: 'intact',
-          trigger: 'manual'
+          trigger: 'manual',
         });
       };
       tippyToolTip = makeTippy(hoveredEdge, 'foo', utility);
       tippyToolTip.show();
     });
 
-    Global.graphcy.edges().on('mouseout', (e)=> {
+    Global.graphcy.edges().on('mouseout', e => {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
 
-    Global.graphcy.edges().on('mousedown', (e)=> {
+    Global.graphcy.edges().on('mousedown', e => {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
@@ -129,32 +128,32 @@ export class Interaction {
       nodes = Global.graphcy.nodes().children(); // compound graph
     }
 
-    nodes.on('mouseover', (e)=> {
+    nodes.on('mouseover', e => {
       const hoveredNode = e.target;
 
-      const makeTippy = (node, text, utils)=> {
+      const makeTippy = (node, text, utils) => {
         return tippy(node.popperRef(), {
           arrow: true,
-          content: (new NodeDetails(node, utils).createDetails()),
+          content: new NodeDetails(node, utils).createDetails(),
           hideOnClick: true,
           maxWidth: 'none',
           multiple: true,
           placement: 'bottom',
           sticky: true,
           theme: 'intact',
-          trigger: 'manual'
+          trigger: 'manual',
         });
       };
       tippyToolTip = makeTippy(hoveredNode, 'foo', utility);
       tippyToolTip.show();
     });
 
-    nodes.on('mouseout', (e)=> {
+    nodes.on('mouseout', e => {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
 
-    nodes.on('mousedown', (e)=> {
+    nodes.on('mousedown', e => {
       tippyToolTip.hide();
       tippyToolTip.destroy();
     });
@@ -209,14 +208,14 @@ export class Interaction {
     }*/
 
   private loadOnSelectBoxMethod(): void {
-    Global.graphcy.nodes().on('boxselect', (e)=> {
+    Global.graphcy.nodes().on('boxselect', e => {
       const boxNode = e.target;
       boxNode.addClass('highlight');
     });
   }
 
   private loadUnSelectNodeMethod(): void {
-    Global.graphcy.nodes().on('unselect', (e)=> {
+    Global.graphcy.nodes().on('unselect', e => {
       const boxNode = e.target;
       boxNode.removeClass('highlight');
     });
@@ -251,7 +250,7 @@ export class Interaction {
         tappedNode.removeClass('neighbour-highlight');
         tappedNode.addClass('highlight');
         this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-       // Global.graphcy.fit(directlyConnectedEdges);
+        // Global.graphcy.fit(directlyConnectedEdges);
         this.layoutsUtility.setUserMaxZoomLevel();
         utility.createNodeTappedEvent(tappedNode);
         // }
@@ -278,7 +277,7 @@ export class Interaction {
       Global.graphcy
         .elements()
         .not(e.target)
-        .unselect()
+        .unselect(),
     );
   }
 }

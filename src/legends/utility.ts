@@ -1,20 +1,16 @@
 import { Style } from './style';
 
 export class Utility {
-  public createDivElementFor(
-    elementImage: string,
-    elementText: string,
-  ): HTMLDivElement {
-
+  public createDivElementFor(elementImage: string, elementText: string): HTMLDivElement {
     const nodeShapeLegendDivListElement = document.createElement('div') as HTMLDivElement;
     const nodeShapeLegendImage = document.createElement('img') as HTMLImageElement;
     const nodeShapeLegendImageLabel = document.createTextNode(elementText);
 
     nodeShapeLegendImage.setAttribute('src', elementImage);
+    nodeShapeLegendDivListElement.classList.add('legend-label');
 
     nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImage);
     nodeShapeLegendDivListElement.appendChild(nodeShapeLegendImageLabel);
-
     return nodeShapeLegendDivListElement;
   }
 

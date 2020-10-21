@@ -96,6 +96,4 @@ export class EdgeColorLegend {
 
     return miscoreLegendDivElement;
   }
-
-
 }
