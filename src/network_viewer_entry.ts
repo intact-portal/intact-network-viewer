@@ -13,18 +13,14 @@ import { Constants } from './layouts/constants';
 import { FcoseLayout } from './layouts/fcose_layout';
 import { NgraphLayout } from './layouts/ngraph_layout';
 import { Style } from './styles/style';
-/*import 'tippy.js/dist/tippy.css';*/
 
 import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
-import { Node } from './constants/node';
 import { Global } from './global';
 import { Interaction } from './interaction/interaction';
 import { Listener } from './interaction/listener';
 import { Utility } from './layouts/utility';
-import { ParentLegend } from './legends/parent_legend';
-import { NetworkViewerStates } from './network_viewer_states';
 
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
@@ -38,17 +34,15 @@ var globalCy: any;
 export class GraphPort {
   // field
   private graphContainerDivId: string;
-  private legendDivId: string;
   private data!: JSON;
   private export: Export;
   private interaction!: Interaction;
-  private legend!: ParentLegend;
   private nodeLabels!: string[];
   private nodeMap!: Map<string, any>;
   private spinner: Spinner;
   private spinTarget: any;
   private suggestionBoxId: string;
-  private style: Style;
+  private style!: Style;
   private edgesSize!: number;
   private timeout!: number;
   private isExpand!: boolean;
@@ -57,22 +51,21 @@ export class GraphPort {
   private utility: Utility;
 
   // constructor
-  constructor(graphContainerDivId: string, legendDivId: string, suggestionBoxId: string) {
+  constructor(graphContainerDivId: string, suggestionBoxId: string) {
     this.graphContainerDivId = graphContainerDivId;
     this.export = new Export();
-    this.legendDivId = legendDivId;
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
-    this.style = new Style();
     this.suggestionBoxId = suggestionBoxId;
     this.utility = new Utility();
     new Listener();
   }
 
   // function
-  public initializeWithData(data, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
+  public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
-    this.data = data;
+    this.data = json.data;
+    this.style = new Style(json.legend);
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
     this.executeGraphCalculations();
     setTimeout(() => {
@@ -90,7 +83,6 @@ export class GraphPort {
       Global.graphcy.container().addEventListener('click', () => Global.graphcy.userZoomingEnabled(true));
       this.utility.fit();
       this.changeEdgeState();
-      this.updateLegends();
       this.interaction = new Interaction();
       this.loadAutoSuggestion();
       this.stopLoadingImage();
@@ -102,7 +94,6 @@ export class GraphPort {
       this.interaction.resetAppliedClasses(); // this is needed to undo any selection
       this.updateGraphState(isExpand, isAffectingMutation, null);
       this.changeEdgeState();
-      this.updateLegends();
     }
   }
 
@@ -205,16 +196,6 @@ export class GraphPort {
     }
   }
 
-  private updateLegends(): void {
-    this.legend = new ParentLegend();
-    if (this.isAffectingMutation) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.MUTATION_EFFECTED);
-    } else if (this.isExpand) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.EXPANDED);
-    } else {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.COLLAPSED);
-    }
-  }
 
   private executeGraphCalculations(): void {
     const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => {
