@@ -6,6 +6,7 @@ import { Width } from './constants/width';
 import { Utility } from './utility';
 import { NetworkLegend } from '../legend/network-legend';
 import { EdgeShape } from './constants/edge-shape';
+import { NodeShape } from './constants/node-shape';
 
 export class Style {
   public applicationCSS: any = [
@@ -31,8 +32,8 @@ export class Style {
       style: {
         'background-color': node => node.data(Node.COLOR),
         'shape': node => node.data(Node.SHAPE),
-        'height': '45px',
-        'width': node => this.styleUtility.nodeWidth(node),
+        'height': node => node.data(Node.SHAPE) === NodeShape.HEXAGON ? node.width() / 1.1547005: node.width(),
+        'width': '45px',
         'label': node => node.data(Node.INTERACTOR_NAME),
         'font-size': 12,
         'text-outline-color': 'black',

@@ -33,14 +33,6 @@ export class Utility {
     return 'element';
   }
 
-  public nodeWidth(node: any) {
-    switch (node.data(Node.SHAPE)) {
-      case NodeShape.HEXAGON:
-        return node.height() * 1.1547005;
-      default:
-        return node.height();
-    }
-  }
 
   public parentNodeLabelSize(node: any): number {
     if (node.style('font-size') > 20) {
