@@ -33,10 +33,10 @@ export class Utility {
     return 'element';
   }
 
-  public nodeWidth(node: any): string {
+  public nodeWidth(node: any) {
     switch (node.data(Node.SHAPE)) {
       case NodeShape.HEXAGON:
-        return Width.HEXAGON_NODE_WIDTH;
+        return node.height() * 1.1547005;
       default:
         return node.height();
     }
