@@ -34,7 +34,7 @@ var globalCy: any;
 export class GraphPort {
   // field
   private graphContainerDivId: string;
-  private json!: any;
+  private data!: JSON;
   private export: Export;
   private interaction!: Interaction;
   private nodeLabels!: string[];
@@ -64,7 +64,7 @@ export class GraphPort {
   // function
   public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
-    this.json = json;
+    this.data = json.data;
     this.style = new Style(json.legend);
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
     this.executeGraphCalculations();
@@ -106,9 +106,11 @@ export class GraphPort {
       case 'png': {
         this.export.exportAsPng();
         break;
+        break;
       }
       case 'svg': {
         this.export.exportAsSvg();
+        break;
         break;
       }
       default: {
@@ -118,7 +120,7 @@ export class GraphPort {
   }
 
   public reset(): void {
-    this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, this.layoutName);
+    this.initializeWithData(this.data, this.isExpand, this.isAffectingMutation, this.layoutName);
   }
 
   public search(interactorName: string): void {
@@ -283,9 +285,5 @@ export class GraphPort {
         }
       },
     });
-  }
-
-  private get data(): JSON {
-    return this.json.data;
   }
 }
