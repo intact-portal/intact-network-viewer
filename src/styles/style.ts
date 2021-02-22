@@ -1,11 +1,10 @@
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
 import { Color } from './constants/color';
+import { Shape } from './constants/shape';
 import { Size } from './constants/size';
 import { Width } from './constants/width';
 import { Utility } from './utility';
-import { NetworkLegend } from '../legend/network-legend';
-import { EdgeShape } from './constants/edge-shape';
 
 export class Style {
   public applicationCSS: any = [
@@ -29,29 +28,36 @@ export class Style {
     {
       selector: 'node',
       style: {
-        'background-color': node => node.data(Node.COLOR),
-        'shape': node => node.data(Node.SHAPE),
-        'height': '45px',
-        'width': node => this.styleUtility.nodeWidth(node),
-        'label': node => node.data(Node.INTERACTOR_NAME),
-        'font-size': 12,
-        'text-outline-color': 'black',
-        'text-outline-opacity': 0.5,
-        'text-outline-width': 2,
-        'text-halign': 'center',
-        'text-valign': 'center',
-        'color': 'white',
+        'background-color': node => {
+          return node.data(Node.COLOR);
+        },
+        shape: node => {
+          return node.data(Node.SHAPE);
+        },
+        width: node => {
+          return this.styleUtility.nodeWidth(node);
+        },
+        label: node => {
+          return node.data(Node.INTERACTOR_NAME);
+        },
+        /*label: 'data(preferred_id)',*/
       },
     },
 
     {
       selector: 'node:parent',
+      // tslint:disable-next-line:object-literal-sort-keys
       css: {
         'background-opacity': 0.333,
         'font-size': Size.COMPOUND_NODE_LABEL_SIZE,
-        'text-max-width': node => node.width(),
+        'text-max-width': node => {
+          return node.width();
+        },
         'text-wrap': 'wrap',
-        'label': node => node.data(Node.SPECIES),
+        // tslint:disable-next-line:object-literal-sort-keys
+        label: node => {
+          return node.data(Node.SPECIES);
+        },
       },
     },
     {
@@ -59,9 +65,13 @@ export class Style {
       style: {
         'control-point-step-size': 0,
         'curve-style': 'haystack',
-        'line-color': edge => edge.data(Edge.COLLAPSED_COLOR),
-        'line-style': EdgeShape.SOLID_LINE,
-        'width': edge => this.styleUtility.edgeWidth(edge),
+        'line-color': edge => {
+          return this.styleUtility.edgeColor(edge);
+        },
+        'line-style': Shape.COLLAPSED_EDGE,
+        width: edge => {
+          return this.styleUtility.edgeWidth(edge);
+        },
       },
     },
     {
@@ -69,10 +79,17 @@ export class Style {
       style: {
         'control-point-step-size': 40,
         'curve-style': 'bezier',
-        'line-color': edge => edge.data(Edge.COLLAPSED_COLOR),
-        'line-style': EdgeShape.SOLID_LINE,
-        'display': edge => this.styleUtility.edgeDisplay(edge),
-        'width': edge => this.styleUtility.edgeWidth(edge),
+        'line-color': edge => {
+          return this.styleUtility.edgeColor(edge);
+        },
+        'line-style': Shape.COLLAPSED_EDGE,
+        // tslint:disable-next-line:object-literal-sort-keys
+        display: edge => {
+          return this.styleUtility.edgeDisplay(edge);
+        },
+        width: edge => {
+          return this.styleUtility.edgeWidth(edge);
+        },
       },
     },
     {
@@ -80,24 +97,43 @@ export class Style {
       style: {
         'control-point-step-size': 40,
         'curve-style': 'bezier',
-        'line-color': edge => edge.data(Edge.COLOR),
-        'line-style': edge => edge.data(Edge.SHAPE),
-        'display': 'element',
-        'width': Width.DEFAULT_EDGE,
+        'line-color': edge => {
+          return edge.data(Edge.COLOR);
+        },
+        'line-style': edge => {
+          return edge.data(Edge.SHAPE);
+        },
+        // tslint:disable-next-line:object-literal-sort-keys
+        display: 'element',
+        width: Width.DEFAULT_EDGE,
       },
     },
     {
       selector: 'edge.affected',
       style: {
-        'line-color': edge => edge.data(Edge.AFFECTED_BY_MUTATION) ? this.legend.edge_legend.mutation_color.true.value : this.legend.edge_legend.mutation_color.false.value,
-        'width': edge => edge.data(Edge.AFFECTED_BY_MUTATION) ? this.legend.edge_legend.mutation_width.true.value : this.legend.edge_legend.mutation_width.false.value
+        'line-color': edge => {
+          if (edge.data(Edge.AFFECTED_BY_MUTATION)) {
+            return Color.HIGHLIGHT_MUTATION;
+          }
+          return Color.LOWLIGHT;
+        },
       },
     },
     {
       selector: 'node.mutation',
       style: {
-        'border-color': node => node.data(Node.MUTATION) ? this.legend.node_legend.border_color.true.value : this.legend.node_legend.border_color.false.value,
-        'border-width': node => node.data(Node.MUTATION) ?  this.legend.node_legend.border_width.true.value : this.legend.node_legend.border_width.false.value,
+        'border-color': node => {
+          if (node.data(Node.MUTATION)) {
+            return Color.HIGHLIGHT_MUTATION;
+          }
+          return Color.DEFAULT_NODE_BORDER;
+        },
+        'border-width': node => {
+          if (node.data(Node.MUTATION)) {
+            return Width.MUTATED_NODE_BORDER;
+          }
+          return Width.DEFAULT_NODE_BORDER;
+        },
       },
     },
     {
@@ -111,10 +147,8 @@ export class Style {
   ];
 
   private styleUtility: Utility;
-  private legend: NetworkLegend;
 
-  constructor(legend: NetworkLegend) {
-    this.styleUtility = new Utility(legend.edge_legend.summary_width);
-    this.legend = legend;
+  constructor() {
+    this.styleUtility = new Utility();
   }
 }
