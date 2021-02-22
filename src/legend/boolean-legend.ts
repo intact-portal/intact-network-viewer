@@ -1,6 +1,6 @@
 export class BooleanLegend<T> {
-  private _label: string;
-  private _value: T;
+    private _label: string;
+    private _value: T;
 
   constructor(label: string, value: T) {
     this._label = label;

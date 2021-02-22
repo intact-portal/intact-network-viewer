@@ -194,6 +194,7 @@ export class GraphPort {
     }
   }
 
+
   private executeGraphCalculations(): void {
     const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => {
       return entry.group === 'edges';
