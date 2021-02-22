@@ -1,5 +1,4 @@
 export enum EdgeShape {
-  DASHED_LINE = "dashed",
-  SOLID_LINE = "solid"
+  DASHED_LINE = 'dashed',
+  SOLID_LINE = 'solid',
 }
-

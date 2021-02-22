@@ -1,16 +1,22 @@
 import { BooleanLegend } from './boolean-legend';
 import { EdgeShape } from '../styles/constants/edge-shape';
 
-
 export class EdgeLegend {
   private _summary_color: any;
-  private _summary_width: { minValue: number, maxValue: number, minWidth: number, maxWidth: number };
+  private _summary_width: { minValue: number; maxValue: number; minWidth: number; maxWidth: number };
   private _evidence_color: any;
-  private _mutation_color: { true: BooleanLegend<string>, false: BooleanLegend<string> };
-  private _mutation_width: { true: BooleanLegend<number>, false: BooleanLegend<number> };
-  private _expansion: { true: BooleanLegend<EdgeShape>, false: BooleanLegend<EdgeShape> };
+  private _mutation_color: { true: BooleanLegend<string>; false: BooleanLegend<string> };
+  private _mutation_width: { true: BooleanLegend<number>; false: BooleanLegend<number> };
+  private _expansion: { true: BooleanLegend<EdgeShape>; false: BooleanLegend<EdgeShape> };
 
-  constructor(summary_color: any, summary_width: { minValue: number; maxValue: number; minWidth: number; maxWidth: number }, evidence_color: any, mutation_color: { true: BooleanLegend<string>; false: BooleanLegend<string> }, mutation_width: { true: BooleanLegend<number>; false: BooleanLegend<number> }, expansion: { true: BooleanLegend<EdgeShape>; false: BooleanLegend<EdgeShape> }) {
+  constructor(
+    summary_color: any,
+    summary_width: { minValue: number; maxValue: number; minWidth: number; maxWidth: number },
+    evidence_color: any,
+    mutation_color: { true: BooleanLegend<string>; false: BooleanLegend<string> },
+    mutation_width: { true: BooleanLegend<number>; false: BooleanLegend<number> },
+    expansion: { true: BooleanLegend<EdgeShape>; false: BooleanLegend<EdgeShape> },
+  ) {
     this._summary_color = summary_color;
     this._summary_width = summary_width;
     this._evidence_color = evidence_color;
@@ -18,7 +24,6 @@ export class EdgeLegend {
     this._mutation_width = mutation_width;
     this._expansion = expansion;
   }
-
 
   get summary_color(): any {
     return this._summary_color;

@@ -1,5 +1,5 @@
-import {NodeLegend} from "./node-legend";
-import {EdgeLegend} from "./edge-legend";
+import { NodeLegend } from './node-legend';
+import { EdgeLegend } from './edge-legend';
 
 export class NetworkLegend {
   private _node_legend: NodeLegend;

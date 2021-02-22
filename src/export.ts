@@ -1,4 +1,5 @@
 import { Global } from './global';
+
 export class Export {
   public static GRAPHML_FILENAME: string = 'network.graphml';
   public static PNG_FILENAME: string = 'network.png';
