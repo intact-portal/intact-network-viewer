@@ -1,12 +1,12 @@
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
+import { NetworkLegend } from '../legend/network-legend';
 import { Color } from './constants/color';
+import { EdgeShape } from './constants/edge-shape';
+import { NodeShape } from './constants/node-shape';
 import { Size } from './constants/size';
 import { Width } from './constants/width';
 import { Utility } from './utility';
-import { NetworkLegend } from '../legend/network-legend';
-import { EdgeShape } from './constants/edge-shape';
-import { NodeShape } from './constants/node-shape';
 
 export class Style {
   public applicationCSS: any = [
@@ -42,17 +42,6 @@ export class Style {
         'text-halign': 'center',
         'text-valign': 'center',
         color: 'white',
-      },
-    },
-
-    {
-      selector: 'node:parent',
-      css: {
-        'background-opacity': 0.333,
-        'font-size': Size.COMPOUND_NODE_LABEL_SIZE,
-        'text-max-width': node => node.width(),
-        'text-wrap': 'wrap',
-        label: node => node.data(Node.SPECIES),
       },
     },
     {
@@ -111,6 +100,24 @@ export class Style {
           node.data(Node.MUTATION)
             ? this.legend.node_legend.border_width.true.value
             : this.legend.node_legend.border_width.false.value,
+      },
+    },
+    {
+      selector: 'node:parent',
+      css: {
+        'background-opacity': 0.333,
+        'font-size': Size.COMPOUND_NODE_LABEL_SIZE,
+        'color': 'black',
+        'text-max-width': node => node.width(),
+        'text-margin-y': -5,
+        'text-outline-opacity': 0,
+        'text-outline-width': 0,
+        'text-wrap': 'wrap',
+        'text-halign': 'center',
+        'text-valign': 'top',
+        'border-width': 1,
+        'border-color': '#bebebe',
+        label: node => node.data(Node.SPECIES),
       },
     },
     {

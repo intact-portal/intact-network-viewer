@@ -3,25 +3,27 @@ import avsdf from 'cytoscape-avsdf';
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import cyforcelayout from 'cytoscape-ngraph.forcelayout';
+
+import $ from 'jquery';
+import 'jquery-ui';
+import 'jquery-ui/ui/widgets/autocomplete';
 import { Spinner } from 'spin.js';
 import 'spin.js/spin.css';
 
 import { Export } from './export';
+import { Global } from './global';
+import { Interaction } from './interaction/interaction';
+import { Listener } from './interaction/listener';
 import { AvsdfLayout } from './layouts/avsdf_layout';
 import { ColaLayout } from './layouts/cola_layout';
 import { Constants } from './layouts/constants';
 import { FcoseLayout } from './layouts/fcose_layout';
 import { NgraphLayout } from './layouts/ngraph_layout';
+import { Utility } from './layouts/utility';
+import { NetworkLegend } from './legend/network-legend';
 import { Style } from './styles/style';
 
-import $ from 'jquery';
-import 'jquery-ui';
-import 'jquery-ui/ui/widgets/autocomplete';
-import { Global } from './global';
-import { Interaction } from './interaction/interaction';
-import { Listener } from './interaction/listener';
-import { Utility } from './layouts/utility';
-
+declare const require: any;
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
@@ -65,7 +67,7 @@ export class GraphPort {
   public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
     this.json = json;
-    this.style = new Style(json.legend);
+    this.style = new Style(json.legend || new NetworkLegend());
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
     this.executeGraphCalculations();
     setTimeout(() => {
@@ -285,6 +287,6 @@ export class GraphPort {
   }
 
   private get data(): JSON {
-    return this.json.data;
+    return this.json.data || this.json;
   }
 }

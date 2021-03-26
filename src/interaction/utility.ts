@@ -19,7 +19,9 @@ export class Utility {
     const detailLabelElement = document.createElement('strong') as HTMLElement;
     detailLabelElement.innerHTML = detailLabel + ': ';
     detailElement.appendChild(detailLabelElement);
-    detailElement.append(detailValue);
+    const spanElement = document.createElement('span');
+    spanElement.innerHTML = detailValue;
+    detailElement.appendChild(spanElement);
     divListElement.appendChild(detailElement);
 
     return divListElement;
