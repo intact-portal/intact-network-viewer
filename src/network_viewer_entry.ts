@@ -31,8 +31,6 @@ cytoscape.use(cyforcelayout);
 cytoscape.use(avsdf);
 cytoscape.use(cola);
 
-var globalCy: any;
-
 export class GraphPort {
   // field
   private graphContainerDivId: string;
@@ -56,6 +54,7 @@ export class GraphPort {
   constructor(graphContainerDivId: string, suggestionBoxId: string) {
     this.graphContainerDivId = graphContainerDivId;
     this.export = new Export();
+    //TODO Replace by something similar to Material Design spinner like https://github.com/ZulNs/LoadingSpinner.js
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
     this.suggestionBoxId = suggestionBoxId;

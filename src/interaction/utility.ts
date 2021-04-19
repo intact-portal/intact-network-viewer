@@ -1,6 +1,6 @@
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
-import { Global } from './../global';
+import { Global } from '../global';
 import { Style } from './style';
 
 export class Utility {

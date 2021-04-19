@@ -1,3 +1,5 @@
+import { SpinnerOptions } from 'spin.js';
+
 export class Constants {
   public static FCOSE_LAYOUT_OPTIONS: any = {
     name: 'fcose',
@@ -178,10 +180,10 @@ export class Constants {
     stop: () => {}, // on layoutstop
   };
 
-  public static SPINNER_OPTIONS: any = {
+  public static SPINNER_OPTIONS: SpinnerOptions = {
     animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
     className: 'spinner', // The CSS class to assign to the spinner
-    color: '#000000', // CSS color or array of colors
+    color: '#68297c', // CSS color or array of colors
     corners: 1, // Corner roundness (0..1)
     direction: 1, // 1: clockwise, -1: counterclockwise
     fadeColor: 'transparent', // CSS color or array of colors
