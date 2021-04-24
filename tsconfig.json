@@ -4,9 +4,9 @@
     "module": "es6",
     "outDir": "./build",
     "sourceMap": true,
+    "declaration": true,
     "strict": false,
     "moduleResolution": "node",
-    "allowJs": true,
-    "noImplicitAny":  false
+    "noImplicitAny":  false,
   }
 }

@@ -1,8 +1,9 @@
 {
   "name": "intact-network-viewer",
-  "version": "0.9.11",
+  "version": "0.9.16",
   "description": "",
   "main": "build/intact_network.js",
+  "typings": "build/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "webpack",
@@ -39,7 +40,8 @@
     "webpack-dev-server": "^3.8.0"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "build"
   ],
   "dependencies": {
     "cytoscape": "^3.9.1",
