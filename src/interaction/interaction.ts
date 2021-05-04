@@ -1,31 +1,46 @@
-import cytoscape from 'cytoscape';
+import * as cytoscape from 'cytoscape';
+import { EdgeSingular, NodeCollection } from 'cytoscape';
 import popper from 'cytoscape-popper';
-import tippy from 'tippy.js';
-import 'tippy.js/index.css';
-import { Utility as LayoutsUtility } from '../layouts/utility';
+import tippy, { followCursor, Instance } from 'tippy.js';
+import 'tippy.js/dist/tippy.css'; // optional for styling
 import { Global } from '../global';
+import { Utility as LayoutsUtility } from '../layouts/utility';
 import { EdgeDetails } from './edge_details';
 import { NodeDetails } from './node_details';
 import { Utility } from './utility';
 
 cytoscape.use(popper);
 
+let toolTip: Instance;
+
 export class Interaction {
   private utility: Utility;
   private layoutsUtility: LayoutsUtility;
+  private graphContainer: JQuery;
 
-  constructor() {
+  constructor(graphContainerId: string) {
+    this.graphContainer = $('#' + graphContainerId);
     this.utility = new Utility();
     this.layoutsUtility = new LayoutsUtility();
     this.loadOnEdgeTapMethod();
-    // this.loadOnTapUnselectEdgeMethod();
     this.loadOnSelectBoxMethod();
     this.loadUnSelectNodeMethod();
     this.loadOnNodeTapMethod(this.utility);
-    // this.loadOnTapUnselectMethod();
     this.loadOnNodeAndEdgeHoverMethods(this.utility);
     this.loadOnEmptySpaceClick();
+    this.loadOnLeaveGraph();
     this.loadMultipleSelectionDisableMethod();
+  }
+
+  private loadOnLeaveGraph() {
+    this.graphContainer.on('mouseout', this.hideTooltip);
+  }
+
+  hideTooltip() {
+    if (toolTip) {
+      toolTip.hide();
+      toolTip.destroy();
+    }
   }
 
   public resetAppliedClasses(): void {
@@ -80,95 +95,68 @@ export class Interaction {
   }
 
   private loadEdgeOnHoverInAndOutMethod(utility: Utility): void {
-    let tippyToolTip: any;
     Global.graphcy.edges().on('mouseover', e => {
-      const hoveredEdge = e.target;
+      const hoveredEdge: EdgeSingular = e.target;
 
-      const makeTippy = (edge, text, utils) => {
-        return tippy(edge.popperRef(), {
+      const makeTippy = (edge: EdgeSingular, utils: Utility) => {
+        let ref = edge.popperRef();
+        let dummyDomEle = document.createElement('div');
+        return tippy(dummyDomEle, {
+          getReferenceClientRect: ref.getBoundingClientRect,
           arrow: true,
           content: new EdgeDetails(edge, utils).createDetails(),
           hideOnClick: true,
           maxWidth: 'none',
-          multiple: true,
-          placement: 'bottom',
-          sticky: true,
+          placement: 'top',
           theme: 'intact',
           trigger: 'manual',
+          followCursor: true,
+          plugins: [followCursor],
+          appendTo: document.body,
         });
       };
-      tippyToolTip = makeTippy(hoveredEdge, 'foo', utility);
-      tippyToolTip.show();
+      toolTip = makeTippy(hoveredEdge, utility);
+      toolTip.show();
     });
 
-    Global.graphcy.edges().on('mouseout', e => {
-      tippyToolTip.hide();
-      tippyToolTip.destroy();
-    });
+    Global.graphcy.edges().on('mouseout', this.hideTooltip);
 
-    Global.graphcy.edges().on('mousedown', e => {
-      tippyToolTip.hide();
-      tippyToolTip.destroy();
-    });
+    Global.graphcy.edges().on('mousedown', this.hideTooltip);
   }
 
   private loadNodeOnHoverInAndOutMethod(utility: Utility): void {
-    let tippyToolTip: any;
+    let nodes: NodeCollection;
 
-    let nodes: any;
-
-    if (
-      Global.graphcy
-        .nodes()
-        .children()
-        .size() === 0
-    ) {
-      nodes = Global.graphcy.nodes(); // non compound graph
-    } else {
-      nodes = Global.graphcy.nodes().children(); // compound graph
-    }
+    nodes = Global.graphcy.nodes().children().size() === 0 ?
+      Global.graphcy.nodes() :
+      Global.graphcy.nodes().children(); // Nested graph
 
     nodes.on('mouseover', e => {
       const hoveredNode = e.target;
-
-      const makeTippy = (node, text, utils) => {
-        return tippy(node.popperRef(), {
+      const makeTippy = (node, utils) => {
+        let ref = node.popperRef();
+        let dummyDomEle = document.createElement('div');
+        return tippy(dummyDomEle, {
+          getReferenceClientRect: ref.getBoundingClientRect,
           arrow: true,
           content: new NodeDetails(node, utils).createDetails(),
           hideOnClick: true,
           maxWidth: 'none',
-          multiple: true,
-          placement: 'bottom',
-          sticky: true,
+          placement: 'top',
           theme: 'intact',
           trigger: 'manual',
+          followCursor: true,
+          plugins: [followCursor],
+          appendTo: document.body,
         });
       };
-      tippyToolTip = makeTippy(hoveredNode, 'foo', utility);
-      tippyToolTip.show();
+      toolTip = makeTippy(hoveredNode, utility);
+      toolTip.show();
     });
 
-    nodes.on('mouseout', e => {
-      tippyToolTip.hide();
-      tippyToolTip.destroy();
-    });
-
-    nodes.on('mousedown', e => {
-      tippyToolTip.hide();
-      tippyToolTip.destroy();
-    });
+    nodes.on('mouseout', this.hideTooltip);
+    nodes.on('mousedown', this.hideTooltip);
   }
-
-  /*private loadOnEdgeClickMethod(): void {
-        Global.graphcy.edges().on('click', function(e) {
-            var clickedEdge = e.target;
-            if(clickedEdge.hasClass('expand')){
-                clickedEdge.parallelEdges().removeClass('expand');
-            }else{
-                clickedEdge.parallelEdges().addClass('expand');
-            }
-        });
-    }*/
 
   private loadOnEdgeTapMethod(): void {
     Global.graphcy.edges().on('tap', e => {
@@ -222,7 +210,7 @@ export class Interaction {
   }
 
   private loadOnNodeTapMethod(utility: Utility): void {
-    let nodes: any;
+    let nodes: NodeCollection;
 
     if (
       Global.graphcy

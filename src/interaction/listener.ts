@@ -1,5 +1,5 @@
 import { Utility as LayoutsUtility } from '../layouts/utility';
-import { Global } from './../global';
+import { Global } from '../global';
 import { Utility } from './utility';
 
 export class Listener {
@@ -15,14 +15,14 @@ export class Listener {
   }
 
   private loadTableInteractorSelectedListener(): void {
-    document.addEventListener('tableInteractorSelected', e => {
-      console.log((e as any).detail.interactorId); // TODO... remove log after testing is done
+    document.addEventListener('tableInteractorSelected', (e:CustomEvent) => {
+      console.log(e.detail.interactorId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
-      const nodeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactorId);
-      const directlyConnectedEdges = nodeToBeSelected.closedNeighbourhood();
+      const nodeToBeSelected = Global.graphcy.getElementById(e.detail.interactorId);
+      const directlyConnectedEdges = nodeToBeSelected.closedNeighborhood();
 
       directlyConnectedEdges.addClass('neighbour-highlight');
       directlyConnectedEdges.nodes().addClass('neighbour-highlight');
@@ -36,13 +36,13 @@ export class Listener {
   }
 
   private loadTableInteractionSelectedListener(): void {
-    document.addEventListener('tableInteractionSelected', e => {
-      console.log((e as any).detail.interactionId); // TODO... remove log after testing is done
+    document.addEventListener('tableInteractionSelected', (e: CustomEvent) => {
+      console.log(e.detail.interactionId); // TODO... remove log after testing is done
 
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
-      const edgeToBeSelected = Global.graphcy.getElementById((e as any).detail.interactionId);
+      const edgeToBeSelected = Global.graphcy.getElementById(e.detail.interactionId);
 
       edgeToBeSelected.connectedNodes().addClass('neighbour-highlight');
       if (edgeToBeSelected.hasClass('expand')) {

@@ -1,13 +1,13 @@
+import { NodeSingular } from 'cytoscape';
 import { Node } from '../constants/node';
 import { Constants } from './constants';
-import { Style } from './style';
 import { Utility } from './utility';
 
 export class NodeDetails {
-  private node: any;
+  private node: NodeSingular;
   private utility: Utility;
 
-  constructor(node: any, utility: Utility) {
+  constructor(node: NodeSingular, utility: Utility) {
     this.node = node;
     this.utility = utility;
   }

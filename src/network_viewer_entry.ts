@@ -1,10 +1,10 @@
-import cytoscape from 'cytoscape';
+import * as cytoscape from 'cytoscape';
+import { ElementDefinition } from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
 import cola from 'cytoscape-cola';
 import fcose from 'cytoscape-fcose';
 import cyforcelayout from 'cytoscape-ngraph.forcelayout';
 
-import $ from 'jquery';
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
 import { Spinner } from 'spin.js';
@@ -22,8 +22,6 @@ import { NgraphLayout } from './layouts/ngraph_layout';
 import { Utility } from './layouts/utility';
 import { NetworkLegend } from './legend/network-legend';
 import { Style } from './styles/style';
-
-declare const require: any;
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
@@ -71,7 +69,7 @@ export class GraphPort {
     this.executeGraphCalculations();
     setTimeout(() => {
       Global.graphcy = cytoscape({
-        container: $('#' + this.graphContainerDivId), // container to render in
+        container: $('#' + this.graphContainerDivId).get()[0], // container to render in
         elements: this.data,
         wheelSensitivity: 0.2,
         maxZoom: Constants.INITIAL_MAX_ZOOM,
@@ -84,7 +82,7 @@ export class GraphPort {
       Global.graphcy.container().addEventListener('click', () => Global.graphcy.userZoomingEnabled(true));
       this.utility.fit();
       this.changeEdgeState();
-      this.interaction = new Interaction();
+      this.interaction = new Interaction(this.graphContainerDivId);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
     }, this.timeout);
@@ -269,6 +267,7 @@ export class GraphPort {
       }
     });
 
+    // @ts-ignore
     $('#' + this.suggestionBoxId).autocomplete({
       source: this.nodeLabels,
       select: function(event, ui) {
@@ -285,7 +284,7 @@ export class GraphPort {
     });
   }
 
-  private get data(): JSON {
+  private get data(): ElementDefinition[] {
     return this.json.data || this.json;
   }
 }

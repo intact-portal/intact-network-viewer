@@ -1,6 +1,6 @@
 {
   "name": "intact-network-viewer",
-  "version": "0.9.16",
+  "version": "0.9.17",
   "description": "",
   "main": "build/intact_network.js",
   "typings": "build/index.d.ts",
@@ -21,9 +21,32 @@
   "bugs": {
     "url": "https://github.com/EBI-IntAct/intact-network/issues"
   },
+  "files": [
+    "lib/**/*",
+    "build"
+  ],
   "homepage": "https://github.com/EBI-IntAct/intact-network#readme",
+  "dependencies": {
+    "cytoscape": "^3.9.1",
+    "cytoscape-avsdf": "^1.0.0",
+    "cytoscape-cise": "^1.0.0",
+    "cytoscape-cola": "^2.3.0",
+    "cytoscape-fcose": "~1.2.3",
+    "cytoscape-graphml": "^1.0.6",
+    "cytoscape-ngraph.forcelayout": "^1.3.8",
+    "cytoscape-popper": "^1.0.4",
+    "expose-loader": "^0.7.5",
+    "jquery-ui": "^1.12.1",
+    "popper.js": "^1.14.7",
+    "spin.js": "^4.0.0",
+    "tippy.js": "^6.3.1"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/cytoscape": "^3.14.14",
+    "@types/popper.js": "^1.11.0",
+    "@types/jquery": "^3.5.5",
+    "@types/typeahead.js": "^0.11.0 ",
     "css-loader": "^3.2.0",
     "jest": "^24.9.0",
     "jquery": "^3.4.1",
@@ -38,24 +61,5 @@
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
-  },
-  "files": [
-    "lib/**/*",
-    "build"
-  ],
-  "dependencies": {
-    "cytoscape": "^3.9.1",
-    "cytoscape-avsdf": "^1.0.0",
-    "cytoscape-cise": "^1.0.0",
-    "cytoscape-cola": "^2.3.0",
-    "cytoscape-fcose": "~1.2.3",
-    "cytoscape-graphml": "^1.0.6",
-    "cytoscape-ngraph.forcelayout": "^1.3.8",
-    "cytoscape-popper": "^1.0.4",
-    "expose-loader": "^0.7.5",
-    "jquery-ui": "^1.12.1",
-    "popper.js": "^1.14.7",
-    "spin.js": "^4.0.0",
-    "tippy.js": "^4.0.1"
   }
 }
