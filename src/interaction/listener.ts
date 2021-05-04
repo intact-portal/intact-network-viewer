@@ -59,10 +59,12 @@ export class Listener {
 
   private loadTableUnSelectedListener(): void {
     document.addEventListener('tableUnselected', e => {
-      // remove any pre applied classes in graph
-      this.utility.removePreAppliedClasses();
+      if (Global.graphcy) {
+        // remove any pre applied classes in graph
+        this.utility.removePreAppliedClasses();
 
-      this.layoutsUtility.fit();
+        this.layoutsUtility.fit();
+      }
     });
   }
 }
