@@ -1,6 +1,6 @@
 {
   "name": "intact-network-viewer",
-  "version": "0.9.17",
+  "version": "0.9.18",
   "description": "",
   "main": "build/intact_network.js",
   "typings": "build/index.d.ts",
