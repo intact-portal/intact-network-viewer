@@ -16,8 +16,6 @@ export class Listener {
 
   private loadTableInteractorSelectedListener(): void {
     document.addEventListener('tableInteractorSelected', (e:CustomEvent) => {
-      console.log(e.detail.interactorId); // TODO... remove log after testing is done
-
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
@@ -37,8 +35,6 @@ export class Listener {
 
   private loadTableInteractionSelectedListener(): void {
     document.addEventListener('tableInteractionSelected', (e: CustomEvent) => {
-      console.log(e.detail.interactionId); // TODO... remove log after testing is done
-
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 
@@ -58,7 +54,7 @@ export class Listener {
   }
 
   private loadTableUnSelectedListener(): void {
-    document.addEventListener('tableUnselected', e => {
+    document.addEventListener('tableUnselected', () => {
       if (Global.graphcy) {
         // remove any pre applied classes in graph
         this.utility.removePreAppliedClasses();
