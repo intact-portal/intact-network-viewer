@@ -92,9 +92,11 @@ export class GraphPort {
 
   public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
     if (this.interaction) {
+      this.startLoadingImage();
       this.interaction.resetAppliedClasses(); // this is needed to undo any selection
       this.updateGraphState(isExpand, isAffectingMutation, null);
       this.changeEdgeState();
+      this.stopLoadingImage();
     }
   }
 
@@ -144,10 +146,10 @@ export class GraphPort {
   }
 
   public applyLayout(layoutName: string): void {
+    this.startLoadingImage();
     this.updateGraphState(null, null, layoutName);
     this.utility.setInitialMaxZoomLevel();
     this.utility.setInitialMinZoomLevel();
-    this.startLoadingImage();
     setTimeout(() => {
       switch (layoutName) {
         case 'cise': {
@@ -166,6 +168,7 @@ export class GraphPort {
   }
 
   private changeEdgeState(): void {
+    this.startLoadingImage();
     if (this.isExpand) {
       Global.graphcy.edges().addClass('expand');
       Global.graphcy.$(':loop').addClass('expand');
@@ -181,6 +184,7 @@ export class GraphPort {
       Global.graphcy.edges().removeClass('affected');
       Global.graphcy.nodes().removeClass('mutation');
     }
+    this.stopLoadingImage();
   }
 
   private executeGraphCalculations(): void {
