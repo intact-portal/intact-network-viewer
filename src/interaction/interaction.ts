@@ -147,8 +147,6 @@ export class Interaction {
           theme: 'intact',
           trigger: 'manual',
           animation: false,
-          followCursor: true,
-          plugins: [followCursor],
           appendTo: document.body,
         });
       };
