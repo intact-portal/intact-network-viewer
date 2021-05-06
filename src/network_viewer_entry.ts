@@ -1,9 +1,8 @@
 import * as cytoscape from 'cytoscape';
 import { ElementDefinition } from 'cytoscape';
-import avsdf from 'cytoscape-avsdf';
-import cola from 'cytoscape-cola';
+import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
-import cyforcelayout from 'cytoscape-ngraph.forcelayout';
+import layoutUtilities from 'cytoscape-layout-utilities';
 
 import 'jquery-ui';
 import 'jquery-ui/ui/widgets/autocomplete';
@@ -14,20 +13,18 @@ import { Export } from './export';
 import { Global } from './global';
 import { Interaction } from './interaction/interaction';
 import { Listener } from './interaction/listener';
-import { AvsdfLayout } from './layouts/avsdf_layout';
-import { ColaLayout } from './layouts/cola_layout';
+import { CiseLayout } from './layouts/cise_layout';
 import { Constants } from './layouts/constants';
 import { FcoseLayout } from './layouts/fcose_layout';
-import { NgraphLayout } from './layouts/ngraph_layout';
 import { Utility } from './layouts/utility';
 import { NetworkLegend } from './legend/network-legend';
 import { Style } from './styles/style';
+
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
-cytoscape.use(cyforcelayout);
-cytoscape.use(avsdf);
-cytoscape.use(cola);
+cytoscape.use(cise);
+cytoscape.use(layoutUtilities);
 
 export class GraphPort {
   // field
@@ -48,6 +45,8 @@ export class GraphPort {
   private layoutName!: string;
   private utility: Utility;
 
+  private ciseOptions = Constants.CISE_LAYOUT_OPTIONS;
+
   // constructor
   constructor(graphContainerDivId: string, suggestionBoxId: string) {
     this.graphContainerDivId = graphContainerDivId;
@@ -63,9 +62,11 @@ export class GraphPort {
   // function
   public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
+    console.time('graph-time')
     this.json = json;
     this.style = new Style(json.legend || new NetworkLegend());
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
+    this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
     this.executeGraphCalculations();
     setTimeout(() => {
       Global.graphcy = cytoscape({
@@ -85,6 +86,7 @@ export class GraphPort {
       this.interaction = new Interaction(this.graphContainerDivId);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
+      console.timeEnd('graph-time')
     }, this.timeout);
   }
 
@@ -148,19 +150,8 @@ export class GraphPort {
     this.startLoadingImage();
     setTimeout(() => {
       switch (layoutName) {
-        case 'ngraph': {
-          const ngraphLayout: NgraphLayout = new NgraphLayout();
-          ngraphLayout.execute();
-          break;
-        }
-        case 'avsdf': {
-          const avsdfLayout: AvsdfLayout = new AvsdfLayout();
-          avsdfLayout.execute();
-          break;
-        }
-        case 'cola': {
-          const colaLayout: ColaLayout = new ColaLayout();
-          colaLayout.execute();
+        case 'cise': {
+          Global.graphcy.layout(this.ciseOptions).run();
           break;
         }
         default: {
@@ -169,10 +160,9 @@ export class GraphPort {
           break;
         }
       }
-      this.utility.setUserMaxZoomLevel();
-      this.utility.setUserMinZoomLevel();
+      this.utility.fit();
       this.stopLoadingImage();
-    }, this.timeout);
+    }, 0);
   }
 
   private changeEdgeState(): void {
@@ -212,10 +202,9 @@ export class GraphPort {
 
   private getLayoutOption(): any {
     let layoutOption: any;
-
     switch (this.layoutName) {
-      case 'avsdf': {
-        layoutOption = Constants.AVSDF_LAYOUT_OPTIONS;
+      case 'cise': {
+        layoutOption = this.ciseOptions;
         break;
       }
       default: {

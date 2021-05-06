@@ -1,5 +1,7 @@
 import { SpinnerOptions } from 'spin.js';
 
+// const speciesToClusterID = new Map<string, number>();
+
 export class Constants {
   public static INITIAL_PADDING: number = 30;
   public static INITIAL_MAX_ZOOM: number = 1.5;
@@ -130,26 +132,26 @@ export class Constants {
     stableThreshold: 2,
   };
 
-  public static AVSDF_LAYOUT_OPTIONS: any = {
-    name: 'avsdf',
-    // Type of layout animation. The option set is {'during', 'end', false}
-    animate: false,
-    // Duration for animate:end
-    animationDuration: 500,
-    // Whether to fit the network view after when done
+  public static CISE_LAYOUT_OPTIONS: any = {
+    name: 'cise',
+
+    // clusters: (node: NodeSingular) => {
+    //   let species = node.data(Node.SPECIES);
+    //   let clusterId;
+    //   if (speciesToClusterID.has(species)) {
+    //     clusterId = speciesToClusterID.get(species);
+    //   } else {
+    //     clusterId = speciesToClusterID.size + 1;
+    //     speciesToClusterID.set(species, clusterId);
+    //   }
+    //   return clusterId;
+    // },
     fit: true,
-    // How apart the nodes are
-    nodeSeparation: 120,
-    // Padding on fit
-    padding: 10,
-    // Called on `layoutready`
-    ready: () => {},
-    // number of ticks per frame; higher is faster but more jerky
-    refresh: 30,
-    // Called on `layoutstop`
-    stop: () => {},
-    // Prevent the user grabbing nodes during the layout (usually with animate:true)
-    ungrabifyWhileSimulating: false,
+    padding: Constants.INITIAL_PADDING,
+    allowNodesInsideCircle: false,
+    randomize: true,
+    packComponents: true,
+
   };
 
   public static COLA_LAYOUT_OPTIONS: any = {
