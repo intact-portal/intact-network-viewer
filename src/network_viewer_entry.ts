@@ -227,11 +227,14 @@ export class GraphPort {
     return layoutOption;
   }
 
-  private startLoadingImage(): void {
+  startLoadingImage(): void {
+    if (!this.spinTarget) {
+      this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
+    }
     this.spinner.spin(this.spinTarget);
   }
 
-  private stopLoadingImage(): void {
+  stopLoadingImage(): void {
     this.spinner.stop();
   }
 
