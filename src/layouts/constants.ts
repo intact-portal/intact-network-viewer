@@ -1,6 +1,13 @@
 import { SpinnerOptions } from 'spin.js';
 
 export class Constants {
+  public static INITIAL_PADDING: number = 30;
+  public static INITIAL_MAX_ZOOM: number = 1.5;
+  public static USER_MAX_ZOOM: number = 10;
+  public static INITIAL_MIN_ZOOM: number = 0;
+  public static USER_MIN_ZOOM: number = 0.2;
+  public static HIGHLIGHT_AND_FOCUS_MAX_ZOOM: number = 1.5;
+
   public static FCOSE_LAYOUT_OPTIONS: any = {
     name: 'fcose',
     // whether or not to animate the layout
@@ -60,8 +67,10 @@ export class Constants {
     // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
     tilingPaddingVertical: 10,
     /* layout event callbacks */
-    ready: () => {}, // on layoutready
-    stop: () => {}, // on layoutstop
+    ready: () => {
+    }, // on layoutready
+    stop: () => {
+    }, // on layoutstop
   };
 
   public static NGRAPH_LAYOUT_OPTIONS: any = {
@@ -176,8 +185,10 @@ export class Constants {
     ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
     userConstIter: undefined, // initial layout iterations with user-specified constraints
     // layout event callbacks
-    ready: () => {}, // on layoutready
-    stop: () => {}, // on layoutstop
+    ready: () => {
+    }, // on layoutready
+    stop: () => {
+    }, // on layoutstop
   };
 
   public static SPINNER_OPTIONS: SpinnerOptions = {
@@ -200,10 +211,4 @@ export class Constants {
     width: 17, // The line thickness
     zIndex: 2e9, // The z-index (defaults to 2000000000)
   };
-
-  public static INITIAL_MAX_ZOOM: number = 1.5;
-  public static USER_MAX_ZOOM: number = 10;
-  public static INITIAL_MIN_ZOOM: number = 0;
-  public static USER_MIN_ZOOM: number = 0.2;
-  public static HIGHLIGHT_AND_FOCUS_MAX_ZOOM: number = 1.5;
 }

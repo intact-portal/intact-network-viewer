@@ -1,4 +1,4 @@
-import { Global } from './../global';
+import { Global } from '../global';
 import { Constants } from './constants';
 
 export class Utility {
@@ -29,7 +29,7 @@ export class Utility {
   public fit(): void {
     this.setInitialMaxZoomLevel();
     this.setInitialMinZoomLevel();
-    Global.graphcy.fit();
+    Global.graphcy.fit(Global.graphcy.edges(), Constants.INITIAL_PADDING);
     this.setUserMaxZoomLevel();
     this.setUserMinZoomLevel();
   }
