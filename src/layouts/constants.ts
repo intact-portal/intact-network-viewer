@@ -68,6 +68,7 @@ export class Constants {
     tilingPaddingHorizontal: 10,
     // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
     tilingPaddingVertical: 10,
+    packComponents: true,
     /* layout event callbacks */
     ready: () => {
     }, // on layoutready

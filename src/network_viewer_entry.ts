@@ -48,6 +48,7 @@ export class GraphPort {
   private utility: Utility;
 
   private ciseOptions = Constants.CISE_LAYOUT_OPTIONS;
+  private calculateCiseClusters = true;
 
   // constructor
   constructor(graphContainerDivId: string, suggestionBoxId: string) {
@@ -68,7 +69,9 @@ export class GraphPort {
     this.json = json;
     this.style = new Style(json.legend || new NetworkLegend());
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
-    this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
+    if (this.calculateCiseClusters) {
+      this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
+    }
     this.executeGraphCalculations();
     setTimeout(() => {
       Global.graphcy = cytoscape({
@@ -149,28 +152,35 @@ export class GraphPort {
 
   public applyLayout(layoutName: string): void {
     this.startLoadingImage();
-    this.updateGraphState(null, null, layoutName);
-    this.utility.setInitialMaxZoomLevel();
-    this.utility.setInitialMinZoomLevel();
-    setTimeout(() => {
-      switch (layoutName) {
-        case 'cise': {
-          Global.graphcy.layout(this.ciseOptions).run();
-          break;
-        }
-        case 'avsdf': {
-          Global.graphcy.layout(Constants.AVSDF_OPTIONS).run();
-          break;
-        }
-        default: {
-          const fcoseLayout: FcoseLayout = new FcoseLayout();
-          fcoseLayout.execute();
-          break;
-        }
-      }
-      this.utility.fit();
-      this.stopLoadingImage();
-    }, 0);
+    // let previousLayout = this.layoutName;
+    // this.updateGraphState(null, null, layoutName);
+    // this.utility.setInitialMaxZoomLevel();
+    // this.utility.setInitialMinZoomLevel();
+    // setTimeout(() => {
+    //   switch (layoutName) {
+    //     case 'cise': {
+    //       if (previousLayout === 'avsdf') {
+            this.calculateCiseClusters = false;
+            this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, layoutName)
+            this.calculateCiseClusters = true;
+    //       } else {
+    //         Global.graphcy.layout(this.ciseOptions).run();
+    //       }
+    //       break;
+    //     }
+    //     case 'avsdf': {
+    //       Global.graphcy.layout(Constants.AVSDF_OPTIONS).run();
+    //       break;
+    //     }
+    //     default: {
+    //       const fcoseLayout: FcoseLayout = new FcoseLayout();
+    //       fcoseLayout.execute();
+    //       break;
+    //     }
+    //   }
+    //   this.utility.fit();
+    //   this.stopLoadingImage();
+    // }, 0);
   }
 
   private changeEdgeState(): void {
