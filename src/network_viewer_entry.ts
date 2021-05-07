@@ -1,5 +1,6 @@
 import * as cytoscape from 'cytoscape';
 import { ElementDefinition } from 'cytoscape';
+import avsdf from 'cytoscape-avsdf';
 import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
 import layoutUtilities from 'cytoscape-layout-utilities';
@@ -23,6 +24,7 @@ import { Style } from './styles/style';
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
+cytoscape.use(avsdf);
 cytoscape.use(cise);
 cytoscape.use(layoutUtilities);
 
@@ -156,6 +158,10 @@ export class GraphPort {
           Global.graphcy.layout(this.ciseOptions).run();
           break;
         }
+        case 'avsdf': {
+          Global.graphcy.layout(Constants.AVSDF_OPTIONS).run();
+          break;
+        }
         default: {
           const fcoseLayout: FcoseLayout = new FcoseLayout();
           fcoseLayout.execute();
@@ -209,6 +215,10 @@ export class GraphPort {
     switch (this.layoutName) {
       case 'cise': {
         layoutOption = this.ciseOptions;
+        break;
+      }
+      case 'avsdf': {
+        layoutOption = Constants.AVSDF_OPTIONS;
         break;
       }
       default: {

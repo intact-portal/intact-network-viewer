@@ -151,8 +151,8 @@ export class Constants {
     allowNodesInsideCircle: false,
     randomize: true,
     packComponents: true,
-
   };
+
 
   public static COLA_LAYOUT_OPTIONS: any = {
     name: 'cola',
@@ -212,5 +212,28 @@ export class Constants {
     left: '50%', // Left position relative to parent
     width: 17, // The line thickness
     zIndex: 2e9, // The z-index (defaults to 2000000000)
+  };
+  public static AVSDF_OPTIONS: any = {
+    name:'avsdf',
+    // Called on `layoutready`
+    ready: function() {
+    },
+    // Called on `layoutstop`
+    stop: function() {
+    },
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 30,
+    // Whether to fit the network view after when done
+    fit: true,
+    // Padding on fit
+    padding: 10,
+    // Prevent the user grabbing nodes during the layout (usually with animate:true)
+    ungrabifyWhileSimulating: false,
+    // Type of layout animation. The option set is {'during', 'end', false}
+    animate: false,
+    // Duration for animate:end
+    animationDuration: 500,
+    // How apart the nodes are
+    nodeSeparation: 60,
   };
 }
