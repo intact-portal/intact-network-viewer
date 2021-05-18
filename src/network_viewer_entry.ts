@@ -16,7 +16,6 @@ import { Interaction } from './interaction/interaction';
 import { Listener } from './interaction/listener';
 import { CiseLayout } from './layouts/cise_layout';
 import { Constants } from './layouts/constants';
-import { FcoseLayout } from './layouts/fcose_layout';
 import { Utility } from './layouts/utility';
 import { NetworkLegend } from './legend/network-legend';
 import { Style } from './styles/style';
@@ -37,7 +36,7 @@ export class GraphPort {
   private nodeLabels!: string[];
   private nodeMap!: Map<string, any>;
   private spinner: Spinner;
-  private spinTarget: any;
+  private spinTarget: HTMLDivElement;
   private suggestionBoxId: string;
   private style!: Style;
   private edgesSize!: number;
@@ -65,7 +64,7 @@ export class GraphPort {
   // function
   public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
-    console.time('graph-time')
+    console.time('graph-time');
     this.json = json;
     this.style = new Style(json.legend || new NetworkLegend());
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
@@ -73,6 +72,7 @@ export class GraphPort {
       this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
     }
     this.executeGraphCalculations();
+    let self = this;
     setTimeout(() => {
       Global.graphcy = cytoscape({
         container: $('#' + this.graphContainerDivId).get()[0], // container to render in
@@ -82,7 +82,14 @@ export class GraphPort {
         minZoom: Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
         boxSelectionEnabled: false,
-        layout: this.getLayoutOption(),
+        ready: function() {
+          let rect = self.spinTarget.getBoundingClientRect();
+          this.layoutUtilities({
+            desiredAspectRatio: rect.width / rect.height,
+            componentSpacing: 30,
+          });
+          this.layout(self.getLayoutOption()).run();
+        },
       });
       Global.graphcy.userZoomingEnabled(false);
       Global.graphcy.container().addEventListener('click', () => Global.graphcy.userZoomingEnabled(true));
@@ -91,7 +98,7 @@ export class GraphPort {
       this.interaction = new Interaction(this.graphContainerDivId);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
-      console.timeEnd('graph-time')
+      console.timeEnd('graph-time');
     }, this.timeout);
   }
 
@@ -160,9 +167,9 @@ export class GraphPort {
     //   switch (layoutName) {
     //     case 'cise': {
     //       if (previousLayout === 'avsdf') {
-            this.calculateCiseClusters = false;
-            this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, layoutName)
-            this.calculateCiseClusters = true;
+    this.calculateCiseClusters = false;
+    this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, layoutName);
+    this.calculateCiseClusters = true;
     //       } else {
     //         Global.graphcy.layout(this.ciseOptions).run();
     //       }
@@ -236,7 +243,6 @@ export class GraphPort {
         break;
       }
     }
-
     return layoutOption;
   }
 
