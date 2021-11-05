@@ -7,9 +7,10 @@ import { NodeShape } from './constants/node-shape';
 import { Size } from './constants/size';
 import { Width } from './constants/width';
 import { Utility } from './utility';
+import { Stylesheet } from 'cytoscape';
 
 export class Style {
-  public applicationCSS: any = [
+  public applicationCSS: Stylesheet[] = [
     // the stylesheet for the graph
     {
       selector: 'node.highlight',

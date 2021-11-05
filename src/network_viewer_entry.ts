@@ -257,7 +257,7 @@ export class GraphPort {
     this.spinner.stop();
   }
 
-  private updateGraphState(isExpand: any, isAffectingMutation: any, layoutName: any) {
+  private updateGraphState(isExpand: boolean, isAffectingMutation: boolean, layoutName: string) {
     if (isExpand != null) {
       this.isExpand = isExpand;
     }

@@ -19,7 +19,7 @@ export class Utility {
     return s;
   }
 
-  public edgeDisplay(edge: any): string {
+  public edgeDisplay(edge: any): 'none' | 'element' {
     if (edge.parallelEdges().size() > 1) {
       const sortedEdges = edge.parallelEdges().sort((a, b) => {
         return a.data(Edge.ID) - b.data(Edge.ID);
