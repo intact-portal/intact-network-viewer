@@ -17,7 +17,6 @@ import { Listener } from './interaction/listener';
 import { CiseLayout } from './layouts/cise_layout';
 import { Constants } from './layouts/constants';
 import { Utility } from './layouts/utility';
-import { NetworkLegend } from './legend/network-legend';
 import { Style } from './styles/style';
 
 const graphml = require('cytoscape-graphml');
@@ -66,7 +65,7 @@ export class GraphPort {
     this.startLoadingImage();
     console.time('graph-time');
     this.json = json;
-    this.style = new Style(json.legend || new NetworkLegend());
+    this.style = new Style(json.legend || { node_legend: {}, edge_legend: {} });
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
     if (this.calculateCiseClusters) {
       this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
@@ -85,7 +84,7 @@ export class GraphPort {
         ready: function() {
           this.layout(self.getLayoutOption()).run();
           if (self.getLayoutOption().name === 'fcose')
-          self.packComponents(this);
+            self.packComponents(this);
         },
       });
       Global.graphcy.userZoomingEnabled(false);
