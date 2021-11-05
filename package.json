@@ -1,8 +1,8 @@
 {
   "name": "intact-network-viewer",
-  "version": "0.9.22",
+  "version": "0.10.0",
   "description": "",
-  "main": "build/intact_network.js",
+  "main": "build/intact-network-viewer.js",
   "typings": "build/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
@@ -34,31 +34,31 @@
     "cytoscape-graphml": "^1.0.6",
     "cytoscape-layout-utilities": "^1.1.1",
     "cytoscape-popper": "^1.0.4",
-    "expose-loader": "^0.7.5",
     "jquery-ui": "^1.12.1",
     "popper.js": "^1.14.7",
     "spin.js": "^4.0.0",
     "tippy.js": "^6.3.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^27.0.2",
     "@types/cytoscape": "^3.14.14",
     "@types/popper.js": "^1.11.0",
     "@types/jquery": "^3.5.5",
     "@types/typeahead.js": "^0.11.0 ",
-    "css-loader": "^3.2.0",
+    "css-loader": "^6.5.1",
     "jest": "^24.9.0",
     "jquery": "^3.4.1",
     "prettier": "^1.18.2",
-    "style-loader": "^1.0.0",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.4",
+    "style-loader": "^3.3.1",
+    "expose-loader": "^0.7.5",
+    "ts-jest": "^27.0.7",
+    "ts-loader": "^9.2.6",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.3",
-    "url-loader": "^2.2.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "typescript": "^4.4.4",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
   }
 }
