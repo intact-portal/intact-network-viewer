@@ -1,5 +1,5 @@
 import * as cytoscape from 'cytoscape';
-import { ElementDefinition } from 'cytoscape';
+import { ElementDefinition, LayoutOptions } from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
 import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
@@ -83,12 +83,9 @@ export class GraphPort {
         style: this.style.applicationCSS,
         boxSelectionEnabled: false,
         ready: function() {
-          let rect = self.spinTarget.getBoundingClientRect();
-          this.layoutUtilities({
-            desiredAspectRatio: rect.width / rect.height,
-            componentSpacing: 30,
-          });
           this.layout(self.getLayoutOption()).run();
+          if (self.getLayoutOption().name === 'fcose')
+          self.packComponents(this);
         },
       });
       Global.graphcy.userZoomingEnabled(false);
@@ -100,6 +97,43 @@ export class GraphPort {
       this.stopLoadingImage();
       console.timeEnd('graph-time');
     }, this.timeout);
+  }
+
+  public packComponents(cy: cytoscape.Core) {
+    let rect = this.spinTarget.getBoundingClientRect();
+    let options: LayoutUtil.Options = {
+      desiredAspectRatio: Math.round((rect.width / rect.height + Number.EPSILON) * 100) / 100,
+      utilityFunction: 2,
+      componentSpacing: 80,
+      polyominoGridSizeFactor: 5,
+    };
+    const api = cy.layoutUtilities(options);
+
+    const components = cy.elements(':visible').components();
+    const subgraphs: LayoutUtil.Component[] = components.map((component) => ({
+      edges: component.edges().map((edge) => ({
+        startX: edge.sourceEndpoint().x,
+        startY: edge.sourceEndpoint().y,
+        endX: edge.targetEndpoint().x,
+        endY: edge.targetEndpoint().y,
+      })),
+      nodes: component.nodes().map((node) => {
+        const bb = node.boundingBox({});
+        return { x: bb.x1, y: bb.y1, width: bb.w, height: bb.h };
+      }),
+    }));
+
+    const result = api.packComponents(subgraphs, true);
+    components.forEach(function(component, index) {
+      component.nodes().layout({
+        name: 'preset',
+        transform: (node) => ({
+          x: node.position('x') + result.shifts[index].dx,
+          y: node.position('y') + result.shifts[index].dy,
+        }),
+      }).run();
+    });
+
   }
 
   public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
@@ -227,7 +261,7 @@ export class GraphPort {
     // console.log('Engine is  :   ' + this.graphContainerDivId);
   }
 
-  private getLayoutOption(): any {
+  private getLayoutOption(): LayoutOptions {
     let layoutOption: any;
     switch (this.layoutName) {
       case 'cise': {

@@ -1,7 +1,5 @@
 import { SpinnerOptions } from 'spin.js';
 
-// const speciesToClusterID = new Map<string, number>();
-
 export class Constants {
   public static INITIAL_PADDING: number = 30;
   public static INITIAL_MAX_ZOOM: number = 1.5;
@@ -68,7 +66,7 @@ export class Constants {
     tilingPaddingHorizontal: 10,
     // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
     tilingPaddingVertical: 10,
-    packComponents: true,
+    packComponents: false,
     /* layout event callbacks */
     ready: () => {
     }, // on layoutready
@@ -151,7 +149,7 @@ export class Constants {
     padding: Constants.INITIAL_PADDING,
     allowNodesInsideCircle: false,
     randomize: true,
-    packComponents: true,
+    packComponents: false,
   };
 
 
