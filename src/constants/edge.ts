@@ -7,4 +7,5 @@ export class Edge {
   public static COLOR: string = 'color';
   public static ID: string = 'id';
   public static INTERACTION_AC: string = 'interaction_ac';
+  public static NEGATIVE: string = 'negative';
 }

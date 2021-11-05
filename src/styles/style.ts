@@ -53,6 +53,10 @@ export class Style {
         'line-color': edge => edge.data(Edge.COLLAPSED_COLOR),
         'line-style': EdgeShape.SOLID_LINE,
         width: edge => this.styleUtility.edgeWidth(edge),
+        'mid-source-arrow-shape': ele => ele.data(Edge.NEGATIVE) ? 'chevron' : 'none',
+        'mid-target-arrow-shape': ele => ele.data(Edge.NEGATIVE) ? 'chevron' : 'none',
+        'mid-source-arrow-color':'red',
+        'mid-target-arrow-color':'red',
       },
     },
     {
