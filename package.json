@@ -32,7 +32,7 @@
     "cytoscape-cise": "https://github.com/iVis-at-Bilkent/cytoscape.js-cise.git#develop",
     "cytoscape-fcose": "~1.2.3",
     "cytoscape-graphml": "^1.0.6",
-    "cytoscape-layout-utilities": "^1.0.2",
+    "cytoscape-layout-utilities": "^1.1.1",
     "cytoscape-popper": "^1.0.4",
     "expose-loader": "^0.7.5",
     "jquery-ui": "^1.12.1",
