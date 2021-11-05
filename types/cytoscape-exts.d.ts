@@ -2,19 +2,14 @@
 /// <reference types="popper.js"/>
 
 declare namespace cytoscape {
+  export interface BaseLayoutOptions {
+    transform(el: NodeSingular): { x: number, y: number };
+  }
+
   export interface Core {
     graphml(): string;
 
-    layoutUtilities(options: {
-      idealEdgeLength?: number,
-      offset?: number,
-
-      // Packing
-      desiredAspectRatio?: number,
-      polyominoGridSizeFactor?: number,
-      utilityFunction?: number  // maximize adjusted Fullness   2: maximizes weighted function of fullness and aspect ratio
-      componentSpacing?: number // use to increase spacing between components in pixels
-    })
+    layoutUtilities(options: LayoutUtil.Options): LayoutUtil.API;
   }
 
   export interface Singular {
@@ -24,6 +19,6 @@ declare namespace cytoscape {
   }
 
   export interface CytoscapeOptions {
-    ready?(): void
+    ready?(): void;
   }
 }
