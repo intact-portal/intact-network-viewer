@@ -122,17 +122,20 @@ export class GraphPort {
       }),
     }));
 
-    const result = api.packComponents(subgraphs, true);
-    components.forEach(function(component, index) {
-      component.nodes().layout({
-        name: 'preset',
-        transform: (node) => ({
-          x: node.position('x') + result.shifts[index].dx,
-          y: node.position('y') + result.shifts[index].dy,
-        }),
-      }).run();
-    });
-
+    try {
+      const result = api.packComponents(subgraphs, true);
+      components.forEach(function(component, index) {
+        component.nodes().layout({
+          name: 'preset',
+          transform: (node) => ({
+            x: node.position('x') + result.shifts[index].dx,
+            y: node.position('y') + result.shifts[index].dy,
+          }),
+        }).run();
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
