@@ -99,7 +99,7 @@ export class GraphPort {
   }
 
   public packComponents(cy: cytoscape.Core) {
-    let rect = this.spinTarget.getBoundingClientRect();
+    let rect = cy.container().getBoundingClientRect();
     let options: LayoutUtil.Options = {
       desiredAspectRatio: Math.round((rect.width / rect.height + Number.EPSILON) * 100) / 100,
       utilityFunction: 2,
@@ -134,7 +134,7 @@ export class GraphPort {
         }).run();
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
