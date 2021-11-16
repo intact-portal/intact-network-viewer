@@ -6,6 +6,9 @@ module.exports = {
     'IntActNetworkViewer': path.resolve('src/index.ts'),
   },
   devtool: 'source-map',
+  experiments: {
+    outputModule: true,
+  },
   module: {
     rules: [
       {
@@ -44,8 +47,9 @@ module.exports = {
   },
   output: {
     filename: 'intact-network-viewer.js',
-    library: 'IntActNetworkViewer',
-    libraryTarget: 'umd',
+    library: {
+      type: 'module',
+    },
     path: path.resolve(__dirname, 'build'),
   }
 };
