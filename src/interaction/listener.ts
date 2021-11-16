@@ -15,7 +15,7 @@ export class Listener {
   }
 
   private loadTableInteractorSelectedListener(): void {
-    document.addEventListener('tableInteractorSelected', (e:CustomEvent) => {
+    document.addEventListener('tableInteractorSelected', (e: CustomEvent) => {
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
 

@@ -1,1 +1,1 @@
-export {GraphPort} from './network_viewer_entry';
+export { GraphPort } from './network_viewer_entry';

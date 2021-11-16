@@ -13,33 +13,33 @@ export class CiseLayout {
     layout.run();
   }
 
-  public static getClustersFromData(data: ElementDefinition[]) : string[][] {
+  public static getClustersFromData(data: ElementDefinition[]): string[][] {
     const speciesToCluster = new Map<string, string[]>();
     data
       .filter(value => value.group === 'nodes')
       .forEach(node => {
         const species = node.data.species;
         if (speciesToCluster.has(species)) {
-          speciesToCluster.get(species).push(node.data.id)
+          speciesToCluster.get(species).push(node.data.id);
         } else {
-          speciesToCluster.set(species, [node.data.id])
+          speciesToCluster.set(species, [node.data.id]);
         }
-      })
+      });
 
     return Array.from(speciesToCluster.values());
   }
 
-  public static getClustersFromCytoscape() : string[][] {
+  public static getClustersFromCytoscape(): string[][] {
     const speciesToCluster = new Map<string, string[]>();
 
-      Global.graphcy.nodes().forEach(node => {
-        const species = node.data(Node.SPECIES);
-        if (speciesToCluster.has(species)) {
-          speciesToCluster.get(species).push(node.id())
-        } else {
-          speciesToCluster.set(species, [node.id()])
-        }
-      })
+    Global.graphcy.nodes().forEach(node => {
+      const species = node.data(Node.SPECIES);
+      if (speciesToCluster.has(species)) {
+        speciesToCluster.get(species).push(node.id());
+      } else {
+        speciesToCluster.set(species, [node.id()]);
+      }
+    });
 
     return Array.from(speciesToCluster.values());
   }

@@ -68,10 +68,8 @@ export class Constants {
     tilingPaddingVertical: 10,
     packComponents: false,
     /* layout event callbacks */
-    ready: () => {
-    }, // on layoutready
-    stop: () => {
-    }, // on layoutstop
+    ready: () => {}, // on layoutready
+    stop: () => {}, // on layoutstop
   };
 
   public static NGRAPH_LAYOUT_OPTIONS: any = {
@@ -152,7 +150,6 @@ export class Constants {
     packComponents: false,
   };
 
-
   public static COLA_LAYOUT_OPTIONS: any = {
     name: 'cola',
     alignment: undefined, // relative alignment constraints on nodes, e.g. function( node ){ return { x: 0, y: 1 } }
@@ -186,10 +183,8 @@ export class Constants {
     ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
     userConstIter: undefined, // initial layout iterations with user-specified constraints
     // layout event callbacks
-    ready: () => {
-    }, // on layoutready
-    stop: () => {
-    }, // on layoutstop
+    ready: () => {}, // on layoutready
+    stop: () => {}, // on layoutstop
   };
 
   public static SPINNER_OPTIONS: SpinnerOptions = {
@@ -213,13 +208,11 @@ export class Constants {
     zIndex: 2e9, // The z-index (defaults to 2000000000)
   };
   public static AVSDF_OPTIONS: any = {
-    name:'avsdf',
+    name: 'avsdf',
     // Called on `layoutready`
-    ready: function() {
-    },
+    ready: function() {},
     // Called on `layoutstop`
-    stop: function() {
-    },
+    stop: function() {},
     // number of ticks per frame; higher is faster but more jerky
     refresh: 30,
     // Whether to fit the network view after when done
