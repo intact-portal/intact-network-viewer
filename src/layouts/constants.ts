@@ -73,7 +73,7 @@ export class Constants {
   };
 
   public static NGRAPH_LAYOUT_OPTIONS: any = {
-    animate: true,
+    animate: false,
     async: {
       // tell layout that we want to compute all at once:
       maxIterations: 1000,
@@ -131,18 +131,6 @@ export class Constants {
 
   public static CISE_LAYOUT_OPTIONS: any = {
     name: 'cise',
-
-    // clusters: (node: NodeSingular) => {
-    //   let species = node.data(Node.SPECIES);
-    //   let clusterId;
-    //   if (speciesToClusterID.has(species)) {
-    //     clusterId = speciesToClusterID.get(species);
-    //   } else {
-    //     clusterId = speciesToClusterID.size + 1;
-    //     speciesToClusterID.set(species, clusterId);
-    //   }
-    //   return clusterId;
-    // },
     fit: true,
     padding: Constants.INITIAL_PADDING,
     allowNodesInsideCircle: false,
