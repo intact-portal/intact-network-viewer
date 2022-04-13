@@ -159,24 +159,7 @@ export class Interaction {
   }
 
   private loadOnEdgeTapMethod(): void {
-    Global.graphcy.edges().on('tap', e => {
-      // remove any previous classes on previous tap
-      this.utility.removePreAppliedClasses();
-
-      const tappedEdge = e.target;
-
-      tappedEdge.connectedNodes().addClass('neighbour-highlight');
-      if (tappedEdge.hasClass('expand')) {
-        tappedEdge.addClass('neighbour-highlight');
-      } else {
-        tappedEdge.parallelEdges().addClass('neighbour-highlight');
-      }
-      this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-      //Global.graphcy.fit(tappedEdge.connectedNodes());
-      this.layoutsUtility.setUserMaxZoomLevel();
-
-      this.utility.createEdgeTappedEvent(tappedEdge);
-    });
+    Global.graphcy.edges().on('tap', e => this.utility.highlightEdge(e.target, true));
   }
 
   // if you need in future
@@ -223,27 +206,7 @@ export class Interaction {
       nodes = Global.graphcy.nodes().children(); // compound graph
     }
 
-    nodes.on('tap', e => {
-      // logic for node tapped now
-      const tappedNode = e.target;
-      if (!tappedNode.isParent()) {
-        const directlyConnectedEdges = tappedNode.closedNeighbourhood();
-
-        // if (!e.originalEvent.shiftKey) {
-        // remove any previous classes on previous tap
-        this.utility.removePreAppliedClasses();
-
-        directlyConnectedEdges.addClass('neighbour-highlight');
-        directlyConnectedEdges.nodes().addClass('neighbour-highlight');
-        tappedNode.removeClass('neighbour-highlight');
-        tappedNode.addClass('highlight');
-        this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-        // Global.graphcy.fit(directlyConnectedEdges);
-        this.layoutsUtility.setUserMaxZoomLevel();
-        utility.createNodeTappedEvent(tappedNode);
-        // }
-      }
-    });
+    nodes.on('tap', e => utility.highlightNode(e.target, true));
   }
 
   // if you need in future

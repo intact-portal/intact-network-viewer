@@ -18,18 +18,8 @@ export class Listener {
     document.addEventListener('tableInteractorSelected', (e: CustomEvent) => {
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
-
       const nodeToBeSelected = Global.graphcy.getElementById(e.detail.interactorId);
-      const directlyConnectedEdges = nodeToBeSelected.closedNeighborhood();
-
-      directlyConnectedEdges.addClass('neighbour-highlight');
-      directlyConnectedEdges.nodes().addClass('neighbour-highlight');
-      nodeToBeSelected.removeClass('neighbour-highlight');
-      nodeToBeSelected.addClass('highlight');
-
-      this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-      Global.graphcy.fit(directlyConnectedEdges);
-      this.layoutsUtility.setUserMaxZoomLevel();
+      this.utility.highlightNode(nodeToBeSelected);
     });
   }
 
@@ -37,19 +27,8 @@ export class Listener {
     document.addEventListener('tableInteractionSelected', (e: CustomEvent) => {
       // remove any pre applied classes in graph
       this.utility.removePreAppliedClasses();
-
       const edgeToBeSelected = Global.graphcy.getElementById(e.detail.interactionId);
-
-      edgeToBeSelected.connectedNodes().addClass('neighbour-highlight');
-      if (edgeToBeSelected.hasClass('expand')) {
-        edgeToBeSelected.addClass('neighbour-highlight');
-      } else {
-        edgeToBeSelected.parallelEdges().addClass('neighbour-highlight');
-      }
-
-      this.layoutsUtility.setHighlightAndFocusMaxZoomLevel();
-      Global.graphcy.fit(edgeToBeSelected.connectedNodes());
-      this.layoutsUtility.setUserMaxZoomLevel();
+      this.utility.highlightEdge(edgeToBeSelected);
     });
   }
 

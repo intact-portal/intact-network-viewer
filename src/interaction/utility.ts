@@ -1,13 +1,63 @@
+import { EdgeSingular, NodeSingular } from 'cytoscape';
 import { Edge } from '../constants/edge';
 import { Node } from '../constants/node';
 import { Global } from '../global';
+import { Constants } from '../layouts/constants';
+import { Utility as LayoutsUtility } from '../layouts/utility';
 import { Style } from './style';
 
 export class Utility {
+
+  private layoutsUtility: LayoutsUtility;
+
+  constructor() {
+    this.layoutsUtility = new LayoutsUtility();
+  }
+
+  public highlightNode(node: NodeSingular, tapped = false) {
+    if (!node.isParent()) {
+      let edges = node.connectedEdges();
+
+      // Select only one edge per couple of nodes to be highlighted if not expanded
+      if (!edges.allAre('.expand')) {
+        edges = node.connectedEdges('.first')
+      }
+      // remove any previous classes on previous tap
+      this.removePreAppliedClasses();
+
+      edges.addClass('neighbour-highlight');
+      edges.nodes().addClass('neighbour-highlight');
+      node.removeClass('neighbour-highlight');
+      node.addClass('highlight');
+      if (tapped) {
+        this.createNodeTappedEvent(node);
+      } else {
+        Global.graphcy.fit(edges.connectedNodes(), Constants.INITIAL_PADDING);
+      }
+    }
+
+  }
+
+  public highlightEdge(edge: EdgeSingular, tapped = false) {
+    // remove any previous classes on previous tap
+    this.removePreAppliedClasses();
+
+    edge.connectedNodes().addClass('neighbour-highlight');
+    if (!edge.hasClass('expand')) {
+      edge = edge.parallelEdges('.first').first();
+    }
+    edge.addClass('neighbour-highlight');
+
+    if (tapped) {
+      this.createEdgeTappedEvent(edge);
+    } else {
+      Global.graphcy.fit(edge.connectedNodes(), Constants.INITIAL_PADDING);
+    }
+  }
+
   public createDetailsDivFor(detailDivId: string): HTMLDivElement {
     const legendDiv = document.createElement('div') as HTMLDivElement;
     legendDiv.setAttribute('id', detailDivId);
-    // legendDiv.setAttribute('style', Style.DETAILS_DIV);
     return legendDiv;
   }
 
