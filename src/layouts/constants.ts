@@ -1,4 +1,13 @@
+import { SpinnerOptions } from 'spin.js';
+
 export class Constants {
+  public static INITIAL_PADDING: number = 30;
+  public static INITIAL_MAX_ZOOM: number = 1.5;
+  public static USER_MAX_ZOOM: number = 10;
+  public static INITIAL_MIN_ZOOM: number = 0;
+  public static USER_MIN_ZOOM: number = 0.2;
+  public static HIGHLIGHT_AND_FOCUS_MAX_ZOOM: number = 1.5;
+
   public static FCOSE_LAYOUT_OPTIONS: any = {
     name: 'fcose',
     // whether or not to animate the layout
@@ -57,13 +66,14 @@ export class Constants {
     tilingPaddingHorizontal: 10,
     // Represents the amount of the vertical space to put between the zero degree members during the tiling operation(can also be a function)
     tilingPaddingVertical: 10,
+    packComponents: false,
     /* layout event callbacks */
     ready: () => {}, // on layoutready
     stop: () => {}, // on layoutstop
   };
 
   public static NGRAPH_LAYOUT_OPTIONS: any = {
-    animate: true,
+    animate: false,
     async: {
       // tell layout that we want to compute all at once:
       maxIterations: 1000,
@@ -119,26 +129,13 @@ export class Constants {
     stableThreshold: 2,
   };
 
-  public static AVSDF_LAYOUT_OPTIONS: any = {
-    name: 'avsdf',
-    // Type of layout animation. The option set is {'during', 'end', false}
-    animate: false,
-    // Duration for animate:end
-    animationDuration: 500,
-    // Whether to fit the network view after when done
+  public static CISE_LAYOUT_OPTIONS: any = {
+    name: 'cise',
     fit: true,
-    // How apart the nodes are
-    nodeSeparation: 120,
-    // Padding on fit
-    padding: 10,
-    // Called on `layoutready`
-    ready: () => {},
-    // number of ticks per frame; higher is faster but more jerky
-    refresh: 30,
-    // Called on `layoutstop`
-    stop: () => {},
-    // Prevent the user grabbing nodes during the layout (usually with animate:true)
-    ungrabifyWhileSimulating: false,
+    padding: Constants.INITIAL_PADDING,
+    allowNodesInsideCircle: false,
+    randomize: true,
+    packComponents: false,
   };
 
   public static COLA_LAYOUT_OPTIONS: any = {
@@ -178,10 +175,10 @@ export class Constants {
     stop: () => {}, // on layoutstop
   };
 
-  public static SPINNER_OPTIONS: any = {
+  public static SPINNER_OPTIONS: SpinnerOptions = {
     animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
     className: 'spinner', // The CSS class to assign to the spinner
-    color: '#000000', // CSS color or array of colors
+    color: '#68297c', // CSS color or array of colors
     corners: 1, // Corner roundness (0..1)
     direction: 1, // 1: clockwise, -1: counterclockwise
     fadeColor: 'transparent', // CSS color or array of colors
@@ -198,10 +195,25 @@ export class Constants {
     width: 17, // The line thickness
     zIndex: 2e9, // The z-index (defaults to 2000000000)
   };
-
-  public static INITIAL_MAX_ZOOM: number = 1.5;
-  public static USER_MAX_ZOOM: number = 10;
-  public static INITIAL_MIN_ZOOM: number = 0;
-  public static USER_MIN_ZOOM: number = 0.2;
-  public static HIGHLIGHT_AND_FOCUS_MAX_ZOOM: number = 1.5;
+  public static AVSDF_OPTIONS: any = {
+    name: 'avsdf',
+    // Called on `layoutready`
+    ready: function() {},
+    // Called on `layoutstop`
+    stop: function() {},
+    // number of ticks per frame; higher is faster but more jerky
+    refresh: 30,
+    // Whether to fit the network view after when done
+    fit: true,
+    // Padding on fit
+    padding: 10,
+    // Prevent the user grabbing nodes during the layout (usually with animate:true)
+    ungrabifyWhileSimulating: false,
+    // Type of layout animation. The option set is {'during', 'end', false}
+    animate: false,
+    // Duration for animate:end
+    animationDuration: 500,
+    // How apart the nodes are
+    nodeSeparation: 60,
+  };
 }

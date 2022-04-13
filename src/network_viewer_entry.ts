@@ -1,54 +1,43 @@
-import cytoscape from 'cytoscape';
+import * as cytoscape from 'cytoscape';
+import { EdgeSingular, ElementDefinition, LayoutOptions } from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
-import cola from 'cytoscape-cola';
+import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
-import cyforcelayout from 'cytoscape-ngraph.forcelayout';
+import layoutUtilities from 'cytoscape-layout-utilities';
+
+import 'jquery-ui';
+import 'jquery-ui/ui/widgets/autocomplete';
 import { Spinner } from 'spin.js';
 import 'spin.js/spin.css';
 
 import { Export } from './export';
-import { AvsdfLayout } from './layouts/avsdf_layout';
-import { ColaLayout } from './layouts/cola_layout';
-import { Constants } from './layouts/constants';
-import { FcoseLayout } from './layouts/fcose_layout';
-import { NgraphLayout } from './layouts/ngraph_layout';
-import { Style } from './styles/style';
-/*import 'tippy.js/dist/tippy.css';*/
-
-import $ from 'jquery';
-import 'jquery-ui';
-import 'jquery-ui/ui/widgets/autocomplete';
-import { Node } from './constants/node';
 import { Global } from './global';
 import { Interaction } from './interaction/interaction';
 import { Listener } from './interaction/listener';
+import { CiseLayout } from './layouts/cise_layout';
+import { Constants } from './layouts/constants';
 import { Utility } from './layouts/utility';
-import { ParentLegend } from './legends/parent_legend';
-import { NetworkViewerStates } from './network_viewer_states';
+import { Style } from './styles/style';
 
 const graphml = require('cytoscape-graphml');
 graphml(cytoscape, $);
 cytoscape.use(fcose);
-cytoscape.use(cyforcelayout);
 cytoscape.use(avsdf);
-cytoscape.use(cola);
-
-var globalCy: any;
+cytoscape.use(cise);
+cytoscape.use(layoutUtilities);
 
 export class GraphPort {
   // field
   private graphContainerDivId: string;
-  private legendDivId: string;
-  private data!: JSON;
+  private json!: any;
   private export: Export;
   private interaction!: Interaction;
-  private legend!: ParentLegend;
   private nodeLabels!: string[];
   private nodeMap!: Map<string, any>;
   private spinner: Spinner;
-  private spinTarget: any;
+  private spinTarget: HTMLDivElement;
   private suggestionBoxId: string;
-  private style: Style;
+  private style!: Style;
   private edgesSize!: number;
   private timeout!: number;
   private isExpand!: boolean;
@@ -56,53 +45,108 @@ export class GraphPort {
   private layoutName!: string;
   private utility: Utility;
 
+  private ciseOptions = Constants.CISE_LAYOUT_OPTIONS;
+  private calculateCiseClusters = true;
+
   // constructor
-  constructor(graphContainerDivId: string, legendDivId: string, suggestionBoxId: string) {
+  constructor(graphContainerDivId: string, suggestionBoxId: string) {
     this.graphContainerDivId = graphContainerDivId;
     this.export = new Export();
-    this.legendDivId = legendDivId;
+    // TODO Replace by something similar to Material Design spinner like https://github.com/ZulNs/LoadingSpinner.js
     this.spinner = new Spinner(Constants.SPINNER_OPTIONS);
     this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
-    this.style = new Style();
     this.suggestionBoxId = suggestionBoxId;
     this.utility = new Utility();
     new Listener();
   }
 
   // function
-  public initializeWithData(data, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
+  public initializeWithData(json, isExpand: boolean, isAffectingMutation: boolean, layoutName: string): void {
     this.startLoadingImage();
-    this.data = data;
+    console.time('graph-time');
+    this.json = json;
+    this.style = new Style(json.legend || { node_legend: {}, edge_legend: {} });
     this.updateGraphState(isExpand, isAffectingMutation, layoutName);
+    if (this.calculateCiseClusters) {
+      this.ciseOptions.clusters = CiseLayout.getClustersFromData(this.data);
+    }
     this.executeGraphCalculations();
+    let self = this;
     setTimeout(() => {
       Global.graphcy = cytoscape({
-        container: $('#' + this.graphContainerDivId), // container to render in
+        container: $('#' + this.graphContainerDivId).get()[0], // container to render in
         elements: this.data,
         wheelSensitivity: 0.2,
         maxZoom: Constants.INITIAL_MAX_ZOOM,
         minZoom: Constants.INITIAL_MIN_ZOOM,
         style: this.style.applicationCSS,
         boxSelectionEnabled: false,
-        layout: this.getLayoutOption(),
+        ready: function() {
+          self.setupSummaryEdges(this);
+          this.layout(self.getLayoutOption()).run();
+          if (self.getLayoutOption().name === 'fcose') {
+            self.packComponents(this);
+          }
+        },
       });
       Global.graphcy.userZoomingEnabled(false);
       Global.graphcy.container().addEventListener('click', () => Global.graphcy.userZoomingEnabled(true));
       this.utility.fit();
       this.changeEdgeState();
-      this.updateLegends();
-      this.interaction = new Interaction();
+      this.interaction = new Interaction(this.graphContainerDivId);
       this.loadAutoSuggestion();
       this.stopLoadingImage();
+      console.timeEnd('graph-time');
     }, this.timeout);
+  }
+
+  public packComponents(cy: cytoscape.Core) {
+    let rect = cy.container().getBoundingClientRect();
+    let options: LayoutUtil.Options = {
+      desiredAspectRatio: Math.round((rect.width / rect.height + Number.EPSILON) * 100) / 100,
+      utilityFunction: 2,
+      componentSpacing: 80,
+      polyominoGridSizeFactor: 5,
+    };
+    const api = cy.layoutUtilities(options);
+
+    const components = cy.elements(':visible').components();
+    const subgraphs: LayoutUtil.Component[] = components.map((component) => ({
+      edges: component.edges().map((edge) => ({
+        startX: edge.sourceEndpoint().x,
+        startY: edge.sourceEndpoint().y,
+        endX: edge.targetEndpoint().x,
+        endY: edge.targetEndpoint().y,
+      })),
+      nodes: component.nodes().map((node) => {
+        const bb = node.boundingBox({});
+        return { x: bb.x1, y: bb.y1, width: bb.w, height: bb.h };
+      }),
+    }));
+
+    try {
+      const result = api.packComponents(subgraphs, true);
+      components.forEach(function(component, index) {
+        component.nodes().layout({
+          name: 'preset',
+          transform: (node) => ({
+            x: node.position('x') + result.shifts[index].dx,
+            y: node.position('y') + result.shifts[index].dy,
+          }),
+        }).run();
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   public expandEdges(isExpand: boolean, isAffectingMutation: boolean): void {
     if (this.interaction) {
+      this.startLoadingImage();
       this.interaction.resetAppliedClasses(); // this is needed to undo any selection
       this.updateGraphState(isExpand, isAffectingMutation, null);
       this.changeEdgeState();
-      this.updateLegends();
+      this.stopLoadingImage();
     }
   }
 
@@ -115,11 +159,9 @@ export class GraphPort {
       case 'png': {
         this.export.exportAsPng();
         break;
-        break;
       }
       case 'svg': {
         this.export.exportAsSvg();
-        break;
         break;
       }
       default: {
@@ -129,7 +171,7 @@ export class GraphPort {
   }
 
   public reset(): void {
-    this.initializeWithData(this.data, this.isExpand, this.isAffectingMutation, this.layoutName);
+    this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, this.layoutName);
   }
 
   public search(interactorName: string): void {
@@ -154,40 +196,14 @@ export class GraphPort {
   }
 
   public applyLayout(layoutName: string): void {
-    this.updateGraphState(null, null, layoutName);
-    this.utility.setInitialMaxZoomLevel();
-    this.utility.setInitialMinZoomLevel();
     this.startLoadingImage();
-    setTimeout(() => {
-      switch (layoutName) {
-        case 'ngraph': {
-          const ngraphLayout: NgraphLayout = new NgraphLayout();
-          ngraphLayout.execute();
-          break;
-        }
-        case 'avsdf': {
-          const avsdfLayout: AvsdfLayout = new AvsdfLayout();
-          avsdfLayout.execute();
-          break;
-        }
-        case 'cola': {
-          const colaLayout: ColaLayout = new ColaLayout();
-          colaLayout.execute();
-          break;
-        }
-        default: {
-          const fcoseLayout: FcoseLayout = new FcoseLayout();
-          fcoseLayout.execute();
-          break;
-        }
-      }
-      this.utility.setUserMaxZoomLevel();
-      this.utility.setUserMinZoomLevel();
-      this.stopLoadingImage();
-    }, this.timeout);
+    this.calculateCiseClusters = false;
+    this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, layoutName);
+    this.calculateCiseClusters = true;
   }
 
   private changeEdgeState(): void {
+    this.startLoadingImage();
     if (this.isExpand) {
       Global.graphcy.edges().addClass('expand');
       Global.graphcy.$(':loop').addClass('expand');
@@ -203,23 +219,31 @@ export class GraphPort {
       Global.graphcy.edges().removeClass('affected');
       Global.graphcy.nodes().removeClass('mutation');
     }
+    this.stopLoadingImage();
   }
 
-  private updateLegends(): void {
-    this.legend = new ParentLegend();
-    if (this.isAffectingMutation) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.MUTATION_EFFECTED);
-    } else if (this.isExpand) {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.EXPANDED);
-    } else {
-      this.legend.createLegend(this.legendDivId, NetworkViewerStates.COLLAPSED);
+  private setupSummaryEdges(graph: cytoscape.Core): void {
+    try {
+      const summaryEdges = new Map<string, EdgeSingular>();
+      graph.edges().forEach(ele => {
+        let idA = ele.source().id();
+        let idB = ele.target().id();
+        if (idA.localeCompare(idB) === 1) {
+          [idB, idA] = [idA, idB];
+        }
+        const coupleId = idA + idB;
+        if (!summaryEdges.has(coupleId)) {
+          ele.addClass('first');
+          summaryEdges.set(coupleId, ele);
+        }
+      });
+    } catch (e) {
+      console.error(e);
     }
   }
 
   private executeGraphCalculations(): void {
-    const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => {
-      return entry.group === 'edges';
-    });
+    const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => entry.group === 'edges');
     this.edgesSize = edges.length;
     if (this.edgesSize > 300) {
       this.timeout = 1000;
@@ -228,17 +252,16 @@ export class GraphPort {
     }
   }
 
-  // function
-  private disp(): void {
-    // console.log('Engine is  :   ' + this.graphContainerDivId);
-  }
 
-  private getLayoutOption(): any {
+  private getLayoutOption(): LayoutOptions {
     let layoutOption: any;
-
     switch (this.layoutName) {
+      case 'cise': {
+        layoutOption = this.ciseOptions;
+        break;
+      }
       case 'avsdf': {
-        layoutOption = Constants.AVSDF_LAYOUT_OPTIONS;
+        layoutOption = Constants.AVSDF_OPTIONS;
         break;
       }
       default: {
@@ -246,19 +269,21 @@ export class GraphPort {
         break;
       }
     }
-
     return layoutOption;
   }
 
-  private startLoadingImage(): void {
+  startLoadingImage(): void {
+    if (!this.spinTarget) {
+      this.spinTarget = document.getElementById(this.graphContainerDivId) as HTMLDivElement;
+    }
     this.spinner.spin(this.spinTarget);
   }
 
-  private stopLoadingImage(): void {
+  stopLoadingImage(): void {
     this.spinner.stop();
   }
 
-  private updateGraphState(isExpand: any, isAffectingMutation: any, layoutName: any) {
+  private updateGraphState(isExpand: boolean, isAffectingMutation: boolean, layoutName: string) {
     if (isExpand != null) {
       this.isExpand = isExpand;
     }
@@ -290,6 +315,7 @@ export class GraphPort {
       }
     });
 
+    // @ts-ignore
     $('#' + this.suggestionBoxId).autocomplete({
       source: this.nodeLabels,
       select: function(event, ui) {
@@ -304,5 +330,9 @@ export class GraphPort {
         }
       },
     });
+  }
+
+  private get data(): ElementDefinition[] {
+    return this.json.data || this.json;
   }
 }

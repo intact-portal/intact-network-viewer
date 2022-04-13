@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es6",
+    "module": "es2020",
     "outDir": "./build",
     "sourceMap": true,
-    "strict": true,
+    "declaration": true,
+    "strict": false,
     "moduleResolution": "node",
-    "allowJs": true,
-    "noImplicitAny":  false
+    "noImplicitAny":  false,
   }
 }

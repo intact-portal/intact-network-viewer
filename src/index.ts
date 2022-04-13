@@ -1,1 +1,1 @@
-export const Greeter = (name: string) => `Hello ${name}`;
+export { GraphPort } from './network_viewer_entry';
