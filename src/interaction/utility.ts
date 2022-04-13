@@ -32,7 +32,7 @@ export class Utility {
       if (tapped) {
         this.createNodeTappedEvent(node);
       } else {
-        Global.graphcy.fit(edges.connectedNodes(), Constants.INITIAL_PADDING);
+        Global.graphcy.fit(edges.merge(edges.connectedNodes()), Constants.INITIAL_PADDING);
       }
     }
 
@@ -51,7 +51,7 @@ export class Utility {
     if (tapped) {
       this.createEdgeTappedEvent(edge);
     } else {
-      Global.graphcy.fit(edge.connectedNodes(), Constants.INITIAL_PADDING);
+      Global.graphcy.fit(edge.merge(edge.connectedNodes()), Constants.INITIAL_PADDING);
     }
   }
 
