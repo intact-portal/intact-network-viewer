@@ -22,7 +22,18 @@ declare namespace cytoscape {
   }
 
   export interface BaseLayoutOptions {
-    transform(el: NodeSingular): { x: number, y: number };
+    transform?(el: NodeSingular): { x: number, y: number };
+
+    prelayout?: LayoutOptions;
+    animate?: boolean;
+    fit?: boolean;
+    minDist?: number;
+    padding?: number;
+    expandingFactor?: number;
+    maxExpandIterations?: number;
+    boundingBox?: Box;
+    randomize?: boolean;
+
   }
 
   export interface Core {
