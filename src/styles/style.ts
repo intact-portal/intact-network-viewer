@@ -15,17 +15,19 @@ export class Style {
     {
       selector: 'node.highlight',
       style: {
-        'overlay-color': Color.HIGHLIGHT_NODE,
-        'overlay-opacity': 0.333,
-        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
+        'underlay-color': Color.HIGHLIGHT_NODE,
+        'underlay-opacity': 0.333,
+        'underlay-padding': Width.UNDERLAY_NODE_BORDER_WIDTH,
+        'z-index': 10000,
       },
     },
     {
       selector: 'node.neighbour-highlight',
       style: {
-        'overlay-color': Color.HIGHLIGHT_NEIGHBOUR,
-        'overlay-opacity': 0.333,
-        'overlay-padding': Width.OVERLAY_NODE_BORDER_WIDTH,
+        'underlay-color': Color.HIGHLIGHT_NEIGHBOUR,
+        'underlay-opacity': 0.333,
+        'underlay-padding': Width.UNDERLAY_NODE_BORDER_WIDTH,
+        'z-index': 9999,
       },
     },
     {
@@ -128,9 +130,10 @@ export class Style {
     {
       selector: 'edge.neighbour-highlight',
       style: {
-        'overlay-color': Color.HIGHLIGHT_NODE,
-        'overlay-opacity': 0.333,
-        'overlay-padding': Width.OVERLAY_EDGE_BORDER_WIDTH,
+        'underlay-color': Color.HIGHLIGHT_NODE,
+        'underlay-opacity': 0.333,
+        'underlay-padding': (e) => e.width() / 2 + 6,
+        'z-index': 9998,
       },
     },
   ];
