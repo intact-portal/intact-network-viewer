@@ -54,11 +54,18 @@ export class Style {
         'curve-style': 'haystack',
         'line-color': edge => edge.data(Edge.COLLAPSED_COLOR),
         'line-style': EdgeShape.SOLID_LINE,
+        display: 'none',
         width: edge => this.styleUtility.edgeWidth(edge),
         'mid-source-arrow-shape': ele => ele.data(Edge.NEGATIVE) ? 'chevron' : 'none',
         'mid-target-arrow-shape': ele => ele.data(Edge.NEGATIVE) ? 'chevron' : 'none',
-        'mid-source-arrow-color':'red',
-        'mid-target-arrow-color':'red',
+        'mid-source-arrow-color': 'red',
+        'mid-target-arrow-color': 'red',
+      },
+    },
+    {
+      selector: 'edge.first',
+      style: {
+        display: 'element',
       },
     },
     {
@@ -68,7 +75,6 @@ export class Style {
         'curve-style': 'bezier',
         'line-color': edge => edge.data(Edge.COLLAPSED_COLOR),
         'line-style': EdgeShape.SOLID_LINE,
-        display: edge => this.styleUtility.edgeDisplay(edge),
         width: edge => this.styleUtility.edgeWidth(edge),
       },
     },
