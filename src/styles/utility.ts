@@ -1,5 +1,3 @@
-import { Edge } from '../constants/edge';
-
 export class Utility {
   private edgeWidthParams!: { minValue: number; maxValue: number; minWidth: number; maxWidth: number };
 
@@ -17,19 +15,6 @@ export class Utility {
     let b = this.edgeWidthParams.minWidth;
     let s = a * x + b + 'px';
     return s;
-  }
-
-  public edgeDisplay(edge: any): 'none' | 'element' {
-    if (edge.parallelEdges().size() > 1) {
-      const sortedEdges = edge.parallelEdges().sort((a, b) => {
-        return a.data(Edge.ID) - b.data(Edge.ID);
-      });
-      const firstEdge = sortedEdges.first();
-      if (firstEdge.data(Edge.ID) !== edge.data(Edge.ID)) {
-        return 'none';
-      }
-    }
-    return 'element';
   }
 
   public parentNodeLabelSize(node: any): number {
