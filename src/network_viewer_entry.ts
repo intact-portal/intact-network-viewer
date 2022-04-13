@@ -1,5 +1,5 @@
 import * as cytoscape from 'cytoscape';
-import { ElementDefinition, LayoutOptions } from 'cytoscape';
+import { EdgeSingular, ElementDefinition, LayoutOptions } from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
 import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
@@ -82,9 +82,11 @@ export class GraphPort {
         style: this.style.applicationCSS,
         boxSelectionEnabled: false,
         ready: function() {
+          self.setupSummaryEdges(this);
           this.layout(self.getLayoutOption()).run();
-          if (self.getLayoutOption().name === 'fcose')
+          if (self.getLayoutOption().name === 'fcose') {
             self.packComponents(this);
+          }
         },
       });
       Global.graphcy.userZoomingEnabled(false);
@@ -195,35 +197,9 @@ export class GraphPort {
 
   public applyLayout(layoutName: string): void {
     this.startLoadingImage();
-    // let previousLayout = this.layoutName;
-    // this.updateGraphState(null, null, layoutName);
-    // this.utility.setInitialMaxZoomLevel();
-    // this.utility.setInitialMinZoomLevel();
-    // setTimeout(() => {
-    //   switch (layoutName) {
-    //     case 'cise': {
-    //       if (previousLayout === 'avsdf') {
     this.calculateCiseClusters = false;
     this.initializeWithData(this.json, this.isExpand, this.isAffectingMutation, layoutName);
     this.calculateCiseClusters = true;
-    //       } else {
-    //         Global.graphcy.layout(this.ciseOptions).run();
-    //       }
-    //       break;
-    //     }
-    //     case 'avsdf': {
-    //       Global.graphcy.layout(Constants.AVSDF_OPTIONS).run();
-    //       break;
-    //     }
-    //     default: {
-    //       const fcoseLayout: FcoseLayout = new FcoseLayout();
-    //       fcoseLayout.execute();
-    //       break;
-    //     }
-    //   }
-    //   this.utility.fit();
-    //   this.stopLoadingImage();
-    // }, 0);
   }
 
   private changeEdgeState(): void {
@@ -246,10 +222,28 @@ export class GraphPort {
     this.stopLoadingImage();
   }
 
+  private setupSummaryEdges(graph: cytoscape.Core): void {
+    try {
+      const summaryEdges = new Map<string, EdgeSingular>();
+      graph.edges().forEach(ele => {
+        let idA = ele.source().id();
+        let idB = ele.target().id();
+        if (idA.localeCompare(idB) === 1) {
+          [idB, idA] = [idA, idB];
+        }
+        const coupleId = idA + idB;
+        if (!summaryEdges.has(coupleId)) {
+          ele.addClass('first');
+          summaryEdges.set(coupleId, ele);
+        }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   private executeGraphCalculations(): void {
-    const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => {
-      return entry.group === 'edges';
-    });
+    const edges = JSON.parse(JSON.stringify(this.data)).filter(entry => entry.group === 'edges');
     this.edgesSize = edges.length;
     if (this.edgesSize > 300) {
       this.timeout = 1000;
@@ -258,10 +252,6 @@ export class GraphPort {
     }
   }
 
-  // function
-  private disp(): void {
-    // console.log('Engine is  :   ' + this.graphContainerDivId);
-  }
 
   private getLayoutOption(): LayoutOptions {
     let layoutOption: any;
