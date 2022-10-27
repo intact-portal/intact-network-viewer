@@ -190,7 +190,8 @@ export class GraphPort {
           duration: 1000,
         },
       );
-      searchedNode.addClass('highlight');
+      this.interaction.utility.highlightNode(searchedNode, true);
+      console.log("highlights " + interactorName);
       this.utility.setUserMaxZoomLevel();
     }
   }

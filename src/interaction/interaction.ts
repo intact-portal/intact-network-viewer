@@ -14,7 +14,7 @@ cytoscape.use(popper);
 let toolTip: Instance;
 
 export class Interaction {
-  private utility: Utility;
+  public utility: Utility;
   private layoutsUtility: LayoutsUtility;
   private graphContainer: JQuery;
 
