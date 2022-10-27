@@ -1,5 +1,12 @@
 import * as cytoscape from 'cytoscape';
-import { EdgeSingular, ElementDefinition, LayoutOptions } from 'cytoscape';
+import {
+  CytoscapeOptions,
+  EdgeSingular,
+  ElementDefinition,
+  LayoutOptions,
+  NodeCollection,
+  NodeSingular,
+} from 'cytoscape';
 import avsdf from 'cytoscape-avsdf';
 import cise from 'cytoscape-cise';
 import fcose from 'cytoscape-fcose';
@@ -33,7 +40,7 @@ export class GraphPort {
   private export: Export;
   private interaction!: Interaction;
   private nodeLabels!: string[];
-  private nodeMap!: Map<string, any>;
+  private nodeMap!: Map<string, NodeSingular>;
   private spinner: Spinner;
   private spinTarget: HTMLDivElement;
   private suggestionBoxId: string;
@@ -190,8 +197,9 @@ export class GraphPort {
           duration: 1000,
         },
       );
-      this.interaction.utility.highlightNode(searchedNode, true);
-      console.log("highlights " + interactorName);
+      searchedNode.select();
+      searchedNode.trigger('tap');
+      searchedNode.trigger('tapselect');
       this.utility.setUserMaxZoomLevel();
     }
   }
